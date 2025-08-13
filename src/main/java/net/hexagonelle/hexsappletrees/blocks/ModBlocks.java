@@ -1,11 +1,11 @@
 package net.hexagonelle.hexsappletrees.blocks;
 
 import net.hexagonelle.hexsappletrees.HexsAppleTrees;
+import net.hexagonelle.hexsappletrees.custom.FruitingLeavesBlock;
 import net.hexagonelle.hexsappletrees.items.ModItems;
 import net.hexagonelle.hexsappletrees.worldgen.tree.AppleTreeGrower;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
@@ -66,7 +66,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> APPLE_LEAVES =
 			registerBlock(
 					"apple_leaves",
-					() -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
+					() -> new FruitingLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
 			);
 
 	// A method that will register the DeferredRegister<Block> to the mod event bus so blocks get registered

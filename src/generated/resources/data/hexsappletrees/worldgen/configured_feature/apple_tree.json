@@ -19,6 +19,7 @@
       "state": {
         "Name": "hexsappletrees:apple_leaves",
         "Properties": {
+          "age": "0",
           "distance": "7",
           "persistent": "false",
           "waterlogged": "false"

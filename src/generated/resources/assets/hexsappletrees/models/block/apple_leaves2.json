@@ -2,6 +2,6 @@
   "parent": "minecraft:block/leaves",
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "hexsappletrees:block/apple_leaves"
+    "all": "hexsappletrees:block/apple_leaves2"
   }
 }
