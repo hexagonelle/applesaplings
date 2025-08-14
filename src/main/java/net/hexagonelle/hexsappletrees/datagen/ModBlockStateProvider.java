@@ -3,6 +3,7 @@ package net.hexagonelle.hexsappletrees.datagen;
 import net.hexagonelle.hexsappletrees.HexsAppleTrees;
 import net.hexagonelle.hexsappletrees.blocks.ModBlocks;
 import net.hexagonelle.hexsappletrees.custom.FruitingLeavesBlock;
+import net.minecraft.client.model.Model;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -14,6 +15,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -54,11 +56,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			new ConfiguredModel(
 				models()
 					.singleTexture(
-						modelName +
-							blockState.getValue(
-								((FruitingLeavesBlock) fruitingLeaves)
-									.getAgeProperty(blockState)
-							),
+							modelName,
 							new ResourceLocation("minecraft:block/leaves"),
 							"all",
                             new ResourceLocation(HexsAppleTrees.MODID,
@@ -75,83 +73,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		return models;
 	}
 
-//	getVariantBuilder(ModBlocks.APPLE_LEAVES.get())
-//			.partialState()
-//				.with(FruitingLeavesBlock.AGE, 0)
-//				.addModels(
-//			ConfiguredModel.builder().modelFile(
-//								new ModelFile.UncheckedModelFile(
-//			modLoc(
-//			"block/" +
-//			ForgeRegistries.BLOCKS.getKey(
-//			ModBlocks.APPLE_LEAVES.get()
-//														).getPath() + "0"
-//			)
-//			)
-//			).build()
-//				).partialState()
-//				.with(FruitingLeavesBlock.AGE, 1)
-//				.addModels(
-//			ConfiguredModel.builder().modelFile(
-//								new ModelFile.UncheckedModelFile(
-//			modLoc(
-//			"block/" +
-//			ForgeRegistries.BLOCKS.getKey(
-//			ModBlocks.APPLE_LEAVES.get()
-//														).getPath() + "1"
-//			)
-//			)
-//			).build()
-//				)
-//						.partialState()
-//				.with(FruitingLeavesBlock.AGE, 2)
-//				.addModels(
-//			ConfiguredModel.builder().modelFile(
-//								new ModelFile.UncheckedModelFile(
-//			modLoc(
-//			"block/" +
-//			ForgeRegistries.BLOCKS.getKey(
-//			ModBlocks.APPLE_LEAVES.get()
-//														).getPath() + "2")
-//			)
-//			).build()
-//				)
-//						.partialState()
-//				.with(FruitingLeavesBlock.AGE, 3)
-//				.addModels(
-//			ConfiguredModel.builder().modelFile(
-//								new ModelFile.UncheckedModelFile(
-//			modLoc(
-//			"block/" +
-//			ForgeRegistries.BLOCKS.getKey(
-//			ModBlocks.APPLE_LEAVES.get()
-//														).getPath() + "3")
-//			)
-//			).build()
-//				)
-//						.partialState()
-//				.with(FruitingLeavesBlock.AGE, 3)
-//				.addModels(
-//			ConfiguredModel.builder().modelFile(
-//								new ModelFile.UncheckedModelFile(
-//			modLoc(
-//			"block/" +
-//			ForgeRegistries.BLOCKS.getKey(
-//			ModBlocks.APPLE_LEAVES.get()
-//														).getPath() + "4")
-//			)
-//			).build()
-//				);
-
 	public void fruitingLeavesBlock(
-			LeavesBlock fruitingLeavesBlock,
-			String modelName,
-			String textureName
+			RegistryObject<Block> blockRegistryObject
 	){
+		String modelName = ForgeRegistries.BLOCKS
+				.getKey(blockRegistryObject.get())
+				.getPath();
+        @NotNull Block fruitingLeaves = blockRegistryObject.get();
 		Function<BlockState,ConfiguredModel[]> function =
-				state -> states(state,fruitingLeavesBlock,modelName,textureName);
+				state -> states(state, (LeavesBlock) fruitingLeaves,modelName, modelName);
 
-		getVariantBuilder(fruitingLeavesBlock).forAllStates(function);
+		getVariantBuilder(fruitingLeaves).forAllStates(function);
+		blockItem(blockRegistryObject);
 	}
 
 	private void saplingBlock(RegistryObject<Block> blockRegistryObject){
@@ -166,6 +99,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		);
 	}
 
+	// generates data for the item version of a block,
+	// assuming that the block's data has already been generated
+	// by some other method here.
+	private void blockItem(RegistryObject<Block> blockRegistryObject){
+		simpleBlockItem(
+				blockRegistryObject.get(),
+				new ModelFile.UncheckedModelFile(
+						HexsAppleTrees.MODID +
+								":block/" +
+								ForgeRegistries.BLOCKS
+										.getKey(blockRegistryObject.get())
+										.getPath()
+				)
+		);
+	}
+
 	private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
 		simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
 	}
@@ -173,11 +122,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		saplingBlock(ModBlocks.APPLE_SAPLING);
-		fruitingLeavesBlock(
-				(LeavesBlock) ModBlocks.APPLE_LEAVES.get(),
-				"apple_leaves",
-				"apple_leaves"
-		);
+		fruitingLeavesBlock(ModBlocks.APPLE_LEAVES);
 
 	}
 
