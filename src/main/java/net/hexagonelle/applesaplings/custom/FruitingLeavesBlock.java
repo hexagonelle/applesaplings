@@ -29,8 +29,8 @@ public class FruitingLeavesBlock extends LeavesBlock {
 	private static final float growthSpeed = 3.0f;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public FruitingLeavesBlock(BlockBehaviour.Properties pProperties) {
-		super(pProperties);
+	public FruitingLeavesBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 		this.registerDefaultState(
 				this.stateDefinition.any()
 						.setValue(
@@ -45,9 +45,9 @@ public class FruitingLeavesBlock extends LeavesBlock {
 		);
 	}
 
-	// Returns the age of the current blockstate.
-	public int getAge(BlockState currentBlockState) {
-		return currentBlockState.getValue(AGE);
+	// Returns the age of a given blockstate.
+	public int getAge(BlockState blockState) {
+		return blockState.getValue(this.getAgeProperty());
 	}
 
 	// Returns the total number of growth stages.
@@ -65,7 +65,7 @@ public class FruitingLeavesBlock extends LeavesBlock {
 		return this.decaying(currentBlockState) || this.growing(currentBlockState);
 	}
 
-	public IntegerProperty getAgeProperty(BlockState currentBlockState) {
+	public IntegerProperty getAgeProperty() {
 		return AGE;
 	}
 

@@ -6,7 +6,7 @@ import net.hexagonelle.applesaplings.custom.FruitingLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -46,7 +46,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 	private ConfiguredModel[] states(
 			BlockState blockState,
-			LeavesBlock fruitingLeaves,
+			FruitingLeavesBlock fruitingLeaves,
 			String modelName,
 			String textureName
 	){
@@ -55,16 +55,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			new ConfiguredModel(
 				models()
 					.singleTexture(
-							modelName,
+							"block/" + modelName + blockState.getValue(fruitingLeaves.getAgeProperty()),
 							new ResourceLocation("minecraft:block/leaves"),
 							"all",
-                            new ResourceLocation(AppleSaplings.MODID,
-                                    "block/" + textureName +
-                                        blockState.getValue(
-                                            ((FruitingLeavesBlock) fruitingLeaves)
-                                                    .getAgeProperty(blockState)
-                                        )
-                            )
+                            new ResourceLocation(
+									AppleSaplings.MODID,
+                                    "block/" + textureName + blockState.getValue(fruitingLeaves.getAgeProperty())
+							)
                     )
 					.renderType("cutout")
 			);
@@ -72,15 +69,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		return models;
 	}
 
-	public void fruitingLeavesBlock(
-			RegistryObject<Block> blockRegistryObject
-	){
+	public void fruitingLeavesBlock(RegistryObject<Block> blockRegistryObject){
 		String modelName = ForgeRegistries.BLOCKS
 				.getKey(blockRegistryObject.get())
 				.getPath();
-        @NotNull Block fruitingLeaves = blockRegistryObject.get();
+        @NotNull FruitingLeavesBlock fruitingLeaves = (FruitingLeavesBlock) blockRegistryObject.get();
+
+		// Function<BlockState,ConfiguredModel[]> defines a function
+		// whose input is a BlockState
+		// and whose output is an array of ConfiguredModel objects.
+		// the syntax "state -> ..."
+		// indicates that whatever is before the arrow is the input variable
+		// and whatever comes after the arrow should be something
+		// that evaluates to the output type
 		Function<BlockState,ConfiguredModel[]> function =
-				state -> states(state, (LeavesBlock) fruitingLeaves,modelName, modelName);
+				state -> states(state, fruitingLeaves, modelName, modelName);
 
 		getVariantBuilder(fruitingLeaves).forAllStates(function);
 		blockItem(blockRegistryObject);
