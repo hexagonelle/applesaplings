@@ -1,7 +1,7 @@
 package net.hexagonelle.applesaplings.datagen.loot;
 
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.custom.FruitingLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.FruitingLeavesBlock;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -68,6 +68,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 	@Override
 	protected void generate() {
 		this.dropSelf(ModBlocks.APPLE_SAPLING.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_LOG.get());
 		this.add(
 				ModBlocks.APPLE_LEAVES.get(),
 				block -> fruitingLeavesLootFactory(

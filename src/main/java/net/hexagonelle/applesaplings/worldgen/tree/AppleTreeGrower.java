@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class AppleTreeGrower extends AbstractTreeGrower {
 
-
 	@Override
 	protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(
 			@NotNull RandomSource randomSource, boolean b

@@ -39,7 +39,7 @@ public class ModConfiguredFeatures {
 				APPLE_SAPLING_RESOURCE_KEY,
 				Feature.TREE,
 				new TreeConfiguration.TreeConfigurationBuilder(
-						BlockStateProvider.simple(Blocks.OAK_LOG),
+						BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
 						new StraightTrunkPlacer(3,2,1),
 
 						BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get()),

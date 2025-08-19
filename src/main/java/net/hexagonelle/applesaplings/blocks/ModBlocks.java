@@ -1,7 +1,6 @@
 package net.hexagonelle.applesaplings.blocks;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
-import net.hexagonelle.applesaplings.custom.FruitingLeavesBlock;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.worldgen.tree.AppleTreeGrower;
 import net.minecraft.world.level.block.Block;
@@ -9,6 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -46,27 +46,23 @@ public class ModBlocks {
 	private static FruitingLeavesBlock createFruitingLeaves() {
 		return new FruitingLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
 	}
+	// Create a log block with the properties of the vanilla OAK_LOG
+	private static Block createLogBlock() {
+			return new CustomWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(2.0F)
+//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
+			);
+	}
 
 	// REGISTER BLOCKS //
 
 	public static final RegistryObject<Block> APPLE_SAPLING =
-			registerBlock(
-					"apple_sapling",
-//					() -> new SaplingBlock(new AppleTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING))
-					() -> createSapling(new AppleTreeGrower())
-			);
-
+			registerBlock("apple_sapling", () -> createSapling(new AppleTreeGrower()));
 	public static final RegistryObject<Block> APPLE_LEAVES =
-			registerBlock(
-					"apple_leaves",
-					() -> new FruitingLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
-			);
+		registerBlock("apple_leaves", ModBlocks::createFruitingLeaves);
+	public static final RegistryObject<Block> APPLEWOOD_LOG =
+		registerBlock("applewood_log", ModBlocks::createLogBlock);
 
-	// A method that will register the DeferredRegister<Block> to the mod event bus so blocks get registered
-	// Presumably, when the DeferredRegister<Item> gets registered to the mod event bus,
-	// it will "remember" that we registered the BlockItems
-	// that corresponds to the Blocks we registered here.
-
+	// A method that will register the DeferredRegister<Block> to the mod event bus
 	public static void register(IEventBus eventBus){
 		BLOCKS.register(eventBus);
 	}

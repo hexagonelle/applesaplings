@@ -2,10 +2,11 @@ package net.hexagonelle.applesaplings.datagen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.custom.FruitingLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.FruitingLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -31,10 +32,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	// generates data for the item version of a block
 	private void blockItem(RegistryObject<Block> blockRegistryObject){
 		simpleBlockItem(
-				blockRegistryObject.get(),
-				new ModelFile.UncheckedModelFile(
-						AppleSaplings.MODID + ":block/" + getPathString(blockRegistryObject)
-				)
+			blockRegistryObject.get(),
+			new ModelFile.UncheckedModelFile(
+					AppleSaplings.MODID + ":block/" + getPathString(blockRegistryObject)
+			)
 		);
 	}
 
@@ -63,6 +64,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 //		);
 //
 //	}
+//
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
 	private ConfiguredModel[] fruitingLeavesStates(
@@ -75,43 +77,48 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 		ConfiguredModel[] models = new ConfiguredModel[1];
 		models[0] = new ConfiguredModel(
-						models().singleTexture(
-								path, new ResourceLocation("minecraft:block/leaves"),
-								"all", new ResourceLocation(AppleSaplings.MODID, path)
-						)
-						.renderType("cutout")
-				);
+			models().singleTexture(
+				path, new ResourceLocation("minecraft:block/leaves"),
+				"all", new ResourceLocation(AppleSaplings.MODID, path)
+			)
+			.renderType("cutout")
+		);
 
 		return models;
 	}
 
-	// generates model json files for all the blockstates of a given fruitingLeavesBlock
-	public void fruitingLeavesBlock(RegistryObject<Block> blockRegistryObject){
+	// generates model & texture json files for all the blockstates of a given fruitingLeavesBlock
+	// as well as its item
+	private void fruitingLeavesBlock(RegistryObject<Block> blockRegistryObject){
 
 		Function<BlockState,ConfiguredModel[]> function =
-				state -> fruitingLeavesStates(state,blockRegistryObject);
+			state -> fruitingLeavesStates(state,blockRegistryObject);
 
 		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
 		blockItem(blockRegistryObject,"apple_leaves0");
 	}
 
-	// generates model json for a sapling block
+	// generates model (and texture?) json for a sapling block (and its item?)
 	private void saplingBlock(RegistryObject<Block> blockRegistryObject){
 		simpleBlock(
-				blockRegistryObject.get(),
-				models()
-						.cross(
-								getPathString(blockRegistryObject),
-								blockTexture(blockRegistryObject.get())
-						)
-						.renderType("cutout")
+			blockRegistryObject.get(),
+			models().cross(
+				getPathString(blockRegistryObject),
+				blockTexture(blockRegistryObject.get())
+			).renderType("cutout")
 		);
+	}
+
+	// generates model (and texture?) json for a sapling block (and its item?)
+	private void customLogBlock(RegistryObject<Block> blockRegistryObject){
+		logBlock((RotatedPillarBlock) blockRegistryObject.get());
 	}
 
 	@Override
 	protected void registerStatesAndModels() {
 		saplingBlock(ModBlocks.APPLE_SAPLING);
 		fruitingLeavesBlock(ModBlocks.APPLE_LEAVES);
+		customLogBlock(ModBlocks.APPLEWOOD_LOG);
 
 	}
 

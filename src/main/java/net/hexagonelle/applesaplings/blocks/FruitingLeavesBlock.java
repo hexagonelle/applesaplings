@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.custom;
+package net.hexagonelle.applesaplings.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
