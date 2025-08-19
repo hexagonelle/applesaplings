@@ -25,50 +25,16 @@ public class ModBlocks {
 	// Create a Deferred Register to hold Blocks which will all be registered under the "applesaplings" namespace
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AppleSaplings.MODID);
 
-	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
-	private static <T extends Block> RegistryObject<Item> registerBlockItem(String blockID, Supplier<T> block){
-		return ModItems.ITEMS.register(blockID, () -> new BlockItem(block.get(), new Item.Properties()));
-	}
-
 	// A method that creates a new BlockItem, given some RegistryObject<Block>
-	// Why write "Supplier<T>" here? Why not RegistryObject<Block>, since that's the type we're passing in?
 	private static <T extends Block> Item createBlockItem(Supplier<T> block){
 		return new BlockItem(block.get(), new Item.Properties());
 	}
 
-	// WARNING
-	// EVEN THOUGH THE VARIABLE block HERE IS A Supplier<T> FOR <T extends Block>
-	// AND EVEN THOUGH THE FUNCTION registerBlockItem TAKES A Supplier<T> FOR <T extends Block> AS ITS 2ND INPUT
-	// THE CODE WILL CRASH UNLESS YOU GIVE A RegistryObject<T> FOR <T extends Block>
-	// AS THE SECOND ARGUMENT OF registerBlockItem
-	// I DON'T KNOW WHY
-
-	// A SIMILAR ISSUE HAPPENS IF YOU PASS A Supplier<T> block AS THE ARGUMENT
-	// OF createBlockItem
-	// SUGGESTING THAT THIS HAS SOMETHING TO DO WITH THE FIRST ARGUMENT
-	// OF BlockItem(block.get(), new Item.Properties())
-
 	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
 	private static <T extends Block> RegistryObject<T> registerBlock(String blockID, Supplier<T> block){
 		RegistryObject<T> blockRegistryObject = BLOCKS.register(blockID, block);
-
-
-		/////////////////////
-		// Here, the first line doesn't work
-		// The error says "Registry Object not present" ^*
-		// Item blockItem = new BlockItem(blockRegistryObject.get(), new Item.Properties());
-		// ModItems.ITEMS.register(blockID, () -> blockItem);
-		/////////////////////
-		// The following gives an error of "No delegate exists for value Block{minecraft:air}"
-		// even though block is of type Supplier<T> with <T extends Block>
-		// and the argument for createBlockItem IS of type Supplier<T> with <T extends Block>
-		/////////////////////
-		// ^* but if that's true, why does this work???
 		ModItems.ITEMS.register(blockID, () -> createBlockItem(blockRegistryObject));
-		/////////////////////
-		// No idea why this one doesn't work???
-		// RegistryObject<Item> itemRegistryObject = registerBlockItem(blockID, blockRegistryObject);
-		/////////////////////
+
 		return blockRegistryObject;
 	}
 
@@ -86,9 +52,8 @@ public class ModBlocks {
 	public static final RegistryObject<Block> APPLE_SAPLING =
 			registerBlock(
 					"apple_sapling",
-					// The syntax () -> does something to make this a supplier
-					// but I don't actually know what that means
-					() -> new SaplingBlock(new AppleTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING))
+//					() -> new SaplingBlock(new AppleTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING))
+					() -> createSapling(new AppleTreeGrower())
 			);
 
 	public static final RegistryObject<Block> APPLE_LEAVES =

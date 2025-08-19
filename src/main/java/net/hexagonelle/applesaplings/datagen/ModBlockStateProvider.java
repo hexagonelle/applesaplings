@@ -6,7 +6,6 @@ import net.hexagonelle.applesaplings.custom.FruitingLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -14,8 +13,8 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -26,75 +25,77 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 	// return the String corresponding to the path of a Block
 	public String getPathString(RegistryObject<Block> blockRegistryObject){
-		return ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath();
+		return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get())).getPath();
 	}
 
-	private void leavesBlock(RegistryObject<Block> blockRegistryObject){
-
-		simpleBlockWithItem(
+	// generates data for the item version of a block
+	private void blockItem(RegistryObject<Block> blockRegistryObject){
+		simpleBlockItem(
 				blockRegistryObject.get(),
-				models()
-						.singleTexture(
-							getPathString(blockRegistryObject),
-							new ResourceLocation("minecraft:block/leaves"),
-							"all",
-							blockTexture(blockRegistryObject.get())
+				new ModelFile.UncheckedModelFile(
+						AppleSaplings.MODID + ":block/" + getPathString(blockRegistryObject)
+				)
+		);
+	}
+
+	// generates data for the item version of a block based on a specific blockstate
+	private void blockItem(RegistryObject<Block> blockRegistryObject, String pathToBlockState){
+		simpleBlockItem(
+				blockRegistryObject.get(),
+				new ModelFile.UncheckedModelFile(
+						AppleSaplings.MODID + ":block/" + pathToBlockState
+				)
+		);
+	}
+
+//	private void leavesBlock(RegistryObject<Block> blockRegistryObject){
+//
+//		simpleBlockWithItem(
+//				blockRegistryObject.get(),
+//				models()
+//						.singleTexture(
+//								getPathString(blockRegistryObject),
+//								new ResourceLocation("minecraft:block/leaves"),
+//								"all",
+//								blockTexture(blockRegistryObject.get())
+//						)
+//						.renderType("cutout")
+//		);
+//
+//	}
+
+	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
+	private ConfiguredModel[] fruitingLeavesStates(
+			BlockState blockState,
+			RegistryObject<Block> blockRegistryObject
+	){
+		String modelName = getPathString(blockRegistryObject);
+		FruitingLeavesBlock fruitingLeaves = (FruitingLeavesBlock) blockRegistryObject.get();
+		String path = "block/" + modelName + blockState.getValue(fruitingLeaves.getAgeProperty());
+
+		ConfiguredModel[] models = new ConfiguredModel[1];
+		models[0] = new ConfiguredModel(
+						models().singleTexture(
+								path, new ResourceLocation("minecraft:block/leaves"),
+								"all", new ResourceLocation(AppleSaplings.MODID, path)
 						)
 						.renderType("cutout")
 				);
 
-	}
-
-	// creates a model and texture for the given block's given blockstate
-	private ConfiguredModel[] states(
-			BlockState blockState,
-			RegistryObject<Block> blockRegistryObject,
-			String modelName,
-			String textureName
-	){
-
-		ConfiguredModel[] models = new ConfiguredModel[1];
-		FruitingLeavesBlock fruitingLeaves = (FruitingLeavesBlock) blockRegistryObject.get();
-
-		String path = "block/" + modelName + blockState.getValue(fruitingLeaves.getAgeProperty());
-
-		models[0] =
-			new ConfiguredModel(
-				models()
-					.singleTexture(
-							path,
-							new ResourceLocation("minecraft:block/leaves"),
-							"all",
-                            new ResourceLocation(
-									AppleSaplings.MODID,
-						path)
-                    )
-					.renderType("cutout")
-			);
-
 		return models;
 	}
 
+	// generates model json files for all the blockstates of a given fruitingLeavesBlock
 	public void fruitingLeavesBlock(RegistryObject<Block> blockRegistryObject){
-		String modelName = ForgeRegistries.BLOCKS
-				.getKey(blockRegistryObject.get())
-				.getPath();
-        @NotNull FruitingLeavesBlock fruitingLeaves = (FruitingLeavesBlock) blockRegistryObject.get();
 
-		// Function<BlockState,ConfiguredModel[]> defines a function
-		// whose input is a BlockState
-		// and whose output is an array of ConfiguredModel objects.
-		// the syntax "state -> ..."
-		// indicates that whatever is before the arrow is the input variable
-		// and whatever comes after the arrow should be something
-		// that evaluates to the output type
 		Function<BlockState,ConfiguredModel[]> function =
-				state -> states(state,blockRegistryObject, modelName, modelName);
+				state -> fruitingLeavesStates(state,blockRegistryObject);
 
 		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
-		blockItem(blockRegistryObject);
+		blockItem(blockRegistryObject,"apple_leaves0");
 	}
 
+	// generates model json for a sapling block
 	private void saplingBlock(RegistryObject<Block> blockRegistryObject){
 		simpleBlock(
 				blockRegistryObject.get(),
@@ -102,29 +103,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 						.cross(
 								getPathString(blockRegistryObject),
 								blockTexture(blockRegistryObject.get())
-							)
+						)
 						.renderType("cutout")
 		);
-	}
-
-	// generates data for the item version of a block,
-	// assuming that the block's data has already been generated
-	// by some other method here.
-	private void blockItem(RegistryObject<Block> blockRegistryObject){
-		simpleBlockItem(
-				blockRegistryObject.get(),
-				new ModelFile.UncheckedModelFile(
-						AppleSaplings.MODID +
-								":block/" +
-								ForgeRegistries.BLOCKS
-										.getKey(blockRegistryObject.get())
-										.getPath()
-				)
-		);
-	}
-
-	private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
-		simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
 	}
 
 	@Override
