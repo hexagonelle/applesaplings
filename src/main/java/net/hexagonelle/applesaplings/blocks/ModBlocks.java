@@ -7,6 +7,7 @@ import net.hexagonelle.applesaplings.worldgen.tree.AppleTreeGrower;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,43 +19,70 @@ import net.minecraft.world.item.Item;
 import java.util.function.Supplier;
 
 public class ModBlocks {
+
+	// HELPER METHODS //
+
 	// Create a Deferred Register to hold Blocks which will all be registered under the "applesaplings" namespace
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AppleSaplings.MODID);
 
-	// A method that creates a new BlockItem with the id internalName, given some RegistryObject<Block>
-	// Why write "Supplier<T>" here? Why not RegistryObject<Block>, since that's the type we're passing in?
-	private static <T extends Block> RegistryObject<Item> registerBlockItem(String internalName, Supplier<T> block){
-		return ModItems.ITEMS.register(internalName, () -> new BlockItem(block.get(), new Item.Properties()));
+	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
+	private static <T extends Block> RegistryObject<Item> registerBlockItem(String blockID, Supplier<T> block){
+		return ModItems.ITEMS.register(blockID, () -> new BlockItem(block.get(), new Item.Properties()));
 	}
 
-	/* A method that will return a registry item for a block, when given the internal name of the block
-	 * and the block registry object
-	 */
-	private static <T extends Block> RegistryObject<T> registerBlock(String internalName, Supplier<T> block){
-		// The BLOCKS.register() method exists for DeferredRegisters,
-		// in this case the DeferredRegister "BLOCKS", which holds objects of type "RegistryObject";
-		// but specifically those RegistryObjects that map strings to objects of type "Block".
-		// It appears to do two things:
-		// it registers the block with that DeferredRegister,
-		// and also returns a RegistryObject.
-		// Does it not just return the RegistryObject that we passed into it?
-		// Is that just for performing checks?
-		RegistryObject<T> blockRegistryObject = BLOCKS.register(internalName, block);
-		// provided that the ITEMS.register() method works the same way,
-		// except that the DeferredRegister's RegistryObject's contents are of type "item",
-		// then ITEMS.register() will do two things:
-		// it will register the item with that DeferredRegister,
-		// and also it will return the RegistryObject of type "item".
-		// But we don't actually need to check the item we just registered,
-		// so the only thing that matters is that the item *was in fact* registered.
-		registerBlockItem(internalName, blockRegistryObject);
+	// A method that creates a new BlockItem, given some RegistryObject<Block>
+	// Why write "Supplier<T>" here? Why not RegistryObject<Block>, since that's the type we're passing in?
+	private static <T extends Block> Item createBlockItem(Supplier<T> block){
+		return new BlockItem(block.get(), new Item.Properties());
+	}
 
+	// WARNING
+	// EVEN THOUGH THE VARIABLE block HERE IS A Supplier<T> FOR <T extends Block>
+	// AND EVEN THOUGH THE FUNCTION registerBlockItem TAKES A Supplier<T> FOR <T extends Block> AS ITS 2ND INPUT
+	// THE CODE WILL CRASH UNLESS YOU GIVE A RegistryObject<T> FOR <T extends Block>
+	// AS THE SECOND ARGUMENT OF registerBlockItem
+	// I DON'T KNOW WHY
+
+	// A SIMILAR ISSUE HAPPENS IF YOU PASS A Supplier<T> block AS THE ARGUMENT
+	// OF createBlockItem
+	// SUGGESTING THAT THIS HAS SOMETHING TO DO WITH THE FIRST ARGUMENT
+	// OF BlockItem(block.get(), new Item.Properties())
+
+	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
+	private static <T extends Block> RegistryObject<T> registerBlock(String blockID, Supplier<T> block){
+		RegistryObject<T> blockRegistryObject = BLOCKS.register(blockID, block);
+
+
+		/////////////////////
+		// Here, the first line doesn't work
+		// The error says "Registry Object not present" ^*
+		// Item blockItem = new BlockItem(blockRegistryObject.get(), new Item.Properties());
+		// ModItems.ITEMS.register(blockID, () -> blockItem);
+		/////////////////////
+		// The following gives an error of "No delegate exists for value Block{minecraft:air}"
+		// even though block is of type Supplier<T> with <T extends Block>
+		// and the argument for createBlockItem IS of type Supplier<T> with <T extends Block>
+		/////////////////////
+		// ^* but if that's true, why does this work???
+		ModItems.ITEMS.register(blockID, () -> createBlockItem(blockRegistryObject));
+		/////////////////////
+		// No idea why this one doesn't work???
+		// RegistryObject<Item> itemRegistryObject = registerBlockItem(blockID, blockRegistryObject);
+		/////////////////////
 		return blockRegistryObject;
 	}
 
-	// now actually call the methods
+	// Create a sapling with the given AbstractTreeGrower and the properties of the vanilla OAK_SAPLING
+	private static SaplingBlock createSapling(AbstractTreeGrower treeGrower){
+		return new SaplingBlock(treeGrower, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
+	}
+	// Create a fruiting leaves block with the properties of the vanilla OAK_LEAVES
+	private static FruitingLeavesBlock createFruitingLeaves() {
+		return new FruitingLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
+	}
 
-	// Creates a new Block with the id "applesaplings:example_block", combining the namespace and path
+	// REGISTER BLOCKS //
+
 	public static final RegistryObject<Block> APPLE_SAPLING =
 			registerBlock(
 					"apple_sapling",
