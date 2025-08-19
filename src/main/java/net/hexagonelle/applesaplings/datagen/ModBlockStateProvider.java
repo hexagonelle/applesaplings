@@ -24,6 +24,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		super(output, AppleSaplings.MODID, exFileHelper);
 	}
 
+	// return the String corresponding to the path of a Block
 	public String getPathString(RegistryObject<Block> blockRegistryObject){
 		return ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath();
 	}
@@ -44,24 +45,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 	}
 
+	// creates a model and texture for the given block's given blockstate
 	private ConfiguredModel[] states(
 			BlockState blockState,
-			FruitingLeavesBlock fruitingLeaves,
+			RegistryObject<Block> blockRegistryObject,
 			String modelName,
 			String textureName
 	){
+
 		ConfiguredModel[] models = new ConfiguredModel[1];
+		FruitingLeavesBlock fruitingLeaves = (FruitingLeavesBlock) blockRegistryObject.get();
+
+		String path = "block/" + modelName + blockState.getValue(fruitingLeaves.getAgeProperty());
+
 		models[0] =
 			new ConfiguredModel(
 				models()
 					.singleTexture(
-							"block/" + modelName + blockState.getValue(fruitingLeaves.getAgeProperty()),
+							path,
 							new ResourceLocation("minecraft:block/leaves"),
 							"all",
                             new ResourceLocation(
 									AppleSaplings.MODID,
-                                    "block/" + textureName + blockState.getValue(fruitingLeaves.getAgeProperty())
-							)
+						path)
                     )
 					.renderType("cutout")
 			);
@@ -83,9 +89,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		// and whatever comes after the arrow should be something
 		// that evaluates to the output type
 		Function<BlockState,ConfiguredModel[]> function =
-				state -> states(state, fruitingLeaves, modelName, modelName);
+				state -> states(state,blockRegistryObject, modelName, modelName);
 
-		getVariantBuilder(fruitingLeaves).forAllStates(function);
+		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
 		blockItem(blockRegistryObject);
 	}
 

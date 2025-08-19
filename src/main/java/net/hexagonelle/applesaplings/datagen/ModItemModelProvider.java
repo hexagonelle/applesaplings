@@ -4,7 +4,6 @@ import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -16,7 +15,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 		super(output, AppleSaplings.MODID, existingFileHelper);
 	}
 
-	private ItemModelBuilder saplingItem(RegistryObject<Block> item){
+	private ItemModelBuilder blockItem(RegistryObject<Block> item){
 		String path = item.getId().getPath();
 		return withExistingParent(
 				path,
@@ -27,18 +26,18 @@ public class ModItemModelProvider extends ItemModelProvider {
 		);
 	}
 
-	private ItemModelBuilder simpleItem(RegistryObject<Item> item){
-		String path = item.getId().getPath();
-
-		return withExistingParent(path,
-			new ResourceLocation("item/generated")).texture(
-					"layer0",
-					new ResourceLocation(AppleSaplings.MODID,"item/" + path)
-		);
-	}
+//	private ItemModelBuilder simpleItem(RegistryObject<Item> item){
+//		String path = item.getId().getPath();
+//
+//		return withExistingParent(path,
+//			new ResourceLocation("item/generated")).texture(
+//					"layer0",
+//					new ResourceLocation(AppleSaplings.MODID,"item/" + path)
+//		);
+//	}
 
 	@Override
 	protected void registerModels() {
-		saplingItem(ModBlocks.APPLE_SAPLING);
+		blockItem(ModBlocks.APPLE_SAPLING);
 	}
 }

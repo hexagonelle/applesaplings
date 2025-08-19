@@ -11,8 +11,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -28,29 +33,36 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 			Block saplingBlock,
 			Item fruitItem,
 			float... chances) {
-		return this
-			.createLeavesDrops(
-				leavesBlock,
-				saplingBlock,
-				chances
-			).withPool(
-				LootPool
-					.lootPool()
-					.setRolls(ConstantValue.exactly(1.0F))
-					.when((HAS_SHEARS.or(HAS_SILK_TOUCH)).invert())
-					.add(
-						this
-							.applyExplosionCondition(
-									leavesBlock,
-									LootItem.lootTableItem(fruitItem)
-							).when(
-									hasBlockStateProperties(ModBlocks.APPLE_LEAVES.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties()
-													.hasProperty(FruitingLeavesBlock.AGE,4)
-											)
-							)
-					)
-			);
+
+		// convert fruitItem to LootTableItem
+		LootPoolSingletonContainer.Builder<?> fruitLoot = LootItem.lootTableItem(fruitItem);
+		// convert chances to NumberProvider
+		NumberProvider chancesProvider = ConstantValue.exactly(1.0F);
+		// create condition that player cannot have shears or silk touch
+		LootItemCondition.Builder NO_SHEARS_OR_SILK_TOUCH = (HAS_SHEARS.or(HAS_SILK_TOUCH)).invert();
+		// define fully grown state
+		StatePropertiesPredicate.Builder fullyGrownState =
+				StatePropertiesPredicate.Builder.properties()
+						.hasProperty(FruitingLeavesBlock.AGE,FruitingLeavesBlock.MAX_AGE);
+		// convert fullyGrownState to a condition
+		LootItemBlockStatePropertyCondition.Builder fullyGrown =
+				hasBlockStateProperties(leavesBlock).setProperties(fullyGrownState);
+		// define lootPool that will drop fruit when leaves are fully grown
+		LootPool.Builder lootPool =
+				LootPool.lootPool()
+						.setRolls(chancesProvider)
+						.when(NO_SHEARS_OR_SILK_TOUCH)
+						.add(this.applyExplosionCondition(leavesBlock, fruitLoot).when(fullyGrown));
+
+		return this.createLeavesDrops(leavesBlock, saplingBlock, chances).withPool(lootPool);
+	}
+
+	protected LootTable.Builder fruitingLeavesLootFactory(
+			Block block,
+			RegistryObject<Block> sapling,
+			Item fruit
+	){
+        return createFruitingLeavesDrops(block, sapling.get(), fruit, NORMAL_LEAVES_SAPLING_CHANCES);
 	}
 
 	@Override
@@ -58,29 +70,16 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.APPLE_SAPLING.get());
 		this.add(
 				ModBlocks.APPLE_LEAVES.get(),
-				block -> createFruitingLeavesDrops(
+				block -> fruitingLeavesLootFactory(
 						block,
-						ModBlocks.APPLE_SAPLING.get(),
-						Items.APPLE,
-						NORMAL_LEAVES_SAPLING_CHANCES
+						ModBlocks.APPLE_SAPLING,
+						Items.APPLE
 				)
 		);
 	}
 
-//	protected LootTable.Builder createLeavesDrops(Block block, Item item){
-//		return createSilkTouchDispatchTable(
-//				block,
-//				this.applyExplosionDecay(
-//						block,
-//						LootItem.lootTableItem(item)
-//								.apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F,5.0F)))
-//								.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
-//				)
-//		);
-//	}
-
 	@Override
-	protected Iterable<Block> getKnownBlocks(){
+	protected @NotNull Iterable<Block> getKnownBlocks(){
 		return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
 	}
 }

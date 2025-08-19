@@ -18,19 +18,21 @@ public class ModCreativeTabs {
 			DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AppleSaplings.MODID);
 
 	// Creates a creative tab with the id "applesaplings:example_tab" for the example item, that is placed after the combat tab
-	public static final RegistryObject<CreativeModeTab> APPLE_TREES_TAB =
-			CREATIVE_MODE_TABS.register("applesaplings_tab", () ->
-				CreativeModeTab.builder()
-					.withTabsBefore(CreativeModeTabs.COMBAT)
-					.icon(() -> new ItemStack(ModBlocks.APPLE_SAPLING.get()))
-					.title(Component.translatable("creativetab.applesaplings_tab"))
-					.displayItems((parameters, output) -> {
-						// Add the example item to the tab. For your own tabs, this method is preferred over the event
+	public static final RegistryObject<CreativeModeTab> APPLESAPLINGS_TAB =
+			CREATIVE_MODE_TABS.register(
+					"applesaplings_tab",
+					() ->
+						CreativeModeTab.builder()
+							.withTabsBefore(CreativeModeTabs.COMBAT)
+							.icon(() -> new ItemStack(ModBlocks.APPLE_SAPLING.get()))
+							.title(Component.translatable("creativetab.applesaplings_tab"))
+							.displayItems((parameters, output) -> {
+								// Add the example item to the tab. For your own tabs, this method is preferred over the event
 
-						output.accept(ModBlocks.APPLE_SAPLING.get());
-						output.accept(ModBlocks.APPLE_LEAVES.get());
+								output.accept(ModBlocks.APPLE_SAPLING.get());
+								output.accept(ModBlocks.APPLE_LEAVES.get());
 
-					}).build()
+							}).build()
 			);
 
 	public static void register(IEventBus eventBus){

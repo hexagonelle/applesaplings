@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeHooks;
+import org.jetbrains.annotations.NotNull;
 
 public class FruitingLeavesBlock extends LeavesBlock {
 	public static final int MAX_AGE = 4;
@@ -61,7 +62,7 @@ public class FruitingLeavesBlock extends LeavesBlock {
 	}
 
 	// Return whether this block needs random ticking.
-	public boolean isRandomlyTicking(BlockState currentBlockState) {
+	public boolean isRandomlyTicking(@NotNull BlockState currentBlockState) {
 		return this.decaying(currentBlockState) || this.growing(currentBlockState);
 	}
 
@@ -79,10 +80,10 @@ public class FruitingLeavesBlock extends LeavesBlock {
 	@Override
 	//Performs a random tick on a block.
 	public void randomTick(
-			BlockState currentBlockState,
-			ServerLevel serverLevel,
-			BlockPos blockPosition,
-			RandomSource random
+			@NotNull BlockState currentBlockState,
+			@NotNull ServerLevel serverLevel,
+			@NotNull BlockPos blockPosition,
+			@NotNull RandomSource random
 	){
 		// If the leaves should be decaying, remove the block
 		// and drop the corresponding resources
@@ -112,13 +113,13 @@ public class FruitingLeavesBlock extends LeavesBlock {
 	}
 
 	@Override
-	public InteractionResult use(
-			BlockState currentBlockState,
-			Level serverLevel,
-			BlockPos blockPosition,
-			Player player,
-			InteractionHand handIn,
-			BlockHitResult hit
+	public @NotNull InteractionResult use(
+			@NotNull BlockState currentBlockState,
+			@NotNull Level serverLevel,
+			@NotNull BlockPos blockPosition,
+			@NotNull Player player,
+			@NotNull InteractionHand handIn,
+			@NotNull BlockHitResult hit
 	) {
 		if (getAge(currentBlockState) == getMaxAge()) {
 			ItemEntity droppedFruit =
