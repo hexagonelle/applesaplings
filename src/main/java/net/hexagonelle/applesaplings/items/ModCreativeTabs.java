@@ -31,7 +31,12 @@ public class ModCreativeTabs {
 
 								output.accept(ModBlocks.APPLE_SAPLING.get());
 								output.accept(ModBlocks.APPLE_LEAVES.get());
+								output.accept(ModBlocks.FLOWERING_APPLE_LEAVES.get());
 								output.accept(ModBlocks.APPLEWOOD_LOG.get());
+								output.accept(ModBlocks.APPLEWOOD_WOOD.get());
+								output.accept(ModBlocks.STRIPPED_APPLEWOOD_LOG.get());
+								output.accept(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
+								output.accept(ModBlocks.APPLEWOOD_PLANKS.get());
 
 							}).build()
 			);

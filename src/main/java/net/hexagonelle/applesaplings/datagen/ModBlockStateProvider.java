@@ -49,22 +49,28 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		);
 	}
 
-//	private void leavesBlock(RegistryObject<Block> blockRegistryObject){
-//
-//		simpleBlockWithItem(
-//				blockRegistryObject.get(),
-//				models()
-//						.singleTexture(
-//								getPathString(blockRegistryObject),
-//								new ResourceLocation("minecraft:block/leaves"),
-//								"all",
-//								blockTexture(blockRegistryObject.get())
-//						)
-//						.renderType("cutout")
-//		);
-//
-//	}
-//
+	private void blockWithItem(RegistryObject<Block> blockRegistryObject){
+		String path = getPathString(blockRegistryObject);
+		ModelFile modelFile =
+			models().singleTexture(
+				path, new ResourceLocation("minecraft:block/oak_planks"),
+				"all", blockTexture(blockRegistryObject.get())
+			).renderType("solid");
+		simpleBlock(blockRegistryObject.get(),modelFile);
+		blockItem(blockRegistryObject);
+	}
+
+	// creates a model json and texture json for the given LeavesBlock
+	private void leavesBlock(RegistryObject<Block> blockRegistryObject){
+		simpleBlockWithItem(
+				blockRegistryObject.get(),
+				models().singleTexture(
+					getPathString(blockRegistryObject), new ResourceLocation("minecraft:block/leaves"),
+					"all", blockTexture(blockRegistryObject.get())
+				).renderType("cutout")
+		);
+
+	}
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
 	private ConfiguredModel[] floweringLeavesStates(
@@ -95,7 +101,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			state -> floweringLeavesStates(state,blockRegistryObject);
 
 		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
-		blockItem(blockRegistryObject,"apple_leaves0");
+		blockItem(blockRegistryObject,"flowering_apple_leaves0");
 	}
 
 	// generates model (and texture?) json for a sapling block (and its item?)
@@ -109,17 +115,35 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		);
 	}
 
-	// generates model (and texture?) json for a sapling block (and its item?)
+	// generates model (and texture?) json for a log block and its item
 	private void customLogBlock(RegistryObject<Block> blockRegistryObject){
 		logBlock((RotatedPillarBlock) blockRegistryObject.get());
+		blockItem(blockRegistryObject);
+	}
+
+	// generates model (and texture?) json for a wood block and its item
+	private void customWoodBlock(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> blockRegistryParentTexture
+		){
+		axisBlock(
+			(RotatedPillarBlock) blockRegistryObject.get(),
+			blockTexture(blockRegistryParentTexture.get()),
+			blockTexture(blockRegistryParentTexture.get())
+		);
 		blockItem(blockRegistryObject);
 	}
 
 	@Override
 	protected void registerStatesAndModels() {
 		saplingBlock(ModBlocks.APPLE_SAPLING);
-		floweringLeavesBlock(ModBlocks.APPLE_LEAVES);
+		leavesBlock(ModBlocks.APPLE_LEAVES);
+		floweringLeavesBlock(ModBlocks.FLOWERING_APPLE_LEAVES);
 		customLogBlock(ModBlocks.APPLEWOOD_LOG);
+		customWoodBlock(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
+		customLogBlock(ModBlocks.STRIPPED_APPLEWOOD_LOG);
+		customWoodBlock(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
+		blockWithItem(ModBlocks.APPLEWOOD_PLANKS);
 
 	}
 

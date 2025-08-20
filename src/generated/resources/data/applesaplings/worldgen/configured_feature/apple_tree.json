@@ -17,7 +17,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "applesaplings:apple_leaves",
+        "Name": "applesaplings:flowering_apple_leaves",
         "Properties": {
           "age": "0",
           "distance": "1",

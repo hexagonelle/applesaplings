@@ -24,10 +24,19 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 		this.tag(BlockTags.SAPLINGS)
 			.add(ModBlocks.APPLE_SAPLING.get());
 		this.tag(BlockTags.LEAVES)
+			.add(ModBlocks.FLOWERING_APPLE_LEAVES.get())
 			.add(ModBlocks.APPLE_LEAVES.get());
 		this.tag(BlockTags.LOGS)
-			.add(ModBlocks.APPLEWOOD_LOG.get());
+			.add(ModBlocks.APPLEWOOD_LOG.get())
+			.add(ModBlocks.APPLEWOOD_WOOD.get())
+			.add(ModBlocks.STRIPPED_APPLEWOOD_LOG.get())
+			.add(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
 		this.tag(BlockTags.LOGS_THAT_BURN)
-			.add(ModBlocks.APPLEWOOD_LOG.get());
+			.add(ModBlocks.APPLEWOOD_LOG.get())
+			.add(ModBlocks.APPLEWOOD_WOOD.get())
+			.add(ModBlocks.STRIPPED_APPLEWOOD_LOG.get())
+			.add(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
+		this.tag(BlockTags.PLANKS)
+			.add(ModBlocks.APPLEWOOD_PLANKS.get());
 	}
 }

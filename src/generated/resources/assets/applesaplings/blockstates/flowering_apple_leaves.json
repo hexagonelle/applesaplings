@@ -1,0 +1,340 @@
+{
+  "variants": {
+    "age=0,distance=1,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=1,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=1,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=1,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=2,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=2,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=2,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=2,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=3,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=3,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=3,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=3,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=4,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=4,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=4,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=4,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=5,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=5,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=5,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=5,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=6,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=6,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=6,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=6,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=7,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=7,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=7,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=0,distance=7,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves0"
+    },
+    "age=1,distance=1,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=1,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=1,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=1,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=2,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=2,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=2,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=2,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=3,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=3,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=3,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=3,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=4,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=4,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=4,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=4,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=5,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=5,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=5,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=5,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=6,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=6,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=6,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=6,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=7,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=7,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=7,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=1,distance=7,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves1"
+    },
+    "age=2,distance=1,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=1,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=1,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=1,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=2,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=2,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=2,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=2,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=3,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=3,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=3,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=3,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=4,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=4,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=4,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=4,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=5,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=5,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=5,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=5,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=6,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=6,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=6,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=6,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=7,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=7,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=7,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=2,distance=7,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves2"
+    },
+    "age=3,distance=1,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=1,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=1,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=1,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=2,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=2,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=2,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=2,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=3,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=3,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=3,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=3,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=4,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=4,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=4,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=4,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=5,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=5,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=5,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=5,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=6,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=6,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=6,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=6,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=7,persistent=false,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=7,persistent=false,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=7,persistent=true,waterlogged=false": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    },
+    "age=3,distance=7,persistent=true,waterlogged=true": {
+      "model": "applesaplings:block/flowering_apple_leaves3"
+    }
+  }
+}

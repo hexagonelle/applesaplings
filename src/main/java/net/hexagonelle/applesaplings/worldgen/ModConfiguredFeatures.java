@@ -42,7 +42,7 @@ public class ModConfiguredFeatures {
 						BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
 						new StraightTrunkPlacer(3,2,1),
 
-						BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get()),
+						BlockStateProvider.simple(ModBlocks.FLOWERING_APPLE_LEAVES.get()),
 						new BlobFoliagePlacer(ConstantInt.of(3),ConstantInt.of(2),3),
 
 						new TwoLayersFeatureSize(1,0,2)).build()

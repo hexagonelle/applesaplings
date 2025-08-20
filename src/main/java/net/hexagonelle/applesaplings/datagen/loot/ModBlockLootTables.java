@@ -68,15 +68,27 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 	@Override
 	protected void generate() {
 		this.dropSelf(ModBlocks.APPLE_SAPLING.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_LOG.get());
 		this.add(
-				ModBlocks.APPLE_LEAVES.get(),
-				block -> FloweringLeavesLootFactory(
-						block,
-						ModBlocks.APPLE_SAPLING,
-						Items.APPLE
-				)
+			ModBlocks.APPLE_LEAVES.get(),
+			block -> createLeavesDrops(
+				block,
+				ModBlocks.APPLE_SAPLING.get(),
+				NORMAL_LEAVES_SAPLING_CHANCES
+			)
 		);
+		this.add(
+			ModBlocks.FLOWERING_APPLE_LEAVES.get(),
+			block -> FloweringLeavesLootFactory(
+				block,
+				ModBlocks.APPLE_SAPLING,
+				Items.APPLE
+			)
+		);
+		this.dropSelf(ModBlocks.APPLEWOOD_LOG.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_WOOD.get());
+		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_LOG.get());
+		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_PLANKS.get());
 	}
 
 	@Override

@@ -26,6 +26,10 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
+		this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
+		this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
+		this.copy(BlockTags.LOGS,ItemTags.LOGS);
 		this.copy(BlockTags.LOGS_THAT_BURN,ItemTags.LOGS_THAT_BURN);
+		this.copy(BlockTags.PLANKS,ItemTags.PLANKS);
 	}
 }

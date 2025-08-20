@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/oak_planks",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "all": "applesaplings:block/applewood_planks"
+  }
+}

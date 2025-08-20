@@ -77,6 +77,8 @@ public class ModBlocks {
 		registerBlock("stripped_applewood_log", () -> createWoodOrLogBlock(Blocks.OAK_LOG));
 	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_WOOD =
 		registerBlock("stripped_applewood_wood", () -> createWoodOrLogBlock(Blocks.OAK_WOOD));
+	public static final RegistryObject<Block> APPLEWOOD_PLANKS =
+		registerBlock("applewood_planks", ModBlocks::createPlanks);
 
 	// A method that will register the DeferredRegister<Block> to the mod event bus
 	public static void register(IEventBus eventBus){

@@ -24,9 +24,9 @@ import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class FloweringLeavesBlock extends LeavesBlock {
-	public static final int MAX_AGE = 4;
+	public static final int MAX_AGE = 3;
 	public static Item FRUIT_ITEM = Items.APPLE;
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final float growthSpeed = 3.0f;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -134,7 +134,7 @@ public class FloweringLeavesBlock extends LeavesBlock {
 			// then set blockstate back to 1
 			serverLevel.setBlock(
 					blockPosition,
-					this.getStateForAge(1),
+					this.getStateForAge(0),
 					1
 			);
 			return InteractionResult.SUCCESS;

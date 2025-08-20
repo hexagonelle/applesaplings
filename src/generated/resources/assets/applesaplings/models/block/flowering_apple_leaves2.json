@@ -2,6 +2,6 @@
   "parent": "minecraft:block/leaves",
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "applesaplings:block/apple_leaves4"
+    "all": "applesaplings:block/flowering_apple_leaves2"
   }
 }
