@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -64,6 +66,21 @@ public class FloweringLeavesBlock extends LeavesBlock {
 	// Return whether this block needs random ticking.
 	public boolean isRandomlyTicking(@NotNull BlockState currentBlockState) {
 		return this.decaying(currentBlockState) || this.growing(currentBlockState);
+	}
+
+	@Override
+	public boolean isFlammable(BlockState blockstate, BlockGetter level, BlockPos blockPos, Direction direction){
+		return true;
+	}
+
+	@Override
+	public int getFlammability(BlockState blockstate, BlockGetter level, BlockPos blockPos, Direction direction){
+		return 60;
+	}
+
+	@Override
+	public int getFireSpreadSpeed(BlockState blockstate, BlockGetter level, BlockPos blockPos, Direction direction){
+		return 30;
 	}
 
 	public IntegerProperty getAgeProperty() {

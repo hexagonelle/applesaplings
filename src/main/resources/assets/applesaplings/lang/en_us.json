@@ -1,7 +1,12 @@
 {
 	"block.applesaplings.apple_sapling": "Apple Sapling",
 	"block.applesaplings.apple_leaves": "Apple Leaves",
+	"block.applesaplings.flowering_apple_leaves": "Flowering Apple Leaves",
 	"block.applesaplings.applewood_log": "Applewood Log",
+	"block.applesaplings.applewood_wood": "Applewood Wood",
+	"block.applesaplings.stripped_applewood_log": "Stripped Applewood Log",
+	"block.applesaplings.stripped_applewood_wood": "Stripped Applewood Wood",
+	"block.applesaplings.applewood_planks": "Applewood Planks",
 
 	"creativetab.applesaplings_tab": "Apple Saplings"
 }

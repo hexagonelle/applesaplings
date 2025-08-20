@@ -3,12 +3,16 @@ package net.hexagonelle.applesaplings.blocks;
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.worldgen.tree.AppleTreeGrower;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -44,7 +48,8 @@ public class ModBlocks {
 	}
 	// Create a Flowering leaves block with the properties of the vanilla OAK_LEAVES
 	private static FloweringLeavesBlock createFloweringLeaves() {
-		return new FloweringLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
+		return new FloweringLeavesBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
 	}
 	// Create a log or wood block with the properties of the given block
 	private static Block createWoodOrLogBlock(Block copyFrom, RegistryObject<Block> strippedBlock) {
@@ -68,7 +73,21 @@ public class ModBlocks {
 	}
 	// Create a planks block with the properties of the vanilla OAK_PLANKS
 	private static Block createLeaves() {
-		return new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
+		return new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
+		{
+			@Override
+			public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+				return true;
+			}
+			@Override
+			public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+				return 60;
+			}
+			@Override
+			public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+				return 30;
+			}
+		};
 	}
 
 	// REGISTER BLOCKS //
