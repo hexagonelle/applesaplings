@@ -5,10 +5,10 @@ import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.worldgen.tree.AppleTreeGrower;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -42,15 +42,23 @@ public class ModBlocks {
 	private static SaplingBlock createSapling(AbstractTreeGrower treeGrower){
 		return new SaplingBlock(treeGrower, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
 	}
-	// Create a fruiting leaves block with the properties of the vanilla OAK_LEAVES
-	private static FruitingLeavesBlock createFruitingLeaves() {
-		return new FruitingLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
+	// Create a Flowering leaves block with the properties of the vanilla OAK_LEAVES
+	private static FloweringLeavesBlock createFloweringLeaves() {
+		return new FloweringLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
 	}
-	// Create a log block with the properties of the vanilla OAK_LOG
-	private static Block createLogBlock() {
-			return new CustomWood(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(2.0F)
+	// Create a log or wood block with the properties of the given block
+	private static Block createWoodOrLogBlock(Block copyFrom) {
+		return new CustomWood(BlockBehaviour.Properties.copy(copyFrom).strength(2.0F)
 //					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-			);
+		);
+	}
+	// Create a planks block with the properties of the vanilla OAK_PLANKS
+	private static Block createPlanks() {
+		return new CustomWood(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS));
+	}
+	// Create a planks block with the properties of the vanilla OAK_PLANKS
+	private static Block createLeaves() {
+		return new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
 	}
 
 	// REGISTER BLOCKS //
@@ -58,9 +66,17 @@ public class ModBlocks {
 	public static final RegistryObject<Block> APPLE_SAPLING =
 			registerBlock("apple_sapling", () -> createSapling(new AppleTreeGrower()));
 	public static final RegistryObject<Block> APPLE_LEAVES =
-		registerBlock("apple_leaves", ModBlocks::createFruitingLeaves);
+		registerBlock("apple_leaves", ModBlocks::createLeaves);
+	public static final RegistryObject<Block> FLOWERING_APPLE_LEAVES =
+		registerBlock("flowering_apple_leaves", ModBlocks::createFloweringLeaves);
 	public static final RegistryObject<Block> APPLEWOOD_LOG =
-		registerBlock("applewood_log", ModBlocks::createLogBlock);
+		registerBlock("applewood_log", () -> createWoodOrLogBlock(Blocks.OAK_LOG));
+	public static final RegistryObject<Block> APPLEWOOD_WOOD =
+		registerBlock("applewood_wood", () -> createWoodOrLogBlock(Blocks.OAK_WOOD));
+	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_LOG =
+		registerBlock("stripped_applewood_log", () -> createWoodOrLogBlock(Blocks.OAK_LOG));
+	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_WOOD =
+		registerBlock("stripped_applewood_wood", () -> createWoodOrLogBlock(Blocks.OAK_WOOD));
 
 	// A method that will register the DeferredRegister<Block> to the mod event bus
 	public static void register(IEventBus eventBus){

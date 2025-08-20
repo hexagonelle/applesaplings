@@ -1,7 +1,7 @@
 package net.hexagonelle.applesaplings.datagen.loot;
 
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.blocks.FruitingLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.FloweringLeavesBlock;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -28,7 +28,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
 	}
 
-	protected LootTable.Builder createFruitingLeavesDrops(
+	protected LootTable.Builder createFloweringLeavesDrops(
 			Block leavesBlock,
 			Block saplingBlock,
 			Item fruitItem,
@@ -43,7 +43,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		// define fully grown state
 		StatePropertiesPredicate.Builder fullyGrownState =
 				StatePropertiesPredicate.Builder.properties()
-						.hasProperty(FruitingLeavesBlock.AGE,FruitingLeavesBlock.MAX_AGE);
+						.hasProperty(FloweringLeavesBlock.AGE, FloweringLeavesBlock.MAX_AGE);
 		// convert fullyGrownState to a condition
 		LootItemBlockStatePropertyCondition.Builder fullyGrown =
 				hasBlockStateProperties(leavesBlock).setProperties(fullyGrownState);
@@ -57,12 +57,12 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		return this.createLeavesDrops(leavesBlock, saplingBlock, chances).withPool(lootPool);
 	}
 
-	protected LootTable.Builder fruitingLeavesLootFactory(
+	protected LootTable.Builder FloweringLeavesLootFactory(
 			Block block,
 			RegistryObject<Block> sapling,
 			Item fruit
 	){
-        return createFruitingLeavesDrops(block, sapling.get(), fruit, NORMAL_LEAVES_SAPLING_CHANCES);
+        return createFloweringLeavesDrops(block, sapling.get(), fruit, NORMAL_LEAVES_SAPLING_CHANCES);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.APPLEWOOD_LOG.get());
 		this.add(
 				ModBlocks.APPLE_LEAVES.get(),
-				block -> fruitingLeavesLootFactory(
+				block -> FloweringLeavesLootFactory(
 						block,
 						ModBlocks.APPLE_SAPLING,
 						Items.APPLE

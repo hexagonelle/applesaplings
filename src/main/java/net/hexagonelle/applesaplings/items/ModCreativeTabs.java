@@ -31,6 +31,7 @@ public class ModCreativeTabs {
 
 								output.accept(ModBlocks.APPLE_SAPLING.get());
 								output.accept(ModBlocks.APPLE_LEAVES.get());
+								output.accept(ModBlocks.APPLEWOOD_LOG.get());
 
 							}).build()
 			);

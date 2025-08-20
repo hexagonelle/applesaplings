@@ -2,7 +2,7 @@ package net.hexagonelle.applesaplings.datagen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.blocks.FruitingLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.FloweringLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -67,13 +67,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 //
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
-	private ConfiguredModel[] fruitingLeavesStates(
+	private ConfiguredModel[] floweringLeavesStates(
 			BlockState blockState,
 			RegistryObject<Block> blockRegistryObject
 	){
 		String modelName = getPathString(blockRegistryObject);
-		FruitingLeavesBlock fruitingLeaves = (FruitingLeavesBlock) blockRegistryObject.get();
-		String path = "block/" + modelName + blockState.getValue(fruitingLeaves.getAgeProperty());
+		FloweringLeavesBlock floweringLeaves = (FloweringLeavesBlock) blockRegistryObject.get();
+		String path = "block/" + modelName + blockState.getValue(floweringLeaves.getAgeProperty());
 
 		ConfiguredModel[] models = new ConfiguredModel[1];
 		models[0] = new ConfiguredModel(
@@ -87,12 +87,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		return models;
 	}
 
-	// generates model & texture json files for all the blockstates of a given fruitingLeavesBlock
+	// generates model & texture json files for all the blockstates of a given floweringLeavesBlock
 	// as well as its item
-	private void fruitingLeavesBlock(RegistryObject<Block> blockRegistryObject){
+	private void floweringLeavesBlock(RegistryObject<Block> blockRegistryObject){
 
 		Function<BlockState,ConfiguredModel[]> function =
-			state -> fruitingLeavesStates(state,blockRegistryObject);
+			state -> floweringLeavesStates(state,blockRegistryObject);
 
 		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
 		blockItem(blockRegistryObject,"apple_leaves0");
@@ -112,12 +112,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	// generates model (and texture?) json for a sapling block (and its item?)
 	private void customLogBlock(RegistryObject<Block> blockRegistryObject){
 		logBlock((RotatedPillarBlock) blockRegistryObject.get());
+		blockItem(blockRegistryObject);
 	}
 
 	@Override
 	protected void registerStatesAndModels() {
 		saplingBlock(ModBlocks.APPLE_SAPLING);
-		fruitingLeavesBlock(ModBlocks.APPLE_LEAVES);
+		floweringLeavesBlock(ModBlocks.APPLE_LEAVES);
 		customLogBlock(ModBlocks.APPLEWOOD_LOG);
 
 	}

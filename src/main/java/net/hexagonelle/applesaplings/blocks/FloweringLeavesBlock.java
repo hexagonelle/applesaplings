@@ -23,14 +23,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
-public class FruitingLeavesBlock extends LeavesBlock {
+public class FloweringLeavesBlock extends LeavesBlock {
 	public static final int MAX_AGE = 4;
 	public static Item FRUIT_ITEM = Items.APPLE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
 	private static final float growthSpeed = 3.0f;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public FruitingLeavesBlock(BlockBehaviour.Properties properties) {
+	public FloweringLeavesBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		this.registerDefaultState(
 				this.stateDefinition.any()
