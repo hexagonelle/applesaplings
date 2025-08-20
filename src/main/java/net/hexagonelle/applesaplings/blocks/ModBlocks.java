@@ -2,17 +2,9 @@ package net.hexagonelle.applesaplings.blocks;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.items.ModItems;
+import net.hexagonelle.applesaplings.util.ModWoodTypes;
 import net.hexagonelle.applesaplings.worldgen.tree.AppleTreeGrower;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -27,7 +19,15 @@ public class ModBlocks {
 	// HELPER METHODS //
 
 	// Create a Deferred Register to hold Blocks which will all be registered under the "applesaplings" namespace
-	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AppleSaplings.MODID);
+	public static final DeferredRegister<Block> BLOCKS =
+		DeferredRegister.create(ForgeRegistries.BLOCKS, AppleSaplings.MODID);
+
+	// A method that will register the DeferredRegister<Block> to the mod event bus
+	public static void register(IEventBus eventBus){
+		BLOCKS.register(eventBus);
+	}
+
+	// METHODS FOR REGISTERING BLOCKS //
 
 	// A method that creates a new BlockItem, given some RegistryObject<Block>
 	private static <T extends Block> Item createBlockItem(Supplier<T> block){
@@ -36,84 +36,44 @@ public class ModBlocks {
 
 	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
 	private static <T extends Block> RegistryObject<T> registerBlock(String blockID, Supplier<T> block){
-		RegistryObject<T> blockRegistryObject = BLOCKS.register(blockID, block);
+		return BLOCKS.register(blockID, block);
+	}
+
+	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
+	private static <T extends Block> RegistryObject<T> registerBlockWithItem(String blockID, Supplier<T> block){
+		RegistryObject<T> blockRegistryObject = registerBlock(blockID, block);
 		ModItems.ITEMS.register(blockID, () -> createBlockItem(blockRegistryObject));
 
 		return blockRegistryObject;
 	}
 
-	// Create a sapling with the given AbstractTreeGrower and the properties of the vanilla OAK_SAPLING
-	private static SaplingBlock createSapling(AbstractTreeGrower treeGrower){
-		return new SaplingBlock(treeGrower, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
-	}
-	// Create a Flowering leaves block with the properties of the vanilla OAK_LEAVES
-	private static FloweringLeavesBlock createFloweringLeaves() {
-		return new FloweringLeavesBlock(
-			BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
-	}
-	// Create a log or wood block with the properties of the given block
-	private static Block createWoodOrLogBlock(Block copyFrom, RegistryObject<Block> strippedBlock) {
-		return new CustomWood(BlockBehaviour.Properties
-			.copy(copyFrom)
-			.strength(2.0F)
-//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-		).setStrippedVersion(strippedBlock.get());
-	}
-	// Create a stripped log or wood block with the properties of the given block
-	private static Block createWoodOrLogBlock(Block copyFrom) {
-		return new CustomWood(BlockBehaviour.Properties
-			.copy(copyFrom)
-			.strength(2.0F)
-//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-		).setIsStripped(true);
-	}
-	// Create a planks block with the properties of the vanilla OAK_PLANKS
-	private static Block createPlanks() {
-		return new CustomWood(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS));
-	}
-	// Create a planks block with the properties of the vanilla OAK_PLANKS
-	private static Block createLeaves() {
-		return new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
-		{
-			@Override
-			public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-				return true;
-			}
-			@Override
-			public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-				return 60;
-			}
-			@Override
-			public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-				return 30;
-			}
-		};
-	}
-
 	// REGISTER BLOCKS //
 
 	public static final RegistryObject<Block> APPLE_SAPLING =
-			registerBlock("apple_sapling", () -> createSapling(new AppleTreeGrower()));
+			registerBlockWithItem("apple_sapling", () -> BlockCreator.createSapling(new AppleTreeGrower()));
 	public static final RegistryObject<Block> APPLE_LEAVES =
-		registerBlock("apple_leaves", ModBlocks::createLeaves);
+		registerBlockWithItem("apple_leaves", BlockCreator::createLeaves);
 	public static final RegistryObject<Block> FLOWERING_APPLE_LEAVES =
-		registerBlock("flowering_apple_leaves", ModBlocks::createFloweringLeaves);
+		registerBlockWithItem("flowering_apple_leaves", BlockCreator::createFloweringLeaves);
 	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_LOG =
-		registerBlock("stripped_applewood_log", () -> createWoodOrLogBlock(Blocks.OAK_LOG));
+		registerBlockWithItem("stripped_applewood_log", () -> BlockCreator.createWoodOrLogBlock(Blocks.OAK_LOG));
 	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_WOOD =
-		registerBlock("stripped_applewood_wood", () -> createWoodOrLogBlock(Blocks.OAK_WOOD));
+		registerBlockWithItem("stripped_applewood_wood", () -> BlockCreator.createWoodOrLogBlock(Blocks.OAK_WOOD));
 	public static final RegistryObject<Block> APPLEWOOD_LOG =
-		registerBlock("applewood_log",
-			() -> createWoodOrLogBlock(Blocks.OAK_LOG,ModBlocks.STRIPPED_APPLEWOOD_LOG));
+		registerBlockWithItem("applewood_log",
+			() -> BlockCreator.createWoodOrLogBlock(Blocks.OAK_LOG,ModBlocks.STRIPPED_APPLEWOOD_LOG));
 	public static final RegistryObject<Block> APPLEWOOD_WOOD =
-		registerBlock("applewood_wood",
-			() -> createWoodOrLogBlock(Blocks.OAK_WOOD,ModBlocks.STRIPPED_APPLEWOOD_WOOD));
+		registerBlockWithItem("applewood_wood",
+			() -> BlockCreator.createWoodOrLogBlock(Blocks.OAK_WOOD,ModBlocks.STRIPPED_APPLEWOOD_WOOD));
 	public static final RegistryObject<Block> APPLEWOOD_PLANKS =
-		registerBlock("applewood_planks", ModBlocks::createPlanks);
-
-	// A method that will register the DeferredRegister<Block> to the mod event bus
-	public static void register(IEventBus eventBus){
-		BLOCKS.register(eventBus);
-	}
+		registerBlockWithItem("applewood_planks", BlockCreator::createPlanks);
+	public static final RegistryObject<Block> APPLEWOOD_SIGN =
+		registerBlockWithItem("applewood_sign", () -> BlockCreator.createSign(ModWoodTypes.APPLEWOOD));
+	public static final RegistryObject<Block> APPLEWOOD_WALL_SIGN =
+		registerBlock("applewood_wall_sign", () -> BlockCreator.createWallSign(ModWoodTypes.APPLEWOOD));
+	public static final RegistryObject<Block> APPLEWOOD_HANGING_SIGN =
+		registerBlockWithItem("applewood_hanging_sign", () -> BlockCreator.createHangingSign(ModWoodTypes.APPLEWOOD));
+	public static final RegistryObject<Block> APPLEWOOD_WALL_HANGING_SIGN =
+		registerBlock("applewood_wall_hanging_sign", () -> BlockCreator.createWallHangingSign(ModWoodTypes.APPLEWOOD));
 
 }

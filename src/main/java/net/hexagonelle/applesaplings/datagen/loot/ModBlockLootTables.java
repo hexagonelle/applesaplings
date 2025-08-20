@@ -89,6 +89,14 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_LOG.get());
 		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
 		this.dropSelf(ModBlocks.APPLEWOOD_PLANKS.get());
+		this.add(
+			ModBlocks.APPLEWOOD_SIGN.get(),
+			block -> createSingleItemTable(ModBlocks.APPLEWOOD_SIGN.get())
+		);
+		this.add(
+			ModBlocks.APPLEWOOD_SIGN.get(),
+			block -> createSingleItemTable(ModBlocks.APPLEWOOD_SIGN.get())
+		);
 	}
 
 	@Override

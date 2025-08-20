@@ -5,8 +5,7 @@ import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.blocks.FloweringLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -116,13 +115,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	}
 
 	// generates model (and texture?) json for a log block and its item
-	private void customLogBlock(RegistryObject<Block> blockRegistryObject){
+	private void logBlock(RegistryObject<Block> blockRegistryObject){
 		logBlock((RotatedPillarBlock) blockRegistryObject.get());
 		blockItem(blockRegistryObject);
 	}
 
 	// generates model (and texture?) json for a wood block and its item
-	private void customWoodBlock(
+	private void woodBlock(
 		RegistryObject<Block> blockRegistryObject,
 		RegistryObject<Block> blockRegistryParentTexture
 		){
@@ -134,16 +133,44 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		blockItem(blockRegistryObject);
 	}
 
+	private void signBlock(
+		RegistryObject<Block> floorSign,
+		RegistryObject<Block> wallSign,
+		RegistryObject<Block> planks
+	){
+		signBlock(
+			(StandingSignBlock) floorSign.get(),
+			(WallSignBlock) wallSign.get(),
+			blockTexture(planks.get())
+		);
+	}
+
+	private void hangingSignBlock(
+		RegistryObject<Block> hangingSign,
+		RegistryObject<Block> wallHangingSign,
+		RegistryObject<Block> signBlock
+	){
+		ModelFile signModel =
+			models().sign(
+				getPathString(signBlock),
+				blockTexture(signBlock.get())
+			);
+		simpleBlock(hangingSign.get(),signModel);
+		simpleBlock(wallHangingSign.get(), signModel);
+	}
+
 	@Override
 	protected void registerStatesAndModels() {
 		saplingBlock(ModBlocks.APPLE_SAPLING);
 		leavesBlock(ModBlocks.APPLE_LEAVES);
 		floweringLeavesBlock(ModBlocks.FLOWERING_APPLE_LEAVES);
-		customLogBlock(ModBlocks.APPLEWOOD_LOG);
-		customWoodBlock(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
-		customLogBlock(ModBlocks.STRIPPED_APPLEWOOD_LOG);
-		customWoodBlock(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
+		logBlock(ModBlocks.APPLEWOOD_LOG);
+		woodBlock(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
+		logBlock(ModBlocks.STRIPPED_APPLEWOOD_LOG);
+		woodBlock(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
 		blockWithItem(ModBlocks.APPLEWOOD_PLANKS);
+		signBlock(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
+		hangingSignBlock(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_SIGN);
 
 	}
 
