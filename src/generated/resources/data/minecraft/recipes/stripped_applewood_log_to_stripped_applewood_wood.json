@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "applesaplings:stripped_applewood_log"
+    }
+  },
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "result": {
+    "count": 3,
+    "item": "applesaplings:stripped_applewood_wood"
+  },
+  "show_notification": true
+}

@@ -47,10 +47,20 @@ public class ModBlocks {
 		return new FloweringLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
 	}
 	// Create a log or wood block with the properties of the given block
-	private static Block createWoodOrLogBlock(Block copyFrom) {
-		return new CustomWood(BlockBehaviour.Properties.copy(copyFrom).strength(2.0F)
+	private static Block createWoodOrLogBlock(Block copyFrom, RegistryObject<Block> strippedBlock) {
+		return new CustomWood(BlockBehaviour.Properties
+			.copy(copyFrom)
+			.strength(2.0F)
 //					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-		);
+		).setStrippedVersion(strippedBlock.get());
+	}
+	// Create a stripped log or wood block with the properties of the given block
+	private static Block createWoodOrLogBlock(Block copyFrom) {
+		return new CustomWood(BlockBehaviour.Properties
+			.copy(copyFrom)
+			.strength(2.0F)
+//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
+		).setIsStripped(true);
 	}
 	// Create a planks block with the properties of the vanilla OAK_PLANKS
 	private static Block createPlanks() {
@@ -69,14 +79,16 @@ public class ModBlocks {
 		registerBlock("apple_leaves", ModBlocks::createLeaves);
 	public static final RegistryObject<Block> FLOWERING_APPLE_LEAVES =
 		registerBlock("flowering_apple_leaves", ModBlocks::createFloweringLeaves);
-	public static final RegistryObject<Block> APPLEWOOD_LOG =
-		registerBlock("applewood_log", () -> createWoodOrLogBlock(Blocks.OAK_LOG));
-	public static final RegistryObject<Block> APPLEWOOD_WOOD =
-		registerBlock("applewood_wood", () -> createWoodOrLogBlock(Blocks.OAK_WOOD));
 	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_LOG =
 		registerBlock("stripped_applewood_log", () -> createWoodOrLogBlock(Blocks.OAK_LOG));
 	public static final RegistryObject<Block> STRIPPED_APPLEWOOD_WOOD =
 		registerBlock("stripped_applewood_wood", () -> createWoodOrLogBlock(Blocks.OAK_WOOD));
+	public static final RegistryObject<Block> APPLEWOOD_LOG =
+		registerBlock("applewood_log",
+			() -> createWoodOrLogBlock(Blocks.OAK_LOG,ModBlocks.STRIPPED_APPLEWOOD_LOG));
+	public static final RegistryObject<Block> APPLEWOOD_WOOD =
+		registerBlock("applewood_wood",
+			() -> createWoodOrLogBlock(Blocks.OAK_WOOD,ModBlocks.STRIPPED_APPLEWOOD_WOOD));
 	public static final RegistryObject<Block> APPLEWOOD_PLANKS =
 		registerBlock("applewood_planks", ModBlocks::createPlanks);
 
