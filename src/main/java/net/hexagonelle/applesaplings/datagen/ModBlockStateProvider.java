@@ -26,8 +26,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		return ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get());
 	}
 
+	private final String blockNamespace = AppleSaplings.MODID + ":block/";
+
 	// return the String corresponding to the path of a Block
-	public String name(RegistryObject<Block> blockRegistryObject){
+	private String name(RegistryObject<Block> blockRegistryObject){
 		return key(blockRegistryObject).getPath();
 	}
 
@@ -35,9 +37,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	private void blockItem(RegistryObject<Block> blockRegistryObject){
 		simpleBlockItem(
 			blockRegistryObject.get(),
-			new ModelFile.UncheckedModelFile(
-					AppleSaplings.MODID + ":block/" + name(blockRegistryObject)
-			)
+			new ModelFile.UncheckedModelFile(blockNamespace + name(blockRegistryObject))
 		);
 	}
 
@@ -45,33 +45,43 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	private void blockItem(RegistryObject<Block> blockRegistryObject, String pathToBlockState){
 		simpleBlockItem(
 				blockRegistryObject.get(),
-				new ModelFile.UncheckedModelFile(
-						AppleSaplings.MODID + ":block/" + pathToBlockState
-				)
+				new ModelFile.UncheckedModelFile(blockNamespace + pathToBlockState)
 		);
 	}
 
-	private void blockWithItem(RegistryObject<Block> blockRegistryObject){
-		String path = name(blockRegistryObject);
-		ModelFile modelFile =
-			models().singleTexture(
-				path, new ResourceLocation("minecraft:block/oak_planks"),
-				"all", blockTexture(blockRegistryObject.get())
-			).renderType("solid");
-		simpleBlock(blockRegistryObject.get(), modelFile);
-		blockItem(blockRegistryObject);
+	private ModelFile singleTextureModel(
+		String path,
+		String parentLocation,
+		ResourceLocation texture,
+		String renderAs
+	){
+		return models().singleTexture(
+			path, new ResourceLocation(parentLocation),
+			"all", texture
+		).renderType(renderAs);
+	}
+
+	private void blockWithItem(
+		RegistryObject<Block> blockRegistryObject,
+		String parentLocation,
+		String renderAs
+	){
+		simpleBlockWithItem(
+			blockRegistryObject.get(),
+			singleTextureModel(
+				name(blockRegistryObject),
+				parentLocation,
+				blockTexture(blockRegistryObject.get()),
+				renderAs));
+	}
+
+	private void planksBlock(RegistryObject<Block> blockRegistryObject){
+		blockWithItem(blockRegistryObject,"minecraft:block/oak_planks","solid");
 	}
 
 	// creates a model json and texture json for the given LeavesBlock
 	private void leavesBlock(RegistryObject<Block> blockRegistryObject){
-		simpleBlockWithItem(
-				blockRegistryObject.get(),
-				models().singleTexture(
-					name(blockRegistryObject), new ResourceLocation("minecraft:block/leaves"),
-					"all", blockTexture(blockRegistryObject.get())
-				).renderType("cutout")
-		);
-
+		blockWithItem(blockRegistryObject,"minecraft:block/leaves","cutout");
 	}
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
@@ -85,11 +95,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 		ConfiguredModel[] models = new ConfiguredModel[1];
 		models[0] = new ConfiguredModel(
-			models().singleTexture(
-				path, new ResourceLocation("minecraft:block/leaves"),
-				"all", new ResourceLocation(AppleSaplings.MODID, path)
+			singleTextureModel(
+				path, "minecraft:block/leaves",
+				new ResourceLocation(AppleSaplings.MODID, path), "cutout"
 			)
-			.renderType("cutout")
 		);
 
 		return models;
@@ -136,25 +145,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		blockItem(blockRegistryObject);
 	}
 
-	private void customSignBlock(
-		RegistryObject<Block> floorSign,
+	public void customSignBlock(
+		RegistryObject<Block> standingSign,
 		RegistryObject<Block> wallSign,
 		RegistryObject<Block> planks
 	){
 		signBlock(
-			(StandingSignBlock) floorSign.get(),
+			(StandingSignBlock) standingSign.get(),
 			(WallSignBlock) wallSign.get(),
 			blockTexture(planks.get())
 		);
 	}
 
-	private void customHangingSignBlock(
-		RegistryObject<Block> hangingSign,
+	public void customHangingSignBlock(
+		RegistryObject<Block> ceilingHangingSign,
 		RegistryObject<Block> wallHangingSign,
 		RegistryObject<Block> planks
 	){
-		ModelFile signModel = models().sign(name(hangingSign), blockTexture(planks.get()));
-		simpleBlock(hangingSign.get(), signModel);
+		ModelFile signModel = models().sign(name(ceilingHangingSign), blockTexture(planks.get()));
+		simpleBlock(ceilingHangingSign.get(), signModel);
 		simpleBlock(wallHangingSign.get(), signModel);
 	}
 
@@ -167,7 +176,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		woodBlock(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
 		logBlock(ModBlocks.STRIPPED_APPLEWOOD_LOG);
 		woodBlock(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
-		blockWithItem(ModBlocks.APPLEWOOD_PLANKS);
+		planksBlock(ModBlocks.APPLEWOOD_PLANKS);
 		customSignBlock(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
 		customHangingSignBlock(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_PLANKS);
 

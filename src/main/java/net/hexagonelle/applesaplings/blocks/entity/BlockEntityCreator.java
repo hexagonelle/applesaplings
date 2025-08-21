@@ -1,31 +1,31 @@
 package net.hexagonelle.applesaplings.blocks.entity;
 
+import net.hexagonelle.applesaplings.blocks.entity.custom.ModHangingSignBlockEntity;
+import net.hexagonelle.applesaplings.blocks.entity.custom.ModSignBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
-import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraftforge.registries.RegistryObject;
 
 public class BlockEntityCreator {
 
-	public static BlockEntityType<SignBlockEntity> createSignBlockEntity(
-		RegistryObject<Block> floorSign,
+	public static BlockEntityType<ModSignBlockEntity> createSignBlockEntity(
+		RegistryObject<Block> standingSign,
 		RegistryObject<Block> wallSign
 	){
 		return BlockEntityType.Builder.of(
-			SignBlockEntity::new,
-			floorSign.get(),
+			ModSignBlockEntity::new,
+			standingSign.get(),
 			wallSign.get()
 		).build(null);
 	}
 
-	public static BlockEntityType<HangingSignBlockEntity> createHangingSignBlockEntity(
-		RegistryObject<Block> hangingSign,
+	public static BlockEntityType<ModHangingSignBlockEntity> createHangingSignBlockEntity(
+		RegistryObject<Block> ceilingHangingSign,
 		RegistryObject<Block> wallHangingSign
 	){
 		return BlockEntityType.Builder.of(
-			HangingSignBlockEntity::new,
-			hangingSign.get(),
+			ModHangingSignBlockEntity::new,
+			ceilingHangingSign.get(),
 			wallHangingSign.get()
 		).build(null);
 	}

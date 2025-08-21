@@ -1,7 +1,6 @@
 package net.hexagonelle.applesaplings.blocks;
 
-import net.hexagonelle.applesaplings.blocks.custom.CustomWood;
-import net.hexagonelle.applesaplings.blocks.custom.FloweringLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.custom.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -65,19 +64,19 @@ public class BlockCreator {
 	}
 	// Create a sign with the given woodType
 	public static Block createSign(WoodType woodType){
-		return new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), woodType);
+		return new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), woodType);
 	}
 	// Create a sign with the given woodType
 	public static Block createWallSign(WoodType woodType){
-		return new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), woodType);
+		return new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), woodType);
 	}
 	// Create a sign with the given woodType
 	public static Block createHangingSign(WoodType woodType){
-		return new CeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), woodType);
+		return new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), woodType);
 	}
 	// Create a sign with the given woodType
 	public static Block createWallHangingSign(WoodType woodType){
-		return new WallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), woodType);
+		return new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), woodType);
 	}
 
 }

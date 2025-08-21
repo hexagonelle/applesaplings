@@ -10,8 +10,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 
 import java.util.function.Supplier;
 
@@ -24,9 +22,7 @@ public class ModBlocks {
 		DeferredRegister.create(ForgeRegistries.BLOCKS, AppleSaplings.MODID);
 
 	// A method that will register the DeferredRegister<Block> to the mod event bus
-	public static void register(IEventBus eventBus){
-		BLOCKS.register(eventBus);
-	}
+	public static void register(IEventBus eventBus){BLOCKS.register(eventBus);}
 
 	// METHODS FOR REGISTERING BLOCKS //
 
