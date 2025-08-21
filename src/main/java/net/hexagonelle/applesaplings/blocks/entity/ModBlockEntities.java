@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -18,6 +19,10 @@ public class ModBlockEntities {
 	// Create a Deferred Register to hold BlockEntityType which will all be registered under the "applesaplings" namespace
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
 		DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, AppleSaplings.MODID);
+
+	public static void register(IEventBus eventBus){
+		BLOCK_ENTITIES.register(eventBus);
+	}
 
 	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
 	private static <T extends BlockEntityType<?>> RegistryObject<T> registerBlockEntity(

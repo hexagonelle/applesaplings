@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.blocks;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.items.ItemCreator;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.util.ModWoodTypes;
 import net.hexagonelle.applesaplings.worldgen.tree.AppleTreeGrower;
@@ -29,11 +30,6 @@ public class ModBlocks {
 
 	// METHODS FOR REGISTERING BLOCKS //
 
-	// A method that creates a new BlockItem, given some RegistryObject<Block>
-	private static <T extends Block> Item createBlockItem(Supplier<T> block){
-		return new BlockItem(block.get(), new Item.Properties());
-	}
-
 	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
 	private static <T extends Block> RegistryObject<T> registerBlock(String blockID, Supplier<T> block){
 		return BLOCKS.register(blockID, block);
@@ -42,7 +38,7 @@ public class ModBlocks {
 	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
 	private static <T extends Block> RegistryObject<T> registerBlockWithItem(String blockID, Supplier<T> block){
 		RegistryObject<T> blockRegistryObject = registerBlock(blockID, block);
-		ModItems.ITEMS.register(blockID, () -> createBlockItem(blockRegistryObject));
+		ModItems.ITEMS.register(blockID, () -> ItemCreator.createBlockItem(blockRegistryObject));
 
 		return blockRegistryObject;
 	}
@@ -68,11 +64,11 @@ public class ModBlocks {
 	public static final RegistryObject<Block> APPLEWOOD_PLANKS =
 		registerBlockWithItem("applewood_planks", BlockCreator::createPlanks);
 	public static final RegistryObject<Block> APPLEWOOD_SIGN =
-		registerBlockWithItem("applewood_sign", () -> BlockCreator.createSign(ModWoodTypes.APPLEWOOD));
+		registerBlock("applewood_sign", () -> BlockCreator.createSign(ModWoodTypes.APPLEWOOD));
 	public static final RegistryObject<Block> APPLEWOOD_WALL_SIGN =
 		registerBlock("applewood_wall_sign", () -> BlockCreator.createWallSign(ModWoodTypes.APPLEWOOD));
 	public static final RegistryObject<Block> APPLEWOOD_HANGING_SIGN =
-		registerBlockWithItem("applewood_hanging_sign", () -> BlockCreator.createHangingSign(ModWoodTypes.APPLEWOOD));
+		registerBlock("applewood_hanging_sign", () -> BlockCreator.createHangingSign(ModWoodTypes.APPLEWOOD));
 	public static final RegistryObject<Block> APPLEWOOD_WALL_HANGING_SIGN =
 		registerBlock("applewood_wall_hanging_sign", () -> BlockCreator.createWallHangingSign(ModWoodTypes.APPLEWOOD));
 

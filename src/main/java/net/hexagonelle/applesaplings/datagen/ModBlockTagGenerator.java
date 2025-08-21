@@ -38,5 +38,19 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 			.add(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
 		this.tag(BlockTags.PLANKS)
 			.add(ModBlocks.APPLEWOOD_PLANKS.get());
+		this.tag(BlockTags.SIGNS)
+			.add(ModBlocks.APPLEWOOD_SIGN.get())
+			.add(ModBlocks.APPLEWOOD_WALL_SIGN.get());
+		this.tag(BlockTags.STANDING_SIGNS)
+			.add(ModBlocks.APPLEWOOD_SIGN.get());
+		this.tag(BlockTags.WALL_SIGNS)
+			.add(ModBlocks.APPLEWOOD_WALL_SIGN.get());
+		this.tag(BlockTags.ALL_HANGING_SIGNS)
+			.add(ModBlocks.APPLEWOOD_HANGING_SIGN.get())
+			.add(ModBlocks.APPLEWOOD_WALL_HANGING_SIGN.get());
+		this.tag(BlockTags.CEILING_HANGING_SIGNS)
+			.add(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
+		this.tag(BlockTags.WALL_HANGING_SIGNS)
+			.add(ModBlocks.APPLEWOOD_WALL_HANGING_SIGN.get());
 	}
 }

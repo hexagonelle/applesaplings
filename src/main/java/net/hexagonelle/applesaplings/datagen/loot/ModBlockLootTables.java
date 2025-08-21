@@ -1,7 +1,8 @@
 package net.hexagonelle.applesaplings.datagen.loot;
 
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.blocks.FloweringLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.custom.FloweringLeavesBlock;
+import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -89,13 +90,15 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_LOG.get());
 		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
 		this.dropSelf(ModBlocks.APPLEWOOD_PLANKS.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_SIGN.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
 		this.add(
-			ModBlocks.APPLEWOOD_SIGN.get(),
-			block -> createSingleItemTable(ModBlocks.APPLEWOOD_SIGN.get())
+			ModBlocks.APPLEWOOD_WALL_SIGN.get(),
+			block -> createSingleItemTable(ModItems.APPLEWOOD_SIGN.get())
 		);
 		this.add(
-			ModBlocks.APPLEWOOD_SIGN.get(),
-			block -> createSingleItemTable(ModBlocks.APPLEWOOD_SIGN.get())
+			ModBlocks.APPLEWOOD_WALL_HANGING_SIGN.get(),
+			block -> createSingleItemTable(ModItems.APPLEWOOD_HANGING_SIGN.get())
 		);
 	}
 

@@ -6,7 +6,10 @@
 	"block.applesaplings.applewood_wood": "Applewood Wood",
 	"block.applesaplings.stripped_applewood_log": "Stripped Applewood Log",
 	"block.applesaplings.stripped_applewood_wood": "Stripped Applewood Wood",
-	"block.applesaplings.applewood_planks": "Applewood Planks",
+	"block.applesaplings.applewood_sign": "Applewood Sign",
+	"block.applesaplings.applewood_wall_sign": "Applewood Sign",
+	"block.applesaplings.applewood_hanging_sign": "Applewood Hanging Sign",
+	"block.applesaplings.applewood_wall_hanging_sign": "Applewood Hanging Sign",
 
 	"creativetab.applesaplings_tab": "Apple Saplings"
 }

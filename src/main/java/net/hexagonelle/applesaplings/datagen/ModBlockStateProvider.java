@@ -2,7 +2,7 @@ package net.hexagonelle.applesaplings.datagen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.blocks.FloweringLeavesBlock;
+import net.hexagonelle.applesaplings.blocks.custom.FloweringLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -14,7 +14,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -23,9 +22,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		super(output, AppleSaplings.MODID, exFileHelper);
 	}
 
+	private ResourceLocation key(RegistryObject<Block> blockRegistryObject){
+		return ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get());
+	}
+
 	// return the String corresponding to the path of a Block
-	public String getPathString(RegistryObject<Block> blockRegistryObject){
-		return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get())).getPath();
+	public String name(RegistryObject<Block> blockRegistryObject){
+		return key(blockRegistryObject).getPath();
 	}
 
 	// generates data for the item version of a block
@@ -33,7 +36,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		simpleBlockItem(
 			blockRegistryObject.get(),
 			new ModelFile.UncheckedModelFile(
-					AppleSaplings.MODID + ":block/" + getPathString(blockRegistryObject)
+					AppleSaplings.MODID + ":block/" + name(blockRegistryObject)
 			)
 		);
 	}
@@ -49,13 +52,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void blockWithItem(RegistryObject<Block> blockRegistryObject){
-		String path = getPathString(blockRegistryObject);
+		String path = name(blockRegistryObject);
 		ModelFile modelFile =
 			models().singleTexture(
 				path, new ResourceLocation("minecraft:block/oak_planks"),
 				"all", blockTexture(blockRegistryObject.get())
 			).renderType("solid");
-		simpleBlock(blockRegistryObject.get(),modelFile);
+		simpleBlock(blockRegistryObject.get(), modelFile);
 		blockItem(blockRegistryObject);
 	}
 
@@ -64,7 +67,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		simpleBlockWithItem(
 				blockRegistryObject.get(),
 				models().singleTexture(
-					getPathString(blockRegistryObject), new ResourceLocation("minecraft:block/leaves"),
+					name(blockRegistryObject), new ResourceLocation("minecraft:block/leaves"),
 					"all", blockTexture(blockRegistryObject.get())
 				).renderType("cutout")
 		);
@@ -76,7 +79,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			BlockState blockState,
 			RegistryObject<Block> blockRegistryObject
 	){
-		String modelName = getPathString(blockRegistryObject);
+		String modelName = name(blockRegistryObject);
 		FloweringLeavesBlock floweringLeaves = (FloweringLeavesBlock) blockRegistryObject.get();
 		String path = "block/" + modelName + blockState.getValue(floweringLeaves.getAgeProperty());
 
@@ -108,7 +111,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		simpleBlock(
 			blockRegistryObject.get(),
 			models().cross(
-				getPathString(blockRegistryObject),
+				name(blockRegistryObject),
 				blockTexture(blockRegistryObject.get())
 			).renderType("cutout")
 		);
@@ -133,7 +136,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		blockItem(blockRegistryObject);
 	}
 
-	private void signBlock(
+	private void customSignBlock(
 		RegistryObject<Block> floorSign,
 		RegistryObject<Block> wallSign,
 		RegistryObject<Block> planks
@@ -145,17 +148,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		);
 	}
 
-	private void hangingSignBlock(
+	private void customHangingSignBlock(
 		RegistryObject<Block> hangingSign,
 		RegistryObject<Block> wallHangingSign,
-		RegistryObject<Block> signBlock
+		RegistryObject<Block> planks
 	){
-		ModelFile signModel =
-			models().sign(
-				getPathString(signBlock),
-				blockTexture(signBlock.get())
-			);
-		simpleBlock(hangingSign.get(),signModel);
+		ModelFile signModel = models().sign(name(hangingSign), blockTexture(planks.get()));
+		simpleBlock(hangingSign.get(), signModel);
 		simpleBlock(wallHangingSign.get(), signModel);
 	}
 
@@ -169,8 +168,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		logBlock(ModBlocks.STRIPPED_APPLEWOOD_LOG);
 		woodBlock(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
 		blockWithItem(ModBlocks.APPLEWOOD_PLANKS);
-		signBlock(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
-		hangingSignBlock(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_SIGN);
+		customSignBlock(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
+		customHangingSignBlock(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_PLANKS);
 
 	}
 

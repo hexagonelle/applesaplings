@@ -37,6 +37,8 @@ public class ModCreativeTabs {
 								output.accept(ModBlocks.STRIPPED_APPLEWOOD_LOG.get());
 								output.accept(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
 								output.accept(ModBlocks.APPLEWOOD_PLANKS.get());
+								output.accept(ModBlocks.APPLEWOOD_SIGN.get());
+								output.accept(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
 
 							}).build()
 			);

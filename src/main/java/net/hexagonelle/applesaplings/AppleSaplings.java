@@ -1,10 +1,13 @@
 package net.hexagonelle.applesaplings;
 
 import com.mojang.logging.LogUtils;
+import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
 import net.hexagonelle.applesaplings.items.ModCreativeTabs;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
+import net.hexagonelle.applesaplings.util.ModWoodTypes;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -48,6 +51,8 @@ public class AppleSaplings
         ModItems.register(modEventBus);
         // Call the method to register the blocks.
         ModBlocks.register(modEventBus);
+        // Call the method to register the block entities.
+        ModBlockEntities.register(modEventBus);
         // Call the method that adds the items
         // to their respective Creative Mode tabs as specified below
         modEventBus.addListener(this::addCreative);
@@ -93,6 +98,8 @@ public class AppleSaplings
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+            Sheets.addWoodType(ModWoodTypes.APPLEWOOD);
         }
     }
 }

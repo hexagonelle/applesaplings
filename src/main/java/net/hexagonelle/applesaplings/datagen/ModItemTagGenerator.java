@@ -2,6 +2,7 @@ package net.hexagonelle.applesaplings.datagen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
+import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -31,5 +32,7 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 		this.copy(BlockTags.LOGS,ItemTags.LOGS);
 		this.copy(BlockTags.LOGS_THAT_BURN,ItemTags.LOGS_THAT_BURN);
 		this.copy(BlockTags.PLANKS,ItemTags.PLANKS);
+		this.tag(ItemTags.SIGNS).add(ModItems.APPLEWOOD_SIGN.get());
+		this.tag(ItemTags.HANGING_SIGNS).add(ModItems.APPLEWOOD_HANGING_SIGN.get());
 	}
 }
