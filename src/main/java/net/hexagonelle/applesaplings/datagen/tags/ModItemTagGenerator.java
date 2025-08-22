@@ -1,7 +1,6 @@
-package net.hexagonelle.applesaplings.datagen;
+package net.hexagonelle.applesaplings.datagen.tags;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
-import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

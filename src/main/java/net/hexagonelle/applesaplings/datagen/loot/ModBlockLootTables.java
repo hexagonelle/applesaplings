@@ -92,6 +92,14 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.APPLEWOOD_PLANKS.get());
 		this.dropSelf(ModBlocks.APPLEWOOD_SIGN.get());
 		this.dropSelf(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_STAIRS.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_SLAB.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_BUTTON.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_PRESSURE_PLATE.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_FENCE.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_FENCE_GATE.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_DOOR.get());
+		this.dropSelf(ModBlocks.APPLEWOOD_TRAPDOOR.get());
 		this.add(
 			ModBlocks.APPLEWOOD_WALL_SIGN.get(),
 			block -> createSingleItemTable(ModItems.APPLEWOOD_SIGN.get())

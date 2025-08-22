@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.datagen;
+package net.hexagonelle.applesaplings.datagen.models;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
@@ -22,14 +22,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		super(output, AppleSaplings.MODID, exFileHelper);
 	}
 
-	private ResourceLocation key(RegistryObject<Block> blockRegistryObject){
+	public static ResourceLocation key(RegistryObject<Block> blockRegistryObject){
 		return ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get());
 	}
 
 	private final String blockNamespace = AppleSaplings.MODID + ":block/";
 
 	// return the String corresponding to the path of a Block
-	private String name(RegistryObject<Block> blockRegistryObject){
+	public static String name(RegistryObject<Block> blockRegistryObject){
 		return key(blockRegistryObject).getPath();
 	}
 

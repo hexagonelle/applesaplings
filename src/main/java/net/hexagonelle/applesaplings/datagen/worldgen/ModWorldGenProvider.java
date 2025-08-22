@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.datagen;
+package net.hexagonelle.applesaplings.datagen.worldgen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.worldgen.ModConfiguredFeatures;

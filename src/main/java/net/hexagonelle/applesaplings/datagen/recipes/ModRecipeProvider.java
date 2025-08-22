@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.datagen;
+package net.hexagonelle.applesaplings.datagen.recipes;
 
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.minecraft.data.PackOutput;

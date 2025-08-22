@@ -1,6 +1,5 @@
-package net.hexagonelle.applesaplings.datagen;
+package net.hexagonelle.applesaplings.datagen.loot;
 
-import net.hexagonelle.applesaplings.datagen.loot.ModBlockLootTables;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;

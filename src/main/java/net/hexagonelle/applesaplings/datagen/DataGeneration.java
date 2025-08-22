@@ -1,6 +1,13 @@
 package net.hexagonelle.applesaplings.datagen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.datagen.loot.ModLootTableProvider;
+import net.hexagonelle.applesaplings.datagen.models.ModBlockStateProvider;
+import net.hexagonelle.applesaplings.datagen.models.ModItemModelProvider;
+import net.hexagonelle.applesaplings.datagen.recipes.ModRecipeProvider;
+import net.hexagonelle.applesaplings.datagen.tags.ModBlockTagGenerator;
+import net.hexagonelle.applesaplings.datagen.tags.ModItemTagGenerator;
+import net.hexagonelle.applesaplings.datagen.worldgen.ModWorldGenProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

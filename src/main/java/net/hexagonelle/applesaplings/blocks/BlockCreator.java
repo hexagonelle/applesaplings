@@ -3,11 +3,13 @@ package net.hexagonelle.applesaplings.blocks;
 import net.hexagonelle.applesaplings.blocks.custom.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -79,4 +81,44 @@ public class BlockCreator {
 		return new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), woodType);
 	}
 
+	public static Block createWoodStairBlock(RegistryObject<Block> baseBlock){
+		return new StairBlock(() -> baseBlock.get().defaultBlockState(),
+			BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS));
+	}
+
+	public static Block createWoodSlabBlock(){
+		return new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB));
+	}
+
+	public static Block createWoodButton(){
+		return new ButtonBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON),
+			BlockSetType.OAK, 10, true);
+	}
+
+	public static Block createWoodPressurePlate(){
+		return new PressurePlateBlock(
+			PressurePlateBlock.Sensitivity.EVERYTHING,
+			BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK
+		);
+	}
+
+	public static Block createWoodFenceBlock(){
+		return new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE));
+	}
+
+	public static Block createWoodFenceGateBlock(){
+		return new FenceGateBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_FENCE),
+			SoundEvents.FENCE_GATE_OPEN, SoundEvents.FENCE_GATE_CLOSE
+		);
+	}
+
+	public static Block createWoodDoorBlock(){
+		return new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion(), BlockSetType.OAK);
+	}
+
+	public static Block createWoodTrapDoorBlock() {
+		return new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), BlockSetType.OAK);
+	}
 }

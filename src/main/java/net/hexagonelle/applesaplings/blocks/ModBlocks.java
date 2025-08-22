@@ -67,5 +67,22 @@ public class ModBlocks {
 		registerBlock("applewood_hanging_sign", () -> BlockCreator.createHangingSign(ModWoodTypes.APPLEWOOD));
 	public static final RegistryObject<Block> APPLEWOOD_WALL_HANGING_SIGN =
 		registerBlock("applewood_wall_hanging_sign", () -> BlockCreator.createWallHangingSign(ModWoodTypes.APPLEWOOD));
+	public static final RegistryObject<Block> APPLEWOOD_STAIRS =
+		registerBlockWithItem("applewood_stairs", () -> BlockCreator.createWoodStairBlock(APPLEWOOD_PLANKS));
+	public static final RegistryObject<Block> APPLEWOOD_SLAB =
+		registerBlockWithItem("applewood_slab", BlockCreator::createWoodSlabBlock);
+	public static final RegistryObject<Block> APPLEWOOD_BUTTON =
+		registerBlockWithItem("applewood_button", BlockCreator::createWoodButton);
+	public static final RegistryObject<Block> APPLEWOOD_PRESSURE_PLATE =
+		registerBlock("applewood_pressure_plate", BlockCreator::createWoodPressurePlate);
+	public static final RegistryObject<Block> APPLEWOOD_FENCE =
+		registerBlock("applewood_fence", BlockCreator::createWoodFenceBlock);
+	public static final RegistryObject<Block> APPLEWOOD_FENCE_GATE =
+		registerBlock("applewood_fence_gate", BlockCreator::createWoodFenceGateBlock);
+	public static final RegistryObject<Block> APPLEWOOD_DOOR =
+		registerBlock("applewood_door", BlockCreator::createWoodDoorBlock);
+	public static final RegistryObject<Block> APPLEWOOD_TRAPDOOR =
+		registerBlock("applewood_trapdoor", BlockCreator::createWoodTrapDoorBlock);
+
 
 }
