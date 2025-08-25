@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "applesaplings:block/applewood_planks",
+    "side": "applesaplings:block/applewood_planks",
+    "top": "applesaplings:block/applewood_planks"
+  }
+}

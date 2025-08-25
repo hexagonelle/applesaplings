@@ -11,10 +11,11 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
+
+import static org.openjdk.nashorn.internal.objects.Global.print;
 
 public class ModBlockStateProvider extends BlockStateProvider {
 
@@ -22,66 +23,80 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		super(output, AppleSaplings.MODID, exFileHelper);
 	}
 
-	public static ResourceLocation key(RegistryObject<Block> blockRegistryObject){
-		return ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get());
-	}
-
-	private final String blockNamespace = AppleSaplings.MODID + ":block/";
-
 	// return the String corresponding to the path of a Block
 	public static String name(RegistryObject<Block> blockRegistryObject){
-		return key(blockRegistryObject).getPath();
+		return blockRegistryObject.getId().getPath();
+	}
+
+	public static String blockPathName(RegistryObject<Block> blockRegistryObject){
+		return "block/" + name(blockRegistryObject);
+	}
+	public static String blockPathNameWithState(RegistryObject<Block> blockRegistryObject, String state){
+		return blockPathName(blockRegistryObject) + state;
+	}
+
+	private ResourceLocation blockResource(RegistryObject<Block> blockRegistryObject) {
+		return modLoc(blockPathName(blockRegistryObject));
+	}
+
+	private ResourceLocation blockResourceWithState(RegistryObject<Block> blockRegistryObject, String state) {
+		return modLoc(blockPathNameWithState(blockRegistryObject,state));
 	}
 
 	// generates data for the item version of a block
 	private void blockItem(RegistryObject<Block> blockRegistryObject){
 		simpleBlockItem(
 			blockRegistryObject.get(),
-			new ModelFile.UncheckedModelFile(blockNamespace + name(blockRegistryObject))
+			new ModelFile.UncheckedModelFile(blockResource(blockRegistryObject))
 		);
 	}
 
 	// generates data for the item version of a block based on a specific blockstate
-	private void blockItem(RegistryObject<Block> blockRegistryObject, String pathToBlockState){
+	private void blockItem(RegistryObject<Block> blockRegistryObject, String blockState){
 		simpleBlockItem(
-				blockRegistryObject.get(),
-				new ModelFile.UncheckedModelFile(blockNamespace + pathToBlockState)
+			blockRegistryObject.get(),
+			new ModelFile.UncheckedModelFile(blockResourceWithState(
+				blockRegistryObject,
+				blockState
+			))
 		);
 	}
 
 	private ModelFile singleTextureModel(
-		String path,
-		String parentLocation,
+		String name,
+		String parent,
 		ResourceLocation texture,
 		String renderAs
 	){
 		return models().singleTexture(
-			path, new ResourceLocation(parentLocation),
+			name, mcLoc(parent),
 			"all", texture
 		).renderType(renderAs);
 	}
 
 	private void blockWithItem(
 		RegistryObject<Block> blockRegistryObject,
-		String parentLocation,
+		String parent,
 		String renderAs
 	){
 		simpleBlockWithItem(
 			blockRegistryObject.get(),
 			singleTextureModel(
 				name(blockRegistryObject),
-				parentLocation,
+				parent,
 				blockTexture(blockRegistryObject.get()),
-				renderAs));
+				renderAs
+			)
+		);
 	}
 
-	private void planksBlock(RegistryObject<Block> blockRegistryObject){
-		blockWithItem(blockRegistryObject,"minecraft:block/oak_planks","solid");
+	private void customPlanks(RegistryObject<Block> blockRegistryObject){
+		blockWithItem(blockRegistryObject,"block/oak_planks","solid");
 	}
 
 	// creates a model json and texture json for the given LeavesBlock
-	private void leavesBlock(RegistryObject<Block> blockRegistryObject){
-		blockWithItem(blockRegistryObject,"minecraft:block/leaves","cutout");
+	private void customLeaves(RegistryObject<Block> blockRegistryObject){
+		blockWithItem(blockRegistryObject,"block/leaves","cutout");
 	}
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
@@ -89,15 +104,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			BlockState blockState,
 			RegistryObject<Block> blockRegistryObject
 	){
-		String modelName = name(blockRegistryObject);
 		FloweringLeavesBlock floweringLeaves = (FloweringLeavesBlock) blockRegistryObject.get();
-		String path = "block/" + modelName + blockState.getValue(floweringLeaves.getAgeProperty());
-
+		String blockstateValue = blockState.getValue(floweringLeaves.getAgeProperty()).toString();
 		ConfiguredModel[] models = new ConfiguredModel[1];
 		models[0] = new ConfiguredModel(
 			singleTextureModel(
-				path, "minecraft:block/leaves",
-				new ResourceLocation(AppleSaplings.MODID, path), "cutout"
+				blockPathNameWithState(blockRegistryObject,blockstateValue), "block/leaves",
+				blockResourceWithState(
+					blockRegistryObject,
+					blockstateValue
+				),
+				"cutout"
 			)
 		);
 
@@ -112,11 +129,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			state -> floweringLeavesStates(state,blockRegistryObject);
 
 		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
-		blockItem(blockRegistryObject,"flowering_apple_leaves0");
+		blockItem(blockRegistryObject,"0");
 	}
 
 	// generates model (and texture?) json for a sapling block (and its item?)
-	private void saplingBlock(RegistryObject<Block> blockRegistryObject){
+	private void customSapling(RegistryObject<Block> blockRegistryObject){
 		simpleBlock(
 			blockRegistryObject.get(),
 			models().cross(
@@ -127,13 +144,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 	}
 
 	// generates model (and texture?) json for a log block and its item
-	private void logBlock(RegistryObject<Block> blockRegistryObject){
+	private void customLog(RegistryObject<Block> blockRegistryObject){
 		logBlock((RotatedPillarBlock) blockRegistryObject.get());
 		blockItem(blockRegistryObject);
 	}
 
 	// generates model (and texture?) json for a wood block and its item
-	private void woodBlock(
+	private void customWood(
 		RegistryObject<Block> blockRegistryObject,
 		RegistryObject<Block> blockRegistryParentTexture
 		){
@@ -145,7 +162,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		blockItem(blockRegistryObject);
 	}
 
-	public void customSignBlock(
+	public void customSign(
 		RegistryObject<Block> standingSign,
 		RegistryObject<Block> wallSign,
 		RegistryObject<Block> planks
@@ -157,7 +174,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		);
 	}
 
-	public void customHangingSignBlock(
+	public void customHangingSign(
 		RegistryObject<Block> ceilingHangingSign,
 		RegistryObject<Block> wallHangingSign,
 		RegistryObject<Block> planks
@@ -167,18 +184,108 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		simpleBlock(wallHangingSign.get(), signModel);
 	}
 
+	public void customStairs(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> baseBlockRegistryObject
+	){
+		stairsBlock(
+			(StairBlock) blockRegistryObject.get(),
+			blockTexture(baseBlockRegistryObject.get())
+		);
+	}
+
+	public void customSlab(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> baseBlockRegistryObject
+	){
+		slabBlock(
+			(SlabBlock) blockRegistryObject.get(),
+			blockTexture(baseBlockRegistryObject.get()),
+			blockTexture(baseBlockRegistryObject.get())
+		);
+	}
+
+	public void customButton(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> baseBlockRegistryObject
+	){
+		buttonBlock(
+			(ButtonBlock) blockRegistryObject.get(),
+			blockTexture(baseBlockRegistryObject.get())
+		);
+	}
+
+	public void customPressurePlate(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> baseBlockRegistryObject
+	){
+		pressurePlateBlock(
+			(PressurePlateBlock) blockRegistryObject.get(),
+			blockTexture(baseBlockRegistryObject.get())
+		);
+	}
+
+	public void customFence(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> baseBlockRegistryObject
+	){
+		fenceBlock(
+			(FenceBlock) blockRegistryObject.get(),
+			blockTexture(baseBlockRegistryObject.get())
+		);
+	}
+
+	public void customFenceGate(
+		RegistryObject<Block> blockRegistryObject,
+		RegistryObject<Block> baseBlockRegistryObject
+	){
+		fenceGateBlock(
+			(FenceGateBlock) blockRegistryObject.get(),
+			blockTexture(baseBlockRegistryObject.get())
+		);
+	}
+
+	public void customDoor(
+		RegistryObject<Block> blockRegistryObject
+	){
+		doorBlockWithRenderType(
+			(DoorBlock) blockRegistryObject.get(),
+			blockResourceWithState(blockRegistryObject, "_bottom"),
+			blockResourceWithState(blockRegistryObject, "_top"),
+			"cutout"
+		);
+	}
+
+	public void customTrapdoor(
+		RegistryObject<Block> blockRegistryObject
+	){
+		trapdoorBlockWithRenderType(
+			(TrapDoorBlock) blockRegistryObject.get(),
+			blockResource(blockRegistryObject),
+			true, "cutout"
+		);
+	}
+
 	@Override
 	protected void registerStatesAndModels() {
-		saplingBlock(ModBlocks.APPLE_SAPLING);
-		leavesBlock(ModBlocks.APPLE_LEAVES);
+		customSapling(ModBlocks.APPLE_SAPLING);
+		customLeaves(ModBlocks.APPLE_LEAVES);
 		floweringLeavesBlock(ModBlocks.FLOWERING_APPLE_LEAVES);
-		logBlock(ModBlocks.APPLEWOOD_LOG);
-		woodBlock(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
-		logBlock(ModBlocks.STRIPPED_APPLEWOOD_LOG);
-		woodBlock(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
-		planksBlock(ModBlocks.APPLEWOOD_PLANKS);
-		customSignBlock(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
-		customHangingSignBlock(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_PLANKS);
+		customLog(ModBlocks.APPLEWOOD_LOG);
+		customWood(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
+		customLog(ModBlocks.STRIPPED_APPLEWOOD_LOG);
+		customWood(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
+		customPlanks(ModBlocks.APPLEWOOD_PLANKS);
+		customSign(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
+		customHangingSign(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_PLANKS);
+		customStairs(ModBlocks.APPLEWOOD_STAIRS,ModBlocks.APPLEWOOD_PLANKS);
+		customSlab(ModBlocks.APPLEWOOD_SLAB,ModBlocks.APPLEWOOD_PLANKS);
+		customButton(ModBlocks.APPLEWOOD_BUTTON,ModBlocks.APPLEWOOD_PLANKS);
+		customPressurePlate(ModBlocks.APPLEWOOD_PRESSURE_PLATE,ModBlocks.APPLEWOOD_PLANKS);
+		customFence(ModBlocks.APPLEWOOD_FENCE,ModBlocks.APPLEWOOD_PLANKS);
+		customFenceGate(ModBlocks.APPLEWOOD_FENCE_GATE,ModBlocks.APPLEWOOD_PLANKS);
+		customDoor(ModBlocks.APPLEWOOD_DOOR);
+		customTrapdoor(ModBlocks.APPLEWOOD_TRAPDOOR);
 
 	}
 

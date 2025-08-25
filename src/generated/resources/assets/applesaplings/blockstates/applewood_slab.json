@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "applesaplings:block/applewood_slab"
+    },
+    "type=double": {
+      "model": "applesaplings:block/applewood_planks"
+    },
+    "type=top": {
+      "model": "applesaplings:block/applewood_slab_top"
+    }
+  }
+}

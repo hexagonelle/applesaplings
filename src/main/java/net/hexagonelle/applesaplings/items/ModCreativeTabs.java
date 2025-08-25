@@ -39,6 +39,14 @@ public class ModCreativeTabs {
 								output.accept(ModBlocks.APPLEWOOD_PLANKS.get());
 								output.accept(ModBlocks.APPLEWOOD_SIGN.get());
 								output.accept(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
+								output.accept(ModBlocks.APPLEWOOD_STAIRS.get());
+								output.accept(ModBlocks.APPLEWOOD_SLAB.get());
+								output.accept(ModBlocks.APPLEWOOD_BUTTON.get());
+//								output.accept(ModBlocks.APPLEWOOD_PRESSURE_PLATE.get()); ERROR WHEN OPENING CREATIVE MENU
+//								output.accept(ModBlocks.APPLEWOOD_FENCE.get()); ERROR WHEN OPENING CREATIVE MENU
+//								output.accept(ModBlocks.APPLEWOOD_FENCE_GATE.get()); ERROR WHEN OPENING CREATIVE MENU
+//								output.accept(ModBlocks.APPLEWOOD_DOOR.get());  ERROR WHEN OPENING CREATIVE MENU
+//								output.accept(ModBlocks.APPLEWOOD_TRAPDOOR.get()); ERROR WHEN OPENING CREATIVE MENU
 
 							}).build()
 			);
