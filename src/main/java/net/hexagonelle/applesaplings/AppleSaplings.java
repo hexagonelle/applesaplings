@@ -53,8 +53,7 @@ public class AppleSaplings
         ModBlocks.register(modEventBus);
         // Call the method to register the block entities.
         ModBlockEntities.register(modEventBus);
-        // Call the method that adds the items
-        // to their respective Creative Mode tabs as specified below
+
         modEventBus.addListener(this::addCreative);
     }
 
@@ -71,9 +70,7 @@ public class AppleSaplings
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
-    // A method that will add the example block item to the existing creative mod tabs,
-    // in this case the BUILDING_BLOCKS tab
-    // is it okay that we pass a block, and not a block item in here??
+    // A method that will add an item to the existing creative mod tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)

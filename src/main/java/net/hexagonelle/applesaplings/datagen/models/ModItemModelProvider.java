@@ -44,17 +44,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 		return modLoc("item/" + blockName(blockRegistryObject));
 	}
 
-	// generates a model for item at path with the parent resource location item/generated,
-	// and texture of the given texture
-	private ItemModelBuilder modelWithParent(
-		String name,
-		ResourceLocation parent,
-		String textureKey,
-		ResourceLocation texture
-	){
-		return withExistingParent(name, parent).texture(textureKey, texture);
-	}
-
 	private ItemModelBuilder flatItemModel(
 		String name,
 		ResourceLocation texture
@@ -122,19 +111,16 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
+		blockItemWithFlatBlockTexture(ModBlocks.APPLE_SAPLING);
 		simpleItem(ModItems.APPLEWOOD_SIGN);
 		simpleItem(ModItems.APPLEWOOD_HANGING_SIGN);
-		blockItemWithFlatBlockTexture(ModBlocks.APPLE_SAPLING);
-
-		blockItemWithItemTexture(ModBlocks.APPLEWOOD_DOOR);
-		fenceItem(ModBlocks.APPLEWOOD_FENCE, ModBlocks.APPLEWOOD_PLANKS);
-		buttonItem(ModBlocks.APPLEWOOD_BUTTON, ModBlocks.APPLEWOOD_PLANKS);
-
 		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_STAIRS);
 		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_SLAB);
+		buttonItem(ModBlocks.APPLEWOOD_BUTTON, ModBlocks.APPLEWOOD_PLANKS);
 		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_PRESSURE_PLATE);
+		fenceItem(ModBlocks.APPLEWOOD_FENCE, ModBlocks.APPLEWOOD_PLANKS);
 		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_FENCE_GATE);
-
+		blockItemWithItemTexture(ModBlocks.APPLEWOOD_DOOR);
 		trapdoorItem(ModBlocks.APPLEWOOD_TRAPDOOR);
 
 	}

@@ -51,5 +51,9 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 			.add(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
 		this.tag(BlockTags.WALL_HANGING_SIGNS)
 			.add(ModBlocks.APPLEWOOD_WALL_HANGING_SIGN.get());
+		this.tag(BlockTags.FENCES)
+			.add(ModBlocks.APPLEWOOD_FENCE.get());
+		this.tag(BlockTags.FENCE_GATES)
+			.add(ModBlocks.APPLEWOOD_FENCE_GATE.get());
 	}
 }

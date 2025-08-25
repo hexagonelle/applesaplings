@@ -74,15 +74,15 @@ public class ModBlocks {
 	public static final RegistryObject<Block> APPLEWOOD_BUTTON =
 		registerBlockWithItem("applewood_button", BlockCreator::createWoodButton);
 	public static final RegistryObject<Block> APPLEWOOD_PRESSURE_PLATE =
-		registerBlock("applewood_pressure_plate", BlockCreator::createWoodPressurePlate);
+		registerBlockWithItem("applewood_pressure_plate", BlockCreator::createWoodPressurePlate);
 	public static final RegistryObject<Block> APPLEWOOD_FENCE =
-		registerBlock("applewood_fence", BlockCreator::createWoodFenceBlock);
+		registerBlockWithItem("applewood_fence", BlockCreator::createWoodFenceBlock);
 	public static final RegistryObject<Block> APPLEWOOD_FENCE_GATE =
-		registerBlock("applewood_fence_gate", BlockCreator::createWoodFenceGateBlock);
+		registerBlockWithItem("applewood_fence_gate", BlockCreator::createWoodFenceGateBlock);
 	public static final RegistryObject<Block> APPLEWOOD_DOOR =
-		registerBlock("applewood_door", BlockCreator::createWoodDoorBlock);
+		registerBlockWithItem("applewood_door", BlockCreator::createWoodDoorBlock);
 	public static final RegistryObject<Block> APPLEWOOD_TRAPDOOR =
-		registerBlock("applewood_trapdoor", BlockCreator::createWoodTrapDoorBlock);
+		registerBlockWithItem("applewood_trapdoor", BlockCreator::createWoodTrapDoorBlock);
 
 
 }

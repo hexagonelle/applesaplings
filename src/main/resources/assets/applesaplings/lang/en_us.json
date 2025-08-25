@@ -10,6 +10,14 @@
 	"block.applesaplings.applewood_wall_sign": "Applewood Sign",
 	"block.applesaplings.applewood_hanging_sign": "Applewood Hanging Sign",
 	"block.applesaplings.applewood_wall_hanging_sign": "Applewood Hanging Sign",
+	"block.applesaplings.applewood_slab": "Applewood Slab",
+	"block.applesaplings.applewood_stairs": "Applewood Stairs",
+	"block.applesaplings.applewood_button": "Applewood Button",
+	"block.applesaplings.applewood_pressure_plate": "Applewood Pressure Plate",
+	"block.applesaplings.applewood_fence": "Applewood Fence",
+	"block.applesaplings.applewood_fence_gate": "Applewood Fence Gate",
+	"block.applesaplings.applewood_door": "Applewood Door",
+	"block.applesaplings.applewood_trapdoor": "Applewood Trapdoor",
 
 	"creativetab.applesaplings_tab": "Apple Saplings"
 }

@@ -276,6 +276,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		customLog(ModBlocks.STRIPPED_APPLEWOOD_LOG);
 		customWood(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
 		customPlanks(ModBlocks.APPLEWOOD_PLANKS);
+
 		customSign(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
 		customHangingSign(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_PLANKS);
 		customStairs(ModBlocks.APPLEWOOD_STAIRS,ModBlocks.APPLEWOOD_PLANKS);

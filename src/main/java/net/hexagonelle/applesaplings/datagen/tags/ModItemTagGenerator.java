@@ -33,5 +33,7 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 		this.copy(BlockTags.PLANKS,ItemTags.PLANKS);
 		this.tag(ItemTags.SIGNS).add(ModItems.APPLEWOOD_SIGN.get());
 		this.tag(ItemTags.HANGING_SIGNS).add(ModItems.APPLEWOOD_HANGING_SIGN.get());
+		this.copy(BlockTags.FENCES,ItemTags.FENCES);
+		this.copy(BlockTags.FENCE_GATES,ItemTags.FENCE_GATES);
 	}
 }
