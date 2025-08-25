@@ -44,6 +44,8 @@ public class ModCreativeTabs {
 					output.accept(ModBlocks.APPLEWOOD_FENCE_GATE.get());
 					output.accept(ModBlocks.APPLEWOOD_DOOR.get());
 					output.accept(ModBlocks.APPLEWOOD_TRAPDOOR.get());
+					output.accept(ModItems.APPLEWOOD_BOAT.get());
+					output.accept(ModItems.APPLEWOOD_CHEST_BOAT.get());
 				}
 			).build()
 	);

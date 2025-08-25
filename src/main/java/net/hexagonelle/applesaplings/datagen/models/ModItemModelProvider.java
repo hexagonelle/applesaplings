@@ -122,6 +122,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_FENCE_GATE);
 		blockItemWithItemTexture(ModBlocks.APPLEWOOD_DOOR);
 		trapdoorItem(ModBlocks.APPLEWOOD_TRAPDOOR);
+		simpleItem(ModItems.APPLEWOOD_BOAT);
+		simpleItem(ModItems.APPLEWOOD_CHEST_BOAT);
 
 	}
 }

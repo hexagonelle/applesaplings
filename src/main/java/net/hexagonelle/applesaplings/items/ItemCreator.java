@@ -1,9 +1,8 @@
 package net.hexagonelle.applesaplings.items;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SignItem;
+import net.hexagonelle.applesaplings.blocks.entity.custom.ModBoat;
+import net.hexagonelle.applesaplings.items.custom.ModBoatItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -34,6 +33,13 @@ public class ItemCreator {
 			ceilingHangingSign.get(), wallHangingSign.get(),
 			new Item.Properties().stacksTo(16)
 		);
+	}
+
+	public static Item createBoatItem(){
+		return new ModBoatItem(false, ModBoat.Type.APPLEWOOD, new Item.Properties());
+	}
+	public static Item createChestBoatItem() {
+		return new ModBoatItem(true, ModBoat.Type.APPLEWOOD, new Item.Properties());
 	}
 
 }

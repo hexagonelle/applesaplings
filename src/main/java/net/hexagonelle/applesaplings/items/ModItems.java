@@ -20,6 +20,11 @@ public class ModItems {
 		() -> ItemCreator.createHangingSignItem(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN)
 	);
 
+	public static final RegistryObject<Item> APPLEWOOD_BOAT =
+		ITEMS.register("applewood_boat", ItemCreator::createBoatItem);
+	public static final RegistryObject<Item> APPLEWOOD_CHEST_BOAT =
+		ITEMS.register("applewood_chest_boat", ItemCreator::createChestBoatItem);
+
 	// A method that will register the DeferredRegister to the mod event bus so items get registered
 	public static void register(IEventBus eventBus){
 		ITEMS.register(eventBus);

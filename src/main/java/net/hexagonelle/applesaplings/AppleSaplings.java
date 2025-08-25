@@ -2,12 +2,15 @@ package net.hexagonelle.applesaplings;
 
 import com.mojang.logging.LogUtils;
 import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
+import net.hexagonelle.applesaplings.blocks.entity.ModEntities;
+import net.hexagonelle.applesaplings.blocks.entity.client.ModBoatRenderer;
 import net.hexagonelle.applesaplings.items.ModCreativeTabs;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.util.ModWoodTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -53,6 +56,8 @@ public class AppleSaplings
         ModBlocks.register(modEventBus);
         // Call the method to register the block entities.
         ModBlockEntities.register(modEventBus);
+        // Call the method to register the entities.
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
     }
@@ -97,6 +102,12 @@ public class AppleSaplings
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
             Sheets.addWoodType(ModWoodTypes.APPLEWOOD);
+            EntityRenderers.register(
+              ModEntities.MOD_BOAT.get(),
+              context -> new ModBoatRenderer(context, false));
+            EntityRenderers.register(
+              ModEntities.MOD_CHEST_BOAT.get(),
+              context -> new ModBoatRenderer(context, true));
         }
     }
 }

@@ -23,7 +23,7 @@ public class ModBlockEntities {
 		BLOCK_ENTITIES.register(eventBus);
 	}
 
-	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
+	// A method that creates a BlockEntityType and registers it under BLOCK_ENTITIES with the given ID
 	private static <T extends BlockEntityType<?>> RegistryObject<T> registerBlockEntity(
 		String blockID,
 		Supplier<T> blockEntity
