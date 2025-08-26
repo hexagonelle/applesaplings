@@ -16,16 +16,16 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagGenerator extends ItemTagsProvider {
 	public ModItemTagGenerator(
-			PackOutput packOutput,
-			CompletableFuture<HolderLookup.Provider> providerCompletableFuture,
-			CompletableFuture<TagLookup<Block>> tagLookupCompletableFuture,
-			@Nullable ExistingFileHelper existingFileHelper) {
-
+		PackOutput packOutput,
+		CompletableFuture<HolderLookup.Provider> providerCompletableFuture,
+		CompletableFuture<TagLookup<Block>> tagLookupCompletableFuture,
+		@Nullable ExistingFileHelper existingFileHelper
+	){
 		super(packOutput, providerCompletableFuture, tagLookupCompletableFuture, AppleSaplings.MODID, existingFileHelper);
 	}
 
-	@Override
-	protected void addTags(HolderLookup.@NotNull Provider provider) {
+@Override
+	protected void addTags(HolderLookup.@NotNull Provider provider){
 		this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
 		this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
 		this.copy(BlockTags.LOGS,ItemTags.LOGS);
@@ -36,4 +36,5 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 		this.copy(BlockTags.FENCES,ItemTags.FENCES);
 		this.copy(BlockTags.FENCE_GATES,ItemTags.FENCE_GATES);
 	}
+
 }
