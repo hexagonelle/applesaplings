@@ -20,6 +20,7 @@
 	"block.applesaplings.applewood_trapdoor": "Applewood Trapdoor",
 	"item.applesaplings.applewood_boat": "Applewood Boat",
 	"item.applesaplings.applewood_chest_boat": "Applewood Chest Boat",
-
-	"creativetab.applesaplings_tab": "Apple Saplings"
+	"mymod.fuel": "I'm a fart",
+	"creativetab.applesaplings_tab": "Apple Saplings",
+	"applesaplings:mymod.fuel": "I'm a fart"
 }

@@ -85,6 +85,8 @@ minecraft {
         client {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
         }
 
         server {
@@ -121,6 +123,7 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    maven { url = "https://api.modrinth.com/maven" }
 }
 
 dependencies {
@@ -145,6 +148,10 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    // jade_version example: 11.13.1+forge
+    // Visit https://modrinth.com/mod/jade/versions?l=forge to get the latest version
+    implementation fg.deobf("maven.modrinth:jade:11.13.1+forge")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
