@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.blocks.entity.client;
+package net.hexagonelle.applesaplings.entities.client;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.minecraft.client.model.geom.ModelLayerLocation;

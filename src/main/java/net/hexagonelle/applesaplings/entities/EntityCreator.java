@@ -1,7 +1,7 @@
-package net.hexagonelle.applesaplings.blocks.entity;
+package net.hexagonelle.applesaplings.entities;
 
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModBoat;
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModChestBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModChestBoat;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 

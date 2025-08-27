@@ -1,7 +1,7 @@
-package net.hexagonelle.applesaplings.blocks.entity.custom;
+package net.hexagonelle.applesaplings.entities.custom;
 
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.blocks.entity.ModEntities;
+import net.hexagonelle.applesaplings.entities.ModEntities;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

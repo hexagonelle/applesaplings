@@ -105,7 +105,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			RegistryObject<Block> blockRegistryObject
 	){
 		FloweringLeavesBlock floweringLeaves = (FloweringLeavesBlock) blockRegistryObject.get();
-		String blockstateValue = blockState.getValue(floweringLeaves.getAgeProperty()).toString();
+		String blockstateValue = String.valueOf(floweringLeaves.getAge(blockState));
 		ConfiguredModel[] models = new ConfiguredModel[1];
 		models[0] = new ConfiguredModel(
 			singleTextureModel(

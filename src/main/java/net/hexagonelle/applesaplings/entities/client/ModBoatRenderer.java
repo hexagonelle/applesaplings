@@ -1,10 +1,10 @@
-package net.hexagonelle.applesaplings.blocks.entity.client;
+package net.hexagonelle.applesaplings.entities.client;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import net.hexagonelle.applesaplings.AppleSaplings;
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModBoat;
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModChestBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModChestBoat;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.ListModel;

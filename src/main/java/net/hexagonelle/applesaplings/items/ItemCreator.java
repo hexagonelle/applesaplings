@@ -1,11 +1,13 @@
 package net.hexagonelle.applesaplings.items;
 
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModBoat;
 import net.hexagonelle.applesaplings.items.custom.ModBoatItem;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class ItemCreator {

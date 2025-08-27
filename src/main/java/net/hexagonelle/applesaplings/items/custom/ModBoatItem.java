@@ -3,8 +3,8 @@ package net.hexagonelle.applesaplings.items.custom;
 import java.util.List;
 import java.util.function.Predicate;
 
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModBoat;
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModChestBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModBoat;
+import net.hexagonelle.applesaplings.entities.custom.ModChestBoat;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

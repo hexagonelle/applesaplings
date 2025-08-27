@@ -2,8 +2,8 @@ package net.hexagonelle.applesaplings;
 
 import com.mojang.logging.LogUtils;
 import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
-import net.hexagonelle.applesaplings.blocks.entity.ModEntities;
-import net.hexagonelle.applesaplings.blocks.entity.client.ModBoatRenderer;
+import net.hexagonelle.applesaplings.entities.ModEntities;
+import net.hexagonelle.applesaplings.entities.client.ModBoatRenderer;
 import net.hexagonelle.applesaplings.items.ModCreativeTabs;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
