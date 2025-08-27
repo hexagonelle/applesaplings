@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_applewood_wood": {
+    "has_boat": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "applesaplings:applewood_wood"
-            ]
+            "tag": "minecraft:boats"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:applewood_wood_to_applewood_planks"
+        "recipe": "applesaplings:applewood_chest_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_applewood_wood",
+      "has_boat",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:applewood_wood_to_applewood_planks"
+      "applesaplings:applewood_chest_boat"
     ]
   },
   "sends_telemetry_event": false

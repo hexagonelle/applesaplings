@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_stripped_applewood_log": {
+    "has_applewood_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "applesaplings:stripped_applewood_log"
+              "applesaplings:applewood_planks"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:stripped_applewood_log_to_applewood_planks"
+        "recipe": "applesaplings:applewood_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_stripped_applewood_log",
+      "has_applewood_planks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:stripped_applewood_log_to_applewood_planks"
+      "applesaplings:applewood_button"
     ]
   },
   "sends_telemetry_event": false

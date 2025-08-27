@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "building",
   "key": {
     "A": {
-      "item": "applesaplings:applewood_log"
+      "item": "applesaplings:stripped_applewood_log"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "applesaplings:applewood_wood"
+    "item": "applesaplings:stripped_applewood_wood"
   },
   "show_notification": true
 }

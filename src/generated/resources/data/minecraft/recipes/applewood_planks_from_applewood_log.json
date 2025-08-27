@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "category": "building",
   "ingredients": [
     {
-      "item": "applesaplings:stripped_applewood_log"
+      "item": "applesaplings:applewood_log"
     }
   ],
   "result": {
