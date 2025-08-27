@@ -2,6 +2,8 @@ package net.hexagonelle.applesaplings.worldgen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
+import net.hexagonelle.applesaplings.worldgen.tree.AppleFoliagePlacer;
+import net.hexagonelle.applesaplings.worldgen.tree.ModTreeConfiguration;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -35,17 +37,31 @@ public class ModConfiguredFeatures {
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?,?>> context) {
 
 		register(
-				context,
-				APPLE_SAPLING_RESOURCE_KEY,
-				Feature.TREE,
-				new TreeConfiguration.TreeConfigurationBuilder(
-						BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
-						new StraightTrunkPlacer(3,2,1),
+			context,
+			APPLE_SAPLING_RESOURCE_KEY,
+			Feature.TREE,
+			new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
+				new StraightTrunkPlacer(3,2,1),
 
-						BlockStateProvider.simple(ModBlocks.FLOWERING_APPLE_LEAVES.get()),
-						new BlobFoliagePlacer(ConstantInt.of(3),ConstantInt.of(2),3),
+				BlockStateProvider.simple(ModBlocks.FLOWERING_APPLE_LEAVES.get()),
+				new AppleFoliagePlacer(ConstantInt.of(3),ConstantInt.of(2),3),
 
-						new TwoLayersFeatureSize(1,0,2)).build()
+				new TwoLayersFeatureSize(1,0,2)).build()
+		);
+
+		register(
+			context,
+			APPLE_SAPLING_RESOURCE_KEY,
+			Feature.TREE,
+			new ModTreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
+				new StraightTrunkPlacer(3,2,1),
+
+				BlockStateProvider.simple(ModBlocks.FLOWERING_APPLE_LEAVES.get()),
+				new AppleFoliagePlacer(ConstantInt.of(3),ConstantInt.of(2),3),
+
+				new TwoLayersFeatureSize(1,0,2)).build()
 		);
 	}
 }
