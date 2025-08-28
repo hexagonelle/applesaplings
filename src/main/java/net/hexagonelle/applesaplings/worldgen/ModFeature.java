@@ -8,11 +8,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 
 public abstract class ModFeature<FC extends FeatureConfiguration> extends Feature<FC> {
 
-	public static final Feature<ModTreeConfiguration> FLOWERING_TREE =
-		register("flowering_tree", new ModTreeFeature(ModTreeConfiguration.CODEC));
+	public static final ModFeature<TreeConfiguration> FLOWERING_TREE =
+		register("flowering_tree", new ModTreeFeature(TreeConfiguration.CODEC));
 
 	public ModFeature(Codec<FC> pCodec) {
 		super(pCodec);

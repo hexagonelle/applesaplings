@@ -24,5 +24,5 @@ public class ModFoliagePlacers {
 
 	// A method that creates the corresponding BlockItem and registers both Block and BlockItem under the blockID.
 	public static final RegistryObject<FoliagePlacerType<AppleFoliagePlacer>> APPLE_FOLIAGE_PLACER =
-		FOLIAGE_PLACERS.register("pine_foliage_placer", () -> new FoliagePlacerType<>(AppleFoliagePlacer.CODEC));
+		FOLIAGE_PLACERS.register("apple_foliage_placer", () -> new FoliagePlacerType<>(AppleFoliagePlacer.CODEC));
 }

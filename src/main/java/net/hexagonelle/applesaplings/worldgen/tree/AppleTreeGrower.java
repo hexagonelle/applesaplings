@@ -14,6 +14,6 @@ public class AppleTreeGrower extends AbstractTreeGrower {
 	protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(
 			@NotNull RandomSource randomSource, boolean b
 	) {
-		return ModConfiguredFeatures.APPLE_SAPLING_RESOURCE_KEY;
+		return ModConfiguredFeatures.APPLE_TREE;
 	}
 }
