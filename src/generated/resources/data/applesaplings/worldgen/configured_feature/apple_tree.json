@@ -4,7 +4,20 @@
     "decorators": [
       {
         "type": "applesaplings:flowering_leaves",
-        "probability": 1.0
+        "floweringLeaves": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "applesaplings:flowering_apple_leaves",
+            "Properties": {
+              "age": "0",
+              "distance": "1",
+              "persistent": "false",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "probability": 0.1,
+        "rolls": 3
       }
     ],
     "dirt_provider": {

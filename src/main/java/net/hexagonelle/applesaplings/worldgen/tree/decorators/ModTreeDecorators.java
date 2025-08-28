@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.worldgen.tree;
+package net.hexagonelle.applesaplings.worldgen.tree.decorators;
 
 import com.mojang.serialization.Codec;
 import net.hexagonelle.applesaplings.AppleSaplings;
