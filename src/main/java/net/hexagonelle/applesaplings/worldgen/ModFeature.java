@@ -12,12 +12,13 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 
 public abstract class ModFeature<FC extends FeatureConfiguration> extends Feature<FC> {
 
-	public static final ModFeature<TreeConfiguration> FLOWERING_TREE =
-		register("flowering_tree", new ModTreeFeature(TreeConfiguration.CODEC));
+	public static final Feature<TreeConfiguration> FLOWERING_TREE =
+		register("flowering_tree", new TreeFeature(TreeConfiguration.CODEC));
 
 	public ModFeature(Codec<FC> pCodec) {
 		super(pCodec);
 	}
+
 	private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F value) {
 		return Registry.register(BuiltInRegistries.FEATURE, key, value);
 	}
