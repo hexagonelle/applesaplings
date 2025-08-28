@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.worldgen.tree;
+package net.hexagonelle.applesaplings.worldgen.tree.foliage;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.minecraft.core.registries.Registries;
@@ -6,6 +6,8 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+
+//// CURRENTLY UNUSED ////
 
 public class ModFoliagePlacers {
 

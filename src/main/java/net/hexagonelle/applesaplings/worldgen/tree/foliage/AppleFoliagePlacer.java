@@ -1,4 +1,4 @@
-package net.hexagonelle.applesaplings.worldgen.tree;
+package net.hexagonelle.applesaplings.worldgen.tree.foliage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -9,6 +9,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
+
+//// CURRENTLY UNUSED ////
 
 public class AppleFoliagePlacer extends CherryFoliagePlacer {
 	public static final Codec<AppleFoliagePlacer> CODEC =
