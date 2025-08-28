@@ -11,9 +11,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
@@ -26,7 +28,7 @@ public class ModConfiguredFeatures {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(AppleSaplings.MODID, name));
 	}
 
-	public static <FC extends FeatureConfiguration, F extends ModFeature<FC>> void register(
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(
 			BootstapContext<ConfiguredFeature<?,?>> context,
 			ResourceKey<ConfiguredFeature<?,?>> key, F feature, FC configuration
 	){
@@ -42,7 +44,6 @@ public class ModConfiguredFeatures {
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?,?>> context) {
 
 		List<TreeDecorator> decoratorList = List.of(new FloweringLeavesDecorator(1));
-
 
 		TreeConfiguration appleTreeBuilder =
 			new TreeConfiguration.TreeConfigurationBuilder(
@@ -64,7 +65,7 @@ public class ModConfiguredFeatures {
 
 			).decorators(decoratorList).build();
 
-		register(context, APPLE_TREE, ModFeature.FLOWERING_TREE, appleTreeBuilder);
+		register(context, APPLE_TREE, Feature.TREE, appleTreeBuilder);
 
 	}
 }

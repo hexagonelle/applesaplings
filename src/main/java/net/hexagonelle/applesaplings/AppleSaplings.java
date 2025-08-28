@@ -8,6 +8,7 @@ import net.hexagonelle.applesaplings.items.ModCreativeTabs;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.util.ModWoodTypes;
+import net.hexagonelle.applesaplings.worldgen.tree.ModFoliagePlacers;
 import net.hexagonelle.applesaplings.worldgen.tree.ModTreeDecorators;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Sheets;
@@ -59,6 +60,8 @@ public class AppleSaplings
         ModBlockEntities.register(modEventBus);
         // Call the method to register the entities.
         ModEntities.register(modEventBus);
+        // Call the method to register the tree decorators.
+        ModFoliagePlacers.register(modEventBus);
         // Call the method to register the tree decorators.
         ModTreeDecorators.register(modEventBus);
 
