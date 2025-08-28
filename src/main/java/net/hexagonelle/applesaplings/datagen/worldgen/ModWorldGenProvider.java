@@ -15,7 +15,7 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
 
 	public static final RegistrySetBuilder BUILDER =
 			new RegistrySetBuilder()
-				.add(Registries.CONFIGURED_FEATURE,ModConfiguredFeatures::bootstrap);
+				.add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
 
 	public ModWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, BUILDER, Set.of(AppleSaplings.MODID));

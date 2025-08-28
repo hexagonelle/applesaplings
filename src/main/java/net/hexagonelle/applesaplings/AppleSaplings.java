@@ -8,6 +8,8 @@ import net.hexagonelle.applesaplings.items.ModCreativeTabs;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.util.ModWoodTypes;
+import net.hexagonelle.applesaplings.worldgen.tree.ModFoliagePlacers;
+import net.hexagonelle.applesaplings.worldgen.tree.ModTreeDecorators;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -58,6 +60,10 @@ public class AppleSaplings
         ModBlockEntities.register(modEventBus);
         // Call the method to register the entities.
         ModEntities.register(modEventBus);
+        // Call the method to register the tree decorators.
+        ModFoliagePlacers.register(modEventBus);
+        // Call the method to register the tree decorators.
+        ModTreeDecorators.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
     }
@@ -70,7 +76,7 @@ public class AppleSaplings
         if (Config.logDirtBlock)
             LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
 
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
+			LOGGER.info("{}{}", Config.magicNumberIntroduction, Config.magicNumber);
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }

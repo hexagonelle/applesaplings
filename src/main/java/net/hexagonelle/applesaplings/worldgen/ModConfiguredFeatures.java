@@ -2,12 +2,13 @@ package net.hexagonelle.applesaplings.worldgen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
+import net.hexagonelle.applesaplings.worldgen.tree.FloweringLeavesDecorator;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -15,7 +16,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+
+import java.util.List;
 
 public class ModConfiguredFeatures {
 
@@ -30,22 +34,35 @@ public class ModConfiguredFeatures {
 		context.register(key, new ConfiguredFeature<>(feature, configuration));
 	}
 
-	public static final ResourceKey<ConfiguredFeature<?,?>> APPLE_SAPLING_RESOURCE_KEY = registerKey("apple_tree");
+	public static final ResourceKey<ConfiguredFeature<?,?>> APPLE_TREE = registerKey("apple_tree");
+
+	private static IntProvider constIntProvider(int integer){
+		return ConstantInt.of(integer);
+	}
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?,?>> context) {
 
-		register(
-				context,
-				APPLE_SAPLING_RESOURCE_KEY,
-				Feature.TREE,
-				new TreeConfiguration.TreeConfigurationBuilder(
-						BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
-						new StraightTrunkPlacer(3,2,1),
+		List<TreeDecorator> decoratorList = List.of(new FloweringLeavesDecorator(1));
 
-						BlockStateProvider.simple(ModBlocks.FLOWERING_APPLE_LEAVES.get()),
-						new BlobFoliagePlacer(ConstantInt.of(3),ConstantInt.of(2),3),
+		TreeConfiguration appleTreeBuilder = new TreeConfiguration.TreeConfigurationBuilder(
+				BlockStateProvider.simple(ModBlocks.APPLEWOOD_LOG.get()),
+				new StraightTrunkPlacer(5,2,1),
 
-						new TwoLayersFeatureSize(1,0,2)).build()
-		);
+				BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get()),
+//				new AppleFoliagePlacer(
+//					constIntProvider(3),constIntProvider(0),constIntProvider(3),
+//					0.2F,0.2F,
+//					0.2F,0.2F
+//				),
+				// radius, offset, height
+				new BlobFoliagePlacer(constIntProvider(3),constIntProvider(0),3),
+				new TwoLayersFeatureSize(1,0,2)
+
+			)
+			.decorators(decoratorList)
+			.build();
+
+		register(context, APPLE_TREE, Feature.TREE, appleTreeBuilder);
+
 	}
 }

@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public class ModBlockEntities {
 
-	// Create a Deferred Register to hold BlockEntityType which will all be registered under the "applesaplings" namespace
+	// Create a Deferred Register to hold BlockEntityType under the "applesaplings" namespace
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
 		DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, AppleSaplings.MODID);
 
