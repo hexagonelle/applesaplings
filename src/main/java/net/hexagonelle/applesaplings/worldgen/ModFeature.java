@@ -1,8 +1,6 @@
 package net.hexagonelle.applesaplings.worldgen;
 
 import com.mojang.serialization.Codec;
-import net.hexagonelle.applesaplings.worldgen.tree.ModTreeConfiguration;
-import net.hexagonelle.applesaplings.worldgen.tree.ModTreeFeature;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
