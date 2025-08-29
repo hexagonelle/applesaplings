@@ -2,7 +2,7 @@
 name: Bug report
 about: Use this if the mod is not working as intended.
 title: "[BUG]"
-labels: ''
+labels: bug
 assignees: ''
 
 ---
