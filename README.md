@@ -22,7 +22,8 @@ In addition, the trees grow with applewood logs! You can use these to craft all 
 - Fences & Fence Gates
 - Doors & Trapdoors
 - Boats & Chestboats
-\
+
+
 \
 \
 If you spot any issues, or have any requests, please report them on the [issue tracker](https://github.com/hexagonelle/applesaplings/issues). Thank you for checking out my mod!
