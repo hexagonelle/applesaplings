@@ -15,8 +15,8 @@ This mod was made with one goal in mind: apple saplings! You can now craft apple
 \
 In addition, the trees grow with applewood logs! You can use these to craft all your favorite blocks:
 - Stripped Applewood Logs
-- Applewood Wood & Stripped Applewood wood
-- Applewod Planks
+- Applewood Wood & Stripped Applewood Wood
+- Applewood Planks
 - Signs & Hanging Signs
 - Buttons & Pressure Plates
 - Fences & Fence Gates
