@@ -134,30 +134,35 @@ public class FloweringLeavesBlock extends LeavesBlock {
 	public @NotNull InteractionResult use(
 			@NotNull BlockState currentBlockState,
 			@NotNull Level serverLevel,
-			@NotNull BlockPos blockPosition,
+			@NotNull BlockPos blockPos,
 			@NotNull Player player,
 			@NotNull InteractionHand handIn,
 			@NotNull BlockHitResult hit
 	) {
 		if (getAge(currentBlockState) == getMaxAge()) {
+			Direction hitDirection = hit.getDirection();
+			BlockPos spawnApplePos = blockPos.relative(hitDirection);
+			System.out.println("BlockPosition:"+blockPos.getX()+","+blockPos.getY()+","+blockPos.getZ());
+			System.out.println("HitDirection:"+hitDirection);
+			System.out.println("SpawnApplePosition:"+spawnApplePos.getX()+","+spawnApplePos.getY()+","+spawnApplePos.getZ());
 			ItemEntity droppedFruit =
 				new ItemEntity(
 					serverLevel,
-					blockPosition.getX(),
-					blockPosition.getY(),
-					blockPosition.getZ(),
+					spawnApplePos.getX() + 0.5,
+					spawnApplePos.getY() + 0.5,
+					spawnApplePos.getZ() + 0.5,
 					new ItemStack(FRUIT_ITEM, 1));
-			droppedFruit.spawnAtLocation(FRUIT_ITEM);
+			droppedFruit.spawnAtLocation(FRUIT_ITEM,0);
 			//ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.APPLE));
 			// then set blockstate back to 1
 			serverLevel.setBlock(
-					blockPosition,
+				blockPos,
 					this.getStateForAge(0),
 					1
 			);
 			return InteractionResult.SUCCESS;
 		}
-		return super.use(currentBlockState, serverLevel, blockPosition, player, handIn, hit);
+		return super.use(currentBlockState, serverLevel, blockPos, player, handIn, hit);
 	}
 
 	@Override
