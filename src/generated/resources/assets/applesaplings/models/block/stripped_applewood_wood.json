@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "applesaplings:block/stripped_applewood_log",
-    "side": "applesaplings:block/stripped_applewood_log"
-  }
-}
