@@ -1,13 +1,13 @@
 package net.hexagonelle.applesaplings;
 
 import com.mojang.logging.LogUtils;
+import net.hexagonelle.applesaplings.blocks.BlockRegistry;
 import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
+import net.hexagonelle.applesaplings.creativetabs.CreativeTabRegistry;
 import net.hexagonelle.applesaplings.entities.ModEntities;
 import net.hexagonelle.applesaplings.entities.client.ModBoatRenderer;
-import net.hexagonelle.applesaplings.items.ModCreativeTabs;
-import net.hexagonelle.applesaplings.items.ModItems;
-import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.util.ModWoodTypes;
+import net.hexagonelle.applesaplings.items.ItemRegistry;
+import net.hexagonelle.applesaplings.util.WoodTypesRegistry;
 import net.hexagonelle.applesaplings.worldgen.tree.foliage.ModFoliagePlacers;
 import net.hexagonelle.applesaplings.worldgen.tree.decorators.ModTreeDecorators;
 import net.minecraft.client.Minecraft;
@@ -31,11 +31,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(AppleSaplings.MODID)
-public class AppleSaplings
-{
-    // Define mod id in a common place for everything to reference
-    public static final String MODID = "applesaplings";
+@Mod(Constants.MODID)
+public class AppleSaplings {
+
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -50,12 +48,11 @@ public class AppleSaplings
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
-        // Call the method to register the creative mod tabs.
-        ModCreativeTabs.register(modEventBus);
-        // Call the method to register the items.
-        ModItems.register(modEventBus);
-        // Call the method to register the blocks.
-        ModBlocks.register(modEventBus);
+        // Call the methods to register the game objects.
+        CreativeTabRegistry.register(modEventBus);
+        ItemRegistry.register(modEventBus);
+        BlockRegistry.register(modEventBus);
+
         // Call the method to register the block entities.
         ModBlockEntities.register(modEventBus);
         // Call the method to register the entities.
@@ -65,7 +62,7 @@ public class AppleSaplings
         // Call the method to register the tree decorators.
         ModTreeDecorators.register(modEventBus);
 
-        modEventBus.addListener(this::addCreative);
+//        modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -81,12 +78,12 @@ public class AppleSaplings
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
-    // A method that will add an item to the existing creative mod tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(ModBlocks.APPLE_SAPLING.get());
-    }
+//    // A method that will add an item to the existing creative mod tab
+//    private void addCreative(BuildCreativeModeTabContentsEvent event)
+//    {
+//        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
+//            event.accept(ModBlocks.APPLE_SAPLING.get());
+//    }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
@@ -97,7 +94,7 @@ public class AppleSaplings
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents
     {
         @SubscribeEvent
@@ -107,7 +104,9 @@ public class AppleSaplings
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
-            Sheets.addWoodType(ModWoodTypes.APPLEWOOD);
+            WoodTypesRegistry.WOODTYPE_MAP.forEach(
+              (woodTypeId, woodType) -> Sheets.addWoodType(WoodTypesRegistry.WOODTYPE_MAP.get("applewood"))
+            );
             EntityRenderers.register(
               ModEntities.MOD_BOAT.get(),
               context -> new ModBoatRenderer(context, false));

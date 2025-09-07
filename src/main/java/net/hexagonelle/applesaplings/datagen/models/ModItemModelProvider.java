@@ -1,6 +1,8 @@
 package net.hexagonelle.applesaplings.datagen.models;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
+import net.hexagonelle.applesaplings.blocks.BlockRegistry;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.data.PackOutput;
@@ -14,34 +16,28 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemModelProvider extends ItemModelProvider {
 
+	// constructor
 	public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-		super(output, AppleSaplings.MODID, existingFileHelper);
+		super(output, Constants.MODID, existingFileHelper);
 	}
 
-	// returns the itemId of the item.
-	private String itemName(RegistryObject<Item> itemRegistryObject){
-		return itemRegistryObject.getId().getPath();
-	}
-	// returns the blockId of the item.
-	private String blockName(RegistryObject<Block> blockRegistryObject){
-		return blockRegistryObject.getId().getPath();
-	}
+	// HELPER METHODS //
 
 	// provides a resource location for an item with namespace equal to the given namespace
 	// and location equal to the itemPath of the provided itemRegistryObject
-	private ResourceLocation itemResource(RegistryObject<Item> itemRegistryObject){
-		return modLoc("item/" + itemName(itemRegistryObject));
+	private ResourceLocation itemResource(String itemId){
+		return modLoc("item/" + itemId);
 	}
 	// provides a resource location for a block with namespace equal to the given namespace
 	// and location equal to the blockPath of the provided blockRegistryObject
-	private ResourceLocation blockResource(RegistryObject<Block> blockRegistryObject){
-		return modLoc("block/" + blockName(blockRegistryObject));
+	private ResourceLocation blockResource(String blockId){
+		return modLoc("block/" + blockId);
 	}
 	// provides a resource location for an item with a block parent,
 	// with namespace equal to the given namespace,
 	// and location equal to the itemPath of the provided blockRegistryObject
-	private ResourceLocation blockItemResource(RegistryObject<Block> blockRegistryObject){
-		return modLoc("item/" + blockName(blockRegistryObject));
+	private ResourceLocation blockItemResource(String blockId){
+		return modLoc("item/" + blockId);
 	}
 
 	private ItemModelBuilder flatItemModel(
@@ -61,52 +57,63 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 	// generates a generic item model with the name of the item,
 	// and a texture located at modid/textures/item/"itemName".png
-	private ItemModelBuilder simpleItem(RegistryObject<Item> itemRegistryObject){
-		return flatItemModel(itemName(itemRegistryObject), itemResource(itemRegistryObject));
+	private ItemModelBuilder simpleItem(String itemId){
+		return flatItemModel(itemId, itemResource(itemId));
 	}
 
 	// generates a generic item model with the name of the corresponding block,
 	// and a texture located at modid/textures/item/"itemName".png
-	private ItemModelBuilder blockItemWithItemTexture(RegistryObject<Block> blockRegistryObject){
-		return flatItemModel(blockName(blockRegistryObject), blockItemResource(blockRegistryObject));
+	private ItemModelBuilder blockItemWithItemTexture(String blockId){
+		return flatItemModel(blockId, blockItemResource(blockId));
 	}
 
 	// generates an item form of a standard block with the texture taken from the block texture
-	public void blockItemWithBlockTexture(RegistryObject<Block> blockRegistryObject) {
-		this.withExistingParent(blockName(blockRegistryObject), blockResource(blockRegistryObject));
+	public void blockItemWithBlockTexture(String blockId) {
+		this.withExistingParent(blockId, blockId);
 	}
 
 	// generates a flat item form of a block with the texture taken from the block texture
-	public void blockItemWithFlatBlockTexture(RegistryObject<Block> blockRegistryObject) {
-		flatItemModel(blockName(blockRegistryObject), blockResource(blockRegistryObject));
+	public void blockItemWithFlatBlockTexture(String blockId) {
+		flatItemModel(blockId, blockResource(blockId));
 	}
+
+	// ITEM MODELS FOR SPECIFIC BLOCKS //
 
 	// The method to generate a trapdoor's block model creates a file
 	// modid/models/block/"trapdoorName"_bottom.json
 	// which also functions as the trapdoor's item texture.
-	public void trapdoorItem(RegistryObject<Block> blockRegistryObject) {
+	public void trapdoorItem(String woodType) {
+		String blockId = woodType + "_trapdoor";
 		this.withExistingParent(
-			blockName(blockRegistryObject),
-			modLoc("block/" + blockName(blockRegistryObject) + "_bottom")
+			blockId,
+			modLoc("block/" + blockId + "_bottom")
 		);
 	}
 
 	// use minecraft's built-in fence item model, with the texture of its base block
-	public void fenceItem(RegistryObject<Block> blockRegistryObject, RegistryObject<Block> baseBlockRegistryObject) {
+	public void fenceItem(String woodType) {
 		this.mcItemModel(
-			blockName(blockRegistryObject),
+			woodType + "_fence",
 			"block/fence_inventory",
-			blockResource(baseBlockRegistryObject)
+			blockResource(woodType + "_planks")
 		);
 	}
 
 	// use minecraft's built-in button item model, with the texture of its base block
-	public void buttonItem(RegistryObject<Block> blockRegistryObject, RegistryObject<Block> baseBlockRegistryObject) {
+	public void woodButtonItem(String woodType) {
 		this.mcItemModel(
-			blockName(blockRegistryObject),
+			woodType + "_button",
 			"block/button_inventory",
-			blockResource(baseBlockRegistryObject)
+			blockResource(woodType + "_planks")
 		);
+	}
+
+	public void woodTypeItems(
+		String woodType,
+		String saplingIdPrefix
+	){
+		blockItemWithFlatBlockTexture(saplingIdPrefix + "_sapling");
+		simpleItem()
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.blocks;
 
 import net.hexagonelle.applesaplings.blocks.custom.*;
+import net.hexagonelle.applesaplings.util.WoodTypesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -10,38 +11,58 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraftforge.registries.RegistryObject;
 
 // Methods for creating block instances
 
-public class BlockCreator {
+public class BlockSuppliers {
 
 	// Create a sapling with the given AbstractTreeGrower and the properties of the vanilla OAK_SAPLING
 	public static SaplingBlock createSapling(AbstractTreeGrower treeGrower){
 		return new SaplingBlock(treeGrower, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
 	}
+
 	// Create a Flowering leaves block with the properties of the vanilla OAK_LEAVES
 	public static FloweringLeavesBlock createFloweringLeaves() {
 		return new FloweringLeavesBlock(
 			BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
 	}
+
 	// Create a log or wood block with the properties of the given block
-	public static Block createWoodOrLogBlock(Block copyFrom, RegistryObject<Block> strippedBlock) {
+	public static Block createStrippedLogBlock() {
 		return new CustomWood(BlockBehaviour.Properties
-			.copy(copyFrom)
-			.strength(2.0F)
-//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-		).setStrippedVersion(strippedBlock.get());
-	}
-	// Create a stripped log or wood block with the properties of the given block
-	public static Block createWoodOrLogBlock(Block copyFrom) {
-		return new CustomWood(BlockBehaviour.Properties
-			.copy(copyFrom)
+			.copy(Blocks.STRIPPED_OAK_LOG)
 			.strength(2.0F)
 //					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
 		).setIsStripped(true);
 	}
+
+	// Create a log or wood block with the properties of the given block
+	public static Block createStrippedWoodBlock() {
+		return new CustomWood(BlockBehaviour.Properties
+			.copy(Blocks.STRIPPED_OAK_WOOD)
+			.strength(2.0F)
+//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
+		).setIsStripped(true);
+	}
+
+	// Create a stripped log or wood block with the properties of the given block
+	public static Block createLogBlock(String strippedBlockKey) {
+		return new CustomWood(BlockBehaviour.Properties
+			.copy(Blocks.OAK_LOG)
+			.strength(2.0F)
+//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
+		).setStrippedVersion(BlockRegistry.BLOCK_MAP.get(strippedBlockKey).get());
+	}
+
+	// Create a stripped log or wood block with the properties of the given block
+	public static Block createWoodBlock(String strippedBlockKey) {
+		return new CustomWood(BlockBehaviour.Properties
+			.copy(Blocks.OAK_WOOD)
+			.strength(2.0F)
+//					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
+		).setStrippedVersion(BlockRegistry.BLOCK_MAP.get(strippedBlockKey).get());
+	}
+
 	// Create a planks block with the properties of the vanilla OAK_PLANKS
 	public static Block createPlanks() {
 		return new CustomWood(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS));
@@ -65,24 +86,36 @@ public class BlockCreator {
 		};
 	}
 	// Create a sign with the given woodType
-	public static Block createSign(WoodType woodType){
-		return new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), woodType);
+	public static Block createSign(String woodType){
+		return new ModStandingSignBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_SIGN),
+			WoodTypesRegistry.WOODTYPE_MAP.get(woodType)
+		);
 	}
 	// Create a sign with the given woodType
-	public static Block createWallSign(WoodType woodType){
-		return new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), woodType);
+	public static Block createWallSign(String woodType){
+		return new ModWallSignBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN),
+			WoodTypesRegistry.WOODTYPE_MAP.get(woodType)
+		);
 	}
 	// Create a sign with the given woodType
-	public static Block createHangingSign(WoodType woodType){
-		return new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), woodType);
+	public static Block createHangingSign(String woodType){
+		return new ModCeilingHangingSignBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN),
+			WoodTypesRegistry.WOODTYPE_MAP.get(woodType)
+		);
 	}
 	// Create a sign with the given woodType
-	public static Block createWallHangingSign(WoodType woodType){
-		return new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), woodType);
+	public static Block createWallHangingSign(String woodType){
+		return new ModWallHangingSignBlock(
+			BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN),
+			WoodTypesRegistry.WOODTYPE_MAP.get(woodType)
+		);
 	}
 
-	public static Block createWoodStairBlock(RegistryObject<Block> baseBlock){
-		return new StairBlock(() -> baseBlock.get().defaultBlockState(),
+	public static Block createWoodStairBlock(String baseBlockString){
+		return new StairBlock(() -> BlockRegistry.BLOCK_MAP.get("baseBlockString").get().defaultBlockState(),
 			BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS));
 	}
 
