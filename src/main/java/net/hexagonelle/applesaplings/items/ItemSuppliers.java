@@ -1,38 +1,41 @@
 package net.hexagonelle.applesaplings.items;
 
+import net.hexagonelle.applesaplings.blocks.BlockRegistry;
 import net.hexagonelle.applesaplings.entities.custom.ModBoat;
 import net.hexagonelle.applesaplings.items.custom.ModBoatItem;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class ItemCreator {
+public class ItemSuppliers {
+
+	public static Supplier<Item> simpleItem(){
+		return () -> new Item(new Item.Properties());
+	}
 
 	// A method that creates a new BlockItem, given some RegistryObject<Block>
-	public static <T extends Block> Item createBlockItem(Supplier<T> block){
-		return new BlockItem(block.get(), new Item.Properties());
+	public static <T extends Block> Item createBlockItem(String blockId){
+		return new BlockItem(BlockRegistry.BLOCK_MAP.get(blockId).get(), new Item.Properties());
 	}
 
 	public static Item createSignItem(
-		RegistryObject<Block> standingSign,
-		RegistryObject<Block> wallSign
+		String woodType
 	){
 		return new SignItem(
 			new Item.Properties().stacksTo(16),
-			standingSign.get(), wallSign.get()
+			BlockRegistry.BLOCK_MAP.get(woodType+"_sign").get(),
+			BlockRegistry.BLOCK_MAP.get(woodType+"_wall_sign").get()
 		);
 	}
 
 	public static Item createHangingSignItem(
-		RegistryObject<Block> ceilingHangingSign,
-		RegistryObject<Block> wallHangingSign
+		String woodType
 	){
 		return new HangingSignItem(
-			ceilingHangingSign.get(), wallHangingSign.get(),
+			BlockRegistry.BLOCK_MAP.get(woodType+"_hanging_sign").get(),
+			BlockRegistry.BLOCK_MAP.get(woodType+"_wall_hanging_sign").get(),
 			new Item.Properties().stacksTo(16)
 		);
 	}
