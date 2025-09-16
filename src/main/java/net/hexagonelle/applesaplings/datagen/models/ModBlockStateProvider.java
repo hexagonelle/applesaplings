@@ -1,7 +1,6 @@
 package net.hexagonelle.applesaplings.datagen.models;
 
-import net.hexagonelle.applesaplings.AppleSaplings;
-import net.hexagonelle.applesaplings.blocks.ModBlocks;
+import net.hexagonelle.applesaplings.Constants;
 import net.hexagonelle.applesaplings.blocks.custom.FloweringLeavesBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -11,110 +10,110 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
 
-import static org.openjdk.nashorn.internal.objects.Global.print;
+import static net.hexagonelle.applesaplings.blocks.BlockRegistry.*;
 
 public class ModBlockStateProvider extends BlockStateProvider {
 
+	// constructor
 	public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
-		super(output, AppleSaplings.MODID, exFileHelper);
+		super(output, Constants.MODID, exFileHelper);
 	}
 
-	// return the String corresponding to the path of a Block
-	public static String name(RegistryObject<Block> blockRegistryObject){
-		return blockRegistryObject.getId().getPath();
+	// HELPER METHODS
+
+	public static String blockPathName(String blockId){return "block/" + blockId;}
+	public static String blockPathNameWithState(String blockId, String state){
+		return blockPathName(blockId) + state;
 	}
 
-	public static String blockPathName(RegistryObject<Block> blockRegistryObject){
-		return "block/" + name(blockRegistryObject);
-	}
-	public static String blockPathNameWithState(RegistryObject<Block> blockRegistryObject, String state){
-		return blockPathName(blockRegistryObject) + state;
+	private ResourceLocation blockResource(String blockId) {
+		return new ResourceLocation(Constants.MODID, blockPathName(blockId));
 	}
 
-	private ResourceLocation blockResource(RegistryObject<Block> blockRegistryObject) {
-		return modLoc(blockPathName(blockRegistryObject));
-	}
-
-	private ResourceLocation blockResourceWithState(RegistryObject<Block> blockRegistryObject, String state) {
-		return modLoc(blockPathNameWithState(blockRegistryObject,state));
+	private ResourceLocation blockResourceWithState(String blockId, String state) {
+		return new ResourceLocation(blockPathNameWithState(blockId,state));
 	}
 
 	// generates data for the item version of a block
-	private void blockItem(RegistryObject<Block> blockRegistryObject){
+	private void blockItem(String blockId){
 		simpleBlockItem(
-			blockRegistryObject.get(),
-			new ModelFile.UncheckedModelFile(blockResource(blockRegistryObject))
+			BLOCK_MAP.get(blockId).get(),
+			new ModelFile.UncheckedModelFile(blockResource(blockId))
 		);
 	}
 
 	// generates data for the item version of a block based on a specific blockstate
-	private void blockItem(RegistryObject<Block> blockRegistryObject, String blockState){
+	private void blockstateItem(String blockId, String blockState){
 		simpleBlockItem(
-			blockRegistryObject.get(),
-			new ModelFile.UncheckedModelFile(blockResourceWithState(
-				blockRegistryObject,
-				blockState
-			))
+			BLOCK_MAP.get(blockId).get(),
+			new ModelFile.UncheckedModelFile(blockResourceWithState(blockId, blockState))
 		);
 	}
 
 	private ModelFile singleTextureModel(
-		String name,
+		String blockId,
 		String parent,
 		ResourceLocation texture,
 		String renderAs
 	){
 		return models().singleTexture(
-			name, mcLoc(parent),
+			blockId, mcLoc(parent),
 			"all", texture
 		).renderType(renderAs);
 	}
 
 	private void blockWithItem(
-		RegistryObject<Block> blockRegistryObject,
+		String blockId,
 		String parent,
 		String renderAs
 	){
+		Block block = BLOCK_MAP.get(blockId).get();
 		simpleBlockWithItem(
-			blockRegistryObject.get(),
+			block,
 			singleTextureModel(
-				name(blockRegistryObject),
-				parent,
-				blockTexture(blockRegistryObject.get()),
-				renderAs
+				blockId, parent,
+				blockTexture(block), renderAs
 			)
 		);
 	}
 
-	private void customPlanks(RegistryObject<Block> blockRegistryObject){
-		blockWithItem(blockRegistryObject,"block/oak_planks","solid");
+	// MODELS FOR SPECIFIC BLOCK TYPES //
+
+
+	// generates model (and texture?) json for a sapling block (and its item?)
+	private void customSapling(String saplingIdPrefix){
+		String blockId = saplingIdPrefix + "_sapling";
+
+		Block block = BLOCK_MAP.get(blockId).get();
+		simpleBlock(
+			block,
+			models()
+				.cross(blockId, blockTexture(block))
+				.renderType("cutout")
+		);
 	}
 
 	// creates a model json and texture json for the given LeavesBlock
-	private void customLeaves(RegistryObject<Block> blockRegistryObject){
-		blockWithItem(blockRegistryObject,"block/leaves","cutout");
+	private void customLeaves(String leavesIdPrefix){
+		blockWithItem(leavesIdPrefix + "_leaves","block/leaves","cutout");
 	}
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
 	private ConfiguredModel[] floweringLeavesStates(
-			BlockState blockState,
-			RegistryObject<Block> blockRegistryObject
+		BlockState blockState,
+		String blockId
 	){
-		FloweringLeavesBlock floweringLeaves = (FloweringLeavesBlock) blockRegistryObject.get();
+		FloweringLeavesBlock floweringLeaves = (FloweringLeavesBlock) BLOCK_MAP.get(blockId).get();
 		String blockstateValue = String.valueOf(floweringLeaves.getAge(blockState));
+
 		ConfiguredModel[] models = new ConfiguredModel[1];
 		models[0] = new ConfiguredModel(
 			singleTextureModel(
-				blockPathNameWithState(blockRegistryObject,blockstateValue), "block/leaves",
-				blockResourceWithState(
-					blockRegistryObject,
-					blockstateValue
-				),
-				"cutout"
+				blockPathNameWithState(blockId,blockstateValue), "block/leaves",
+				blockResourceWithState(blockId, blockstateValue), "cutout"
 			)
 		);
 
@@ -123,171 +122,172 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 	// generates model & texture json files for all the blockstates of a given floweringLeavesBlock
 	// as well as its item
-	private void floweringLeavesBlock(RegistryObject<Block> blockRegistryObject){
+	private void floweringLeavesBlock(String floweringLeavesInfix){
+		String blockId = "flowering_" + floweringLeavesInfix + "_leaves";
 
 		Function<BlockState,ConfiguredModel[]> function =
-			state -> floweringLeavesStates(state,blockRegistryObject);
+			state -> floweringLeavesStates(state,blockId);
 
-		getVariantBuilder(blockRegistryObject.get()).forAllStates(function);
-		blockItem(blockRegistryObject,"0");
-	}
-
-	// generates model (and texture?) json for a sapling block (and its item?)
-	private void customSapling(RegistryObject<Block> blockRegistryObject){
-		simpleBlock(
-			blockRegistryObject.get(),
-			models().cross(
-				name(blockRegistryObject),
-				blockTexture(blockRegistryObject.get())
-			).renderType("cutout")
-		);
+		getVariantBuilder(BLOCK_MAP.get(blockId).get()).forAllStates(function);
+		blockstateItem(blockId,"0");
 	}
 
 	// generates model (and texture?) json for a log block and its item
-	private void customLog(RegistryObject<Block> blockRegistryObject){
-		logBlock((RotatedPillarBlock) blockRegistryObject.get());
-		blockItem(blockRegistryObject);
+	private void customStrippedLog(String woodType){
+		String logId = "stripped_" + woodType + "_log";
+		logBlock((RotatedPillarBlock) BLOCK_MAP.get(logId).get());
+		blockItem(logId);
 	}
 
 	// generates model (and texture?) json for a wood block and its item
-	private void customWood(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> blockRegistryParentTexture
-		){
+	private void customStrippedWood(String woodType){
+		String logId = "stripped_" + woodType + "_log";
+		String woodId = "stripped_" + woodType + "_wood";
+		Block logBlock = BLOCK_MAP.get(logId).get();
+
 		axisBlock(
-			(RotatedPillarBlock) blockRegistryObject.get(),
-			blockTexture(blockRegistryParentTexture.get()),
-			blockTexture(blockRegistryParentTexture.get())
+			(RotatedPillarBlock) BLOCK_MAP.get(woodId).get(),
+			blockTexture(logBlock), blockTexture(logBlock)
 		);
-		blockItem(blockRegistryObject);
+		blockItem(woodId);
 	}
 
-	public void customSign(
-		RegistryObject<Block> standingSign,
-		RegistryObject<Block> wallSign,
-		RegistryObject<Block> planks
-	){
+	// generates model (and texture?) json for a log block and its item
+	private void customLog(String woodType){
+		String logId = woodType + "_log";
+		logBlock((RotatedPillarBlock) BLOCK_MAP.get(logId).get());
+		blockItem(logId);
+	}
+
+	// generates model (and texture?) json for a wood block and its item
+	private void customWood(String woodType){
+		String logId = woodType + "_log";
+		String woodId = woodType + "_wood";
+		Block logBlock = BLOCK_MAP.get(logId).get();
+
+		axisBlock(
+			(RotatedPillarBlock) BLOCK_MAP.get(woodId).get(),
+			blockTexture(logBlock), blockTexture(logBlock)
+		);
+		blockItem(woodId);
+	}
+
+	private void customPlanks(String woodType){
+		blockWithItem(woodType + "_planks","block/oak_planks","solid");
+	}
+
+	public void customSign(String woodType){
 		signBlock(
-			(StandingSignBlock) standingSign.get(),
-			(WallSignBlock) wallSign.get(),
-			blockTexture(planks.get())
+			(StandingSignBlock)  BLOCK_MAP.get(woodType + "_sign").get(),
+			(WallSignBlock) BLOCK_MAP.get(woodType + "_wall_sign").get(),
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
 		);
 	}
 
-	public void customHangingSign(
-		RegistryObject<Block> ceilingHangingSign,
-		RegistryObject<Block> wallHangingSign,
-		RegistryObject<Block> planks
-	){
-		ModelFile signModel = models().sign(name(ceilingHangingSign), blockTexture(planks.get()));
-		simpleBlock(ceilingHangingSign.get(), signModel);
-		simpleBlock(wallHangingSign.get(), signModel);
+	public void customHangingSign(String woodType){
+		String hangingSignId = woodType + "_hanging_sign";
+		ModelFile signModel = models().sign(
+			hangingSignId,
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
+		);
+
+		simpleBlock(BLOCK_MAP.get(hangingSignId).get(), signModel);
+		simpleBlock(BLOCK_MAP.get(woodType + "wall_hanging_sign").get(), signModel);
 	}
 
-	public void customStairs(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> baseBlockRegistryObject
-	){
+	public void customWoodStairs(String woodType){
 		stairsBlock(
-			(StairBlock) blockRegistryObject.get(),
-			blockTexture(baseBlockRegistryObject.get())
+			(StairBlock) BLOCK_MAP.get(woodType + "_stairs").get(),
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
 		);
 	}
 
-	public void customSlab(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> baseBlockRegistryObject
-	){
+	public void customWoodSlab(String woodType){
+		Block baseBlock = BLOCK_MAP.get(woodType + "_planks").get();
 		slabBlock(
-			(SlabBlock) blockRegistryObject.get(),
-			blockTexture(baseBlockRegistryObject.get()),
-			blockTexture(baseBlockRegistryObject.get())
+			(SlabBlock) BLOCK_MAP.get(woodType + "_slab").get(),
+			blockTexture(baseBlock), blockTexture(baseBlock)
 		);
 	}
 
-	public void customButton(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> baseBlockRegistryObject
-	){
+	public void customButton(String woodType){
 		buttonBlock(
-			(ButtonBlock) blockRegistryObject.get(),
-			blockTexture(baseBlockRegistryObject.get())
+			(ButtonBlock) BLOCK_MAP.get(woodType + "_button").get(),
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
 		);
 	}
 
-	public void customPressurePlate(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> baseBlockRegistryObject
-	){
+	public void customPressurePlate(String woodType){
 		pressurePlateBlock(
-			(PressurePlateBlock) blockRegistryObject.get(),
-			blockTexture(baseBlockRegistryObject.get())
+			(PressurePlateBlock) BLOCK_MAP.get(woodType + "_pressure_plate").get(),
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
 		);
 	}
 
-	public void customFence(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> baseBlockRegistryObject
-	){
+	public void customFence(String woodType){
 		fenceBlock(
-			(FenceBlock) blockRegistryObject.get(),
-			blockTexture(baseBlockRegistryObject.get())
+			(FenceBlock) BLOCK_MAP.get(woodType + "_fence").get(),
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
 		);
 	}
 
-	public void customFenceGate(
-		RegistryObject<Block> blockRegistryObject,
-		RegistryObject<Block> baseBlockRegistryObject
-	){
+	public void customFenceGate(String woodType){
 		fenceGateBlock(
-			(FenceGateBlock) blockRegistryObject.get(),
-			blockTexture(baseBlockRegistryObject.get())
+			(FenceGateBlock) BLOCK_MAP.get(woodType + "_fence_gate").get(),
+			blockTexture(BLOCK_MAP.get(woodType + "_planks").get())
 		);
 	}
 
-	public void customDoor(
-		RegistryObject<Block> blockRegistryObject
-	){
+	public void customWoodDoor(String woodType){
+		String doorId = woodType + "_door";
 		doorBlockWithRenderType(
-			(DoorBlock) blockRegistryObject.get(),
-			blockResourceWithState(blockRegistryObject, "_bottom"),
-			blockResourceWithState(blockRegistryObject, "_top"),
+			(DoorBlock) BLOCK_MAP.get(doorId).get(),
+			blockResourceWithState(doorId, "_bottom"),
+			blockResourceWithState(doorId, "_top"),
 			"cutout"
 		);
 	}
 
-	public void customTrapdoor(
-		RegistryObject<Block> blockRegistryObject
-	){
+	public void customWoodTrapdoor(String woodType){
+		String trapdoorId = woodType + "_trapdoor";
 		trapdoorBlockWithRenderType(
-			(TrapDoorBlock) blockRegistryObject.get(),
-			blockResource(blockRegistryObject),
+			(TrapDoorBlock) BLOCK_MAP.get(trapdoorId).get(),
+			blockResource(trapdoorId),
 			true, "cutout"
 		);
 	}
 
+	public void customWoodTypeModels(
+		String woodType,
+		String saplingNamePrefix,
+		String leavesNamePrefix
+	){
+
+		customSapling(saplingNamePrefix);
+		customLeaves(leavesNamePrefix);
+
+		customStrippedLog(woodType);
+		customStrippedWood(woodType);
+		customLog(woodType);
+		customWood(woodType);
+		customPlanks(woodType);
+
+		customSign(woodType);
+		customHangingSign(woodType);
+		customWoodStairs(woodType);
+		customWoodSlab(woodType);
+		customButton(woodType);
+		customPressurePlate(woodType);
+		customFence(woodType);
+		customFenceGate(woodType);
+		customWoodDoor(woodType);
+		customWoodTrapdoor(woodType);
+	}
+
 	@Override
 	protected void registerStatesAndModels() {
-		customSapling(ModBlocks.APPLE_SAPLING);
-		customLeaves(ModBlocks.APPLE_LEAVES);
-		floweringLeavesBlock(ModBlocks.FLOWERING_APPLE_LEAVES);
-		customLog(ModBlocks.APPLEWOOD_LOG);
-		customWood(ModBlocks.APPLEWOOD_WOOD,ModBlocks.APPLEWOOD_LOG);
-		customLog(ModBlocks.STRIPPED_APPLEWOOD_LOG);
-		customWood(ModBlocks.STRIPPED_APPLEWOOD_WOOD,ModBlocks.STRIPPED_APPLEWOOD_LOG);
-		customPlanks(ModBlocks.APPLEWOOD_PLANKS);
-
-		customSign(ModBlocks.APPLEWOOD_SIGN, ModBlocks.APPLEWOOD_WALL_SIGN, ModBlocks.APPLEWOOD_PLANKS);
-		customHangingSign(ModBlocks.APPLEWOOD_HANGING_SIGN, ModBlocks.APPLEWOOD_WALL_HANGING_SIGN, ModBlocks.APPLEWOOD_PLANKS);
-		customStairs(ModBlocks.APPLEWOOD_STAIRS,ModBlocks.APPLEWOOD_PLANKS);
-		customSlab(ModBlocks.APPLEWOOD_SLAB,ModBlocks.APPLEWOOD_PLANKS);
-		customButton(ModBlocks.APPLEWOOD_BUTTON,ModBlocks.APPLEWOOD_PLANKS);
-		customPressurePlate(ModBlocks.APPLEWOOD_PRESSURE_PLATE,ModBlocks.APPLEWOOD_PLANKS);
-		customFence(ModBlocks.APPLEWOOD_FENCE,ModBlocks.APPLEWOOD_PLANKS);
-		customFenceGate(ModBlocks.APPLEWOOD_FENCE_GATE,ModBlocks.APPLEWOOD_PLANKS);
-		customDoor(ModBlocks.APPLEWOOD_DOOR);
-		customTrapdoor(ModBlocks.APPLEWOOD_TRAPDOOR);
-
+		customWoodTypeModels("applewood","apple","apple");
+		floweringLeavesBlock("apple");
 	}
 
 }
