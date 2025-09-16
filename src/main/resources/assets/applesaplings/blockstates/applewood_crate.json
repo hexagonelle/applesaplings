@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "applesaplings:block/applewood_crate",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "applesaplings:block/applewood_crate"
+    },
+    "facing=south": {
+      "model": "applesaplings:block/applewood_crate",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "applesaplings:block/applewood_crate",
+      "y": 270
+    }
+  }
+}
