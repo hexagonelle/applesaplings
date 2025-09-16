@@ -6,6 +6,11 @@ import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
 import net.hexagonelle.applesaplings.creativetabs.CreativeTabRegistry;
 import net.hexagonelle.applesaplings.entities.ModEntities;
 import net.hexagonelle.applesaplings.entities.client.ModBoatRenderer;
+import net.hexagonelle.applesaplings.items.ModCreativeTabs;
+import net.hexagonelle.applesaplings.items.ModItems;
+import net.hexagonelle.applesaplings.blocks.ModBlocks;
+import net.hexagonelle.applesaplings.plugins.applecrates.blocks.entity.CrateCompat;
+import net.hexagonelle.applesaplings.util.ModWoodTypes;
 import net.hexagonelle.applesaplings.items.ItemRegistry;
 import net.hexagonelle.applesaplings.util.WoodTypesRegistry;
 import net.hexagonelle.applesaplings.worldgen.tree.foliage.ModFoliagePlacers;
@@ -21,6 +26,7 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -62,7 +68,13 @@ public class AppleSaplings {
         // Call the method to register the tree decorators.
         ModTreeDecorators.register(modEventBus);
 
-//        modEventBus.addListener(this::addCreative);
+        // Check for applecrates; if it exists, load compat
+        if (ModList.get().isLoaded("applecrates")){
+            MinecraftForge.EVENT_BUS.register(CrateCompat.class);
+            CrateCompat.init();
+        }
+
+        modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
