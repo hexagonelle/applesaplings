@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "p": {
+      "item": "applesaplings:applewood_planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "s s",
+    "ppp"
+  ],
+  "result": {
+    "item": "applesaplings:applewood_crate"
+  },
+  "show_notification": false
+}

@@ -112,6 +112,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
 	@Override
 	protected @NotNull Iterable<Block> getKnownBlocks(){
-		return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+		return ModBlocks.BLOCKS.getEntries().stream().filter((entry) -> (!entry.getId().getPath().contains("crate"))).map(RegistryObject::get)::iterator;
 	}
 }
