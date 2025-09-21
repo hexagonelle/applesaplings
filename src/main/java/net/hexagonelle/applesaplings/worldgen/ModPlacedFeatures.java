@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.worldgen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -25,7 +26,7 @@ public class ModPlacedFeatures {
 	private static ResourceKey<PlacedFeature> registerKey(String name){
 		return ResourceKey.create(
 				Registries.PLACED_FEATURE,
-				new ResourceLocation(AppleSaplings.MODID, name)
+				new ResourceLocation(Constants.MODID, name)
 		);
 	}
 

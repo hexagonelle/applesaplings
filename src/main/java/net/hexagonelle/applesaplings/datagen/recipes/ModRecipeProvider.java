@@ -1,20 +1,16 @@
 package net.hexagonelle.applesaplings.datagen.recipes;
 
-import net.hexagonelle.applesaplings.blocks.BlockRegistry;
-import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-import static net.hexagonelle.applesaplings.blocks.BlockRegistry.*;
+import static net.hexagonelle.applesaplings.blocks.ModBlocks.*;
 
 public class ModRecipeProvider extends RecipeProvider {
 	public ModRecipeProvider(PackOutput output) {
@@ -108,16 +104,16 @@ public class ModRecipeProvider extends RecipeProvider {
 		Consumer<FinishedRecipe> writer,
 		String woodType
 	){
-		Block strippedLogsBlock = BLOCK_MAP.get("stripped_" + woodType + "_logs").get();
+		Block strippedLogBlock = BLOCK_MAP.get("stripped_" + woodType + "_log").get();
 		ShapedRecipeBuilder.shaped(
 				RecipeCategory.DECORATIONS, BLOCK_MAP.get(woodType + "_hanging_sign").get(), 6)
 			.pattern("B B")
 			.pattern("AAA")
 			.pattern("AAA")
-			.define('A', strippedLogsBlock)
+			.define('A', strippedLogBlock)
 			.define('B', Items.CHAIN)
 			.group("hanging_sign")
-			.unlockedBy("has_stripped_logs", has(strippedLogsBlock))
+			.unlockedBy("has_stripped_logs", has(strippedLogBlock))
 			.save(writer);
 	}
 

@@ -1,6 +1,6 @@
 package net.hexagonelle.applesaplings.entities;
 
-import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.hexagonelle.applesaplings.entities.custom.ModBoat;
 import net.hexagonelle.applesaplings.entities.custom.ModChestBoat;
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class ModEntities {
 	// Create a Deferred Register to hold EntityType which will all be registered under the "applesaplings" namespace
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-		DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, AppleSaplings.MODID);
+		DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Constants.MODID);
 
 	// A method that will register the DeferredRegister<BlockEntityType<?>> to the mod event bus
 	public static void register(IEventBus eventBus){

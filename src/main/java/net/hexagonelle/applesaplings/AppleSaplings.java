@@ -1,8 +1,10 @@
 package net.hexagonelle.applesaplings;
 
 import com.mojang.logging.LogUtils;
+import net.hexagonelle.applesaplings.blockentities.BlockEntityRegistry;
 import net.hexagonelle.applesaplings.blocks.BlockRegistry;
-import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
+import net.hexagonelle.applesaplings.blockentities.ModBlockEntities;
+import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.creativetabs.CreativeTabRegistry;
 import net.hexagonelle.applesaplings.entities.ModEntities;
 import net.hexagonelle.applesaplings.entities.client.ModBoatRenderer;
@@ -13,11 +15,9 @@ import net.hexagonelle.applesaplings.worldgen.tree.decorators.ModTreeDecorators;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,10 +51,11 @@ public class AppleSaplings {
         // Call the methods to register the game objects.
         CreativeTabRegistry.register(modEventBus);
         ItemRegistry.register(modEventBus);
-        BlockRegistry.register(modEventBus);
+
+        ModBlocks.register(modEventBus);
 
         // Call the method to register the block entities.
-        ModBlockEntities.register(modEventBus);
+        BlockEntityRegistry.register(modEventBus);
         // Call the method to register the entities.
         ModEntities.register(modEventBus);
         // Call the method to register the tree decorators.

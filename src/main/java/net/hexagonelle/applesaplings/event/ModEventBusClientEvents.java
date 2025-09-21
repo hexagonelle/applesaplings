@@ -1,7 +1,7 @@
 package net.hexagonelle.applesaplings.event;
 
-import net.hexagonelle.applesaplings.AppleSaplings;
-import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
+import net.hexagonelle.applesaplings.Constants;
+import net.hexagonelle.applesaplings.blockentities.ModBlockEntities;
 import net.hexagonelle.applesaplings.entities.client.ModModelLayers;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 
-@Mod.EventBusSubscriber(modid = AppleSaplings.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModEventBusClientEvents {
 	@SubscribeEvent
 	public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {

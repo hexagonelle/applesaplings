@@ -1,6 +1,6 @@
-package net.hexagonelle.applesaplings.blocks.entity.custom;
+package net.hexagonelle.applesaplings.blockentities.custom;
 
-import net.hexagonelle.applesaplings.blocks.entity.ModBlockEntities;
+import net.hexagonelle.applesaplings.blockentities.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;

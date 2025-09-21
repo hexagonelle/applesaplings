@@ -1,13 +1,14 @@
 package net.hexagonelle.applesaplings.entities.client;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 
 public class ModModelLayers {
 
 	private static ResourceLocation modLoc(String path){
-		return new ResourceLocation(AppleSaplings.MODID,path);
+		return new ResourceLocation(Constants.MODID,path);
 	}
 
 	private static ModelLayerLocation boatModelLayer(String woodType){

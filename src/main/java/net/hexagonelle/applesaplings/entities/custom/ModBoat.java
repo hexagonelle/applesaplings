@@ -1,7 +1,9 @@
 package net.hexagonelle.applesaplings.entities.custom;
 
+import net.hexagonelle.applesaplings.blocks.BlockRegistry;
 import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.entities.ModEntities;
+import net.hexagonelle.applesaplings.items.ItemRegistry;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -61,17 +63,17 @@ public class ModBoat extends Boat {
 		Item item;
 		switch (getModVariant()) {
 			case APPLEWOOD:
-				item = ModItems.APPLEWOOD_BOAT.get();
+				item = ItemRegistry.ITEM_MAP.get("applewood_boat").get();
 				break;
 			default:
-				item = ModItems.APPLEWOOD_BOAT.get();
+				item = ItemRegistry.ITEM_MAP.get("applewood_boat").get();
 		}
 
 		return item;
 	}
 
 	public enum Type implements StringRepresentable {
-		APPLEWOOD(ModBlocks.APPLEWOOD_PLANKS.get(), "applewood");
+		APPLEWOOD(ModBlocks.BLOCK_MAP.get("applewood_planks").get(), "applewood");
 
 		private final String name;
 		private final Block planks;

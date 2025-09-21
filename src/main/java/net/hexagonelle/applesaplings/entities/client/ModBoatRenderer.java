@@ -3,6 +3,7 @@ package net.hexagonelle.applesaplings.entities.client;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.hexagonelle.applesaplings.entities.custom.ModBoat;
 import net.hexagonelle.applesaplings.entities.custom.ModChestBoat;
 import net.minecraft.client.model.BoatModel;
@@ -31,7 +32,7 @@ public class ModBoatRenderer extends BoatRenderer {
 						type -> type,
 						type -> Pair.of(
 							new ResourceLocation(
-								AppleSaplings.MODID,
+								Constants.MODID,
 								getTextureLocation(type, isChestBoat)
 							), this.createBoatModel(context, type, isChestBoat)
 						)
@@ -70,7 +71,7 @@ public class ModBoatRenderer extends BoatRenderer {
 	}
 
 	private static ModelLayerLocation createLocation(String path, String model) {
-		return new ModelLayerLocation(new ResourceLocation(AppleSaplings.MODID, path), model);
+		return new ModelLayerLocation(new ResourceLocation(Constants.MODID, path), model);
 	}
 
 	public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(@NotNull Boat boat) {

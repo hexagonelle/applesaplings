@@ -1,6 +1,8 @@
 package net.hexagonelle.applesaplings.worldgen;
 
-import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
+import net.hexagonelle.applesaplings.blocks.BlockRegistry;
+import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.worldgen.tree.decorators.FloweringLeavesDecorator;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -22,13 +24,11 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
-import static net.hexagonelle.applesaplings.blocks.ModBlocks.*;
-
 public class ModConfiguredFeatures {
 
 	// method to create a resource key for a feature
 	public static ResourceKey<ConfiguredFeature<?,?>> registerKey(String name){
-		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(AppleSaplings.MODID, name));
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Constants.MODID, name));
 	}
 
 	// method to register a feature
@@ -62,14 +62,13 @@ public class ModConfiguredFeatures {
 
 	// creates a builder for flowering trees
 	private static TreeConfiguration floweringTreeBuilder(
-		RegistryObject<Block> treeTrunk,
-		RegistryObject<Block> leavesBlock,
-		RegistryObject<Block> floweringLeavesBlock,
+		String saplingPrefix,
+		String woodType,
 		Float floweringChance,
 		int floweringRolls
 	){
 		return new TreeConfiguration.TreeConfigurationBuilder(
-			BlockStateProvider.simple(treeTrunk.get()),
+			BlockStateProvider.simple(ModBlocks.BLOCK_MAP.get(woodType + "_log").get()),
 
 			new StraightTrunkPlacer(
 				5, // base height
@@ -77,7 +76,7 @@ public class ModConfiguredFeatures {
 				1	 // random height B
 			),
 
-			BlockStateProvider.simple(leavesBlock.get()),
+			BlockStateProvider.simple(ModBlocks.BLOCK_MAP.get(saplingPrefix + "_leaves").get()),
 
 			new BlobFoliagePlacer(
 				constIntProvider(3), // radius
@@ -90,7 +89,7 @@ public class ModConfiguredFeatures {
 			createFloweringDecorator(
 				floweringChance,
 				floweringRolls,
-				floweringLeavesBlock
+				ModBlocks.BLOCK_MAP.get(saplingPrefix + "_leaves")
 			)
 		).build();
 	}
@@ -98,8 +97,7 @@ public class ModConfiguredFeatures {
 	// tree builders //
 
 	private static final TreeConfiguration appleTreeBuilder = floweringTreeBuilder(
-		APPLEWOOD_LOG, APPLE_LEAVES, FLOWERING_APPLE_LEAVES,
-		0.1F, 3
+		"apple","applewood",0.1F, 3
 	);
 
 	// REGISTER FEATURES //

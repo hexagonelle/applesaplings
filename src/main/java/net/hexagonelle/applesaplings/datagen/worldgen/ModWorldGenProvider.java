@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.datagen.worldgen;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.hexagonelle.applesaplings.worldgen.ModConfiguredFeatures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -18,6 +19,6 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
 				.add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
 
 	public ModWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries, BUILDER, Set.of(AppleSaplings.MODID));
+		super(output, registries, BUILDER, Set.of(Constants.MODID));
 	}
 }

@@ -1,6 +1,6 @@
 package net.hexagonelle.applesaplings.blocks.custom;
 
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModSignBlockEntity;
+import net.hexagonelle.applesaplings.blockentities.custom.ModSignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

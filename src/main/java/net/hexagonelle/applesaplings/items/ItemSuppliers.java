@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.items;
 
 import net.hexagonelle.applesaplings.blocks.BlockRegistry;
+import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.entities.custom.ModBoat;
 import net.hexagonelle.applesaplings.items.custom.ModBoatItem;
 import net.minecraft.world.item.*;
@@ -17,7 +18,7 @@ public class ItemSuppliers {
 
 	// A method that creates a new BlockItem, given some RegistryObject<Block>
 	public static <T extends Block> Item createBlockItem(String blockId){
-		return new BlockItem(BlockRegistry.BLOCK_MAP.get(blockId).get(), new Item.Properties());
+		return new BlockItem(ModBlocks.BLOCK_MAP.get(blockId).get(), new Item.Properties());
 	}
 
 	public static Item createSignItem(
@@ -25,8 +26,8 @@ public class ItemSuppliers {
 	){
 		return new SignItem(
 			new Item.Properties().stacksTo(16),
-			BlockRegistry.BLOCK_MAP.get(woodType+"_sign").get(),
-			BlockRegistry.BLOCK_MAP.get(woodType+"_wall_sign").get()
+			ModBlocks.BLOCK_MAP.get(woodType+"_sign").get(),
+			ModBlocks.BLOCK_MAP.get(woodType+"_wall_sign").get()
 		);
 	}
 
@@ -34,8 +35,8 @@ public class ItemSuppliers {
 		String woodType
 	){
 		return new HangingSignItem(
-			BlockRegistry.BLOCK_MAP.get(woodType+"_hanging_sign").get(),
-			BlockRegistry.BLOCK_MAP.get(woodType+"_wall_hanging_sign").get(),
+			ModBlocks.BLOCK_MAP.get(woodType+"_hanging_sign").get(),
+			ModBlocks.BLOCK_MAP.get(woodType+"_wall_hanging_sign").get(),
 			new Item.Properties().stacksTo(16)
 		);
 	}

@@ -13,7 +13,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.function.Function;
 
-import static net.hexagonelle.applesaplings.blocks.BlockRegistry.*;
+import static net.hexagonelle.applesaplings.blocks.ModBlocks.*;
 
 public class ModBlockStateProvider extends BlockStateProvider {
 

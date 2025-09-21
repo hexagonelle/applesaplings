@@ -1,18 +1,11 @@
 package net.hexagonelle.applesaplings.datagen.models;
 
-import net.hexagonelle.applesaplings.AppleSaplings;
 import net.hexagonelle.applesaplings.Constants;
-import net.hexagonelle.applesaplings.blocks.BlockRegistry;
-import net.hexagonelle.applesaplings.blocks.ModBlocks;
-import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemModelProvider extends ItemModelProvider {
 
@@ -82,7 +75,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 	// The method to generate a trapdoor's block model creates a file
 	// modid/models/block/"trapdoorName"_bottom.json
 	// which also functions as the trapdoor's item texture.
-	public void trapdoorItem(String woodType) {
+	public void woodeTrapdoorItem(String woodType) {
 		String blockId = woodType + "_trapdoor";
 		this.withExistingParent(
 			blockId,
@@ -113,24 +106,22 @@ public class ModItemModelProvider extends ItemModelProvider {
 		String saplingIdPrefix
 	){
 		blockItemWithFlatBlockTexture(saplingIdPrefix + "_sapling");
-		simpleItem()
+		simpleItem(woodType + "_sign");
+		simpleItem(woodType + "_hanging_sign");
+		blockItemWithBlockTexture(woodType + "_stairs");
+		blockItemWithBlockTexture(woodType + "_slab");
+		woodButtonItem(woodType);
+		blockItemWithBlockTexture(woodType + "_pressure_plate");
+		fenceItem(woodType);
+		blockItemWithBlockTexture(woodType + "_fence_gate");
+		blockItemWithItemTexture(woodType + "_door");
+		woodeTrapdoorItem(woodType);
+		simpleItem(woodType + "boat");
+		simpleItem(woodType + "chest_boat");
 	}
 
 	@Override
 	protected void registerModels() {
-		blockItemWithFlatBlockTexture(ModBlocks.APPLE_SAPLING);
-		simpleItem(ModItems.APPLEWOOD_SIGN);
-		simpleItem(ModItems.APPLEWOOD_HANGING_SIGN);
-		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_STAIRS);
-		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_SLAB);
-		buttonItem(ModBlocks.APPLEWOOD_BUTTON, ModBlocks.APPLEWOOD_PLANKS);
-		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_PRESSURE_PLATE);
-		fenceItem(ModBlocks.APPLEWOOD_FENCE, ModBlocks.APPLEWOOD_PLANKS);
-		blockItemWithBlockTexture(ModBlocks.APPLEWOOD_FENCE_GATE);
-		blockItemWithItemTexture(ModBlocks.APPLEWOOD_DOOR);
-		trapdoorItem(ModBlocks.APPLEWOOD_TRAPDOOR);
-		simpleItem(ModItems.APPLEWOOD_BOAT);
-		simpleItem(ModItems.APPLEWOOD_CHEST_BOAT);
-
+		woodTypeItems("applewood","apple");
 	}
 }

@@ -51,7 +51,7 @@ public class BlockSuppliers {
 			.copy(Blocks.OAK_LOG)
 			.strength(2.0F)
 //					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-		).setStrippedVersion(BlockRegistry.BLOCK_MAP.get(strippedBlockKey).get());
+		).setStrippedVersion(ModBlocks.BLOCK_MAP.get(strippedBlockKey).get());
 	}
 
 	// Create a stripped log or wood block with the properties of the given block
@@ -60,7 +60,7 @@ public class BlockSuppliers {
 			.copy(Blocks.OAK_WOOD)
 			.strength(2.0F)
 //					.mapColor(CustomWood.woodMapColor(topMapColor,sideMapColor))
-		).setStrippedVersion(BlockRegistry.BLOCK_MAP.get(strippedBlockKey).get());
+		).setStrippedVersion(ModBlocks.BLOCK_MAP.get(strippedBlockKey).get());
 	}
 
 	// Create a planks block with the properties of the vanilla OAK_PLANKS
@@ -115,7 +115,7 @@ public class BlockSuppliers {
 	}
 
 	public static Block createWoodStairBlock(String baseBlockString){
-		return new StairBlock(() -> BlockRegistry.BLOCK_MAP.get("baseBlockString").get().defaultBlockState(),
+		return new StairBlock(() -> ModBlocks.BLOCK_MAP.get("baseBlockString").get().defaultBlockState(),
 			BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS));
 	}
 

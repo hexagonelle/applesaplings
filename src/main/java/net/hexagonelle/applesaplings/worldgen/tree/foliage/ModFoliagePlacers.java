@@ -1,6 +1,7 @@
 package net.hexagonelle.applesaplings.worldgen.tree.foliage;
 
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,7 +16,7 @@ public class ModFoliagePlacers {
 
 	// Create a Deferred Register to hold FoliagePlacerTypes which will all be registered under the "applesaplings" namespace
 	public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACERS =
-		DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, AppleSaplings.MODID);
+		DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, Constants.MODID);
 
 	// A method that will register the DeferredRegister<FoliagePlacerType<?>> to the mod event bus
 	public static void register(IEventBus eventBus) {

@@ -1,8 +1,6 @@
 package net.hexagonelle.applesaplings.datagen.loot;
 
-import net.hexagonelle.applesaplings.blocks.ModBlocks;
 import net.hexagonelle.applesaplings.blocks.custom.FloweringLeavesBlock;
-import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -22,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+import static net.hexagonelle.applesaplings.blocks.ModBlocks.*;
+import static net.hexagonelle.applesaplings.items.ItemRegistry.*;
 import static net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.hasBlockStateProperties;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
@@ -30,10 +30,12 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 	}
 
 	protected LootTable.Builder createFloweringLeavesDrops(
-			Block leavesBlock,
-			Block saplingBlock,
+			String saplingPrefix,
 			Item fruitItem,
 			float... chances) {
+
+		Block leavesBlock = BLOCK_MAP.get(saplingPrefix + "_flowering_leaves").get();
+		Block saplingBlock = BLOCK_MAP.get(saplingPrefix + "_sapling").get();
 
 		// convert fruitItem to LootTableItem
 		LootPoolSingletonContainer.Builder<?> fruitLoot = LootItem.lootTableItem(fruitItem);
@@ -59,59 +61,72 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 	}
 
 	protected LootTable.Builder FloweringLeavesLootFactory(
-			Block block,
-			RegistryObject<Block> sapling,
+			String saplingPrefix,
 			Item fruit
 	){
-        return createFloweringLeavesDrops(block, sapling.get(), fruit, NORMAL_LEAVES_SAPLING_CHANCES);
+        return createFloweringLeavesDrops(saplingPrefix, fruit, NORMAL_LEAVES_SAPLING_CHANCES);
+	}
+
+	private void signAndHangingSignLoot(String woodType){
+
+		String signString = woodType + "_sign";
+		String hangingSignString = woodType + "_hanging_sign";
+
+		this.dropSelf(BLOCK_MAP.get(signString).get());
+		this.dropSelf(BLOCK_MAP.get(hangingSignString).get());
+
+		this.add(
+			BLOCK_MAP.get(woodType + "_wall_sign").get(),
+			block -> createSingleItemTable(ITEM_MAP.get(signString).get())
+		);
+		this.add(
+			BLOCK_MAP.get(woodType + "_wall_hanging_sign").get(),
+			block -> createSingleItemTable(ITEM_MAP.get(hangingSignString).get())
+		);
+	}
+
+	private void woodTypeLoot(
+		String saplingPrefix,
+		String woodType
+	){
+
+		Block saplingBlock = BLOCK_MAP.get(saplingPrefix + "_sapling").get();
+
+		this.dropSelf(saplingBlock);
+		this.add(
+			BLOCK_MAP.get(saplingPrefix + "_leaves").get(),
+			block -> createLeavesDrops(block,saplingBlock,NORMAL_LEAVES_SAPLING_CHANCES)
+		);
+		this.dropSelf(BLOCK_MAP.get(woodType + "_log").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_wood").get());
+		this.dropSelf(BLOCK_MAP.get("stripped_" + woodType + "_log").get());
+		this.dropSelf(BLOCK_MAP.get("stripped_" + woodType + "_log").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_planks").get());
+
+		signAndHangingSignLoot(woodType);
+
+		this.dropSelf(BLOCK_MAP.get(woodType + "_stairs").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_slab").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_button").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_pressure_plate").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_fence").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_fence_gate").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_door").get());
+		this.dropSelf(BLOCK_MAP.get(woodType + "_trapdoor").get());
+
 	}
 
 	@Override
 	protected void generate() {
-		this.dropSelf(ModBlocks.APPLE_SAPLING.get());
+		woodTypeLoot("apple","applewood");
 		this.add(
-			ModBlocks.APPLE_LEAVES.get(),
-			block -> createLeavesDrops(
-				block,
-				ModBlocks.APPLE_SAPLING.get(),
-				NORMAL_LEAVES_SAPLING_CHANCES
-			)
-		);
-		this.add(
-			ModBlocks.FLOWERING_APPLE_LEAVES.get(),
-			block -> FloweringLeavesLootFactory(
-				block,
-				ModBlocks.APPLE_SAPLING,
-				Items.APPLE
-			)
-		);
-		this.dropSelf(ModBlocks.APPLEWOOD_LOG.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_WOOD.get());
-		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_LOG.get());
-		this.dropSelf(ModBlocks.STRIPPED_APPLEWOOD_WOOD.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_PLANKS.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_SIGN.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_HANGING_SIGN.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_STAIRS.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_SLAB.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_BUTTON.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_PRESSURE_PLATE.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_FENCE.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_FENCE_GATE.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_DOOR.get());
-		this.dropSelf(ModBlocks.APPLEWOOD_TRAPDOOR.get());
-		this.add(
-			ModBlocks.APPLEWOOD_WALL_SIGN.get(),
-			block -> createSingleItemTable(ModItems.APPLEWOOD_SIGN.get())
-		);
-		this.add(
-			ModBlocks.APPLEWOOD_WALL_HANGING_SIGN.get(),
-			block -> createSingleItemTable(ModItems.APPLEWOOD_HANGING_SIGN.get())
+			BLOCK_MAP.get("flowering_apple_leaves").get(),
+			(block) -> FloweringLeavesLootFactory("apple", Items.APPLE)
 		);
 	}
 
 	@Override
 	protected @NotNull Iterable<Block> getKnownBlocks(){
-		return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+		return BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
 	}
 }

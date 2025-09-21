@@ -1,7 +1,9 @@
 package net.hexagonelle.applesaplings.entities.custom;
 
 
+import net.hexagonelle.applesaplings.blocks.BlockRegistry;
 import net.hexagonelle.applesaplings.entities.ModEntities;
+import net.hexagonelle.applesaplings.items.ItemRegistry;
 import net.hexagonelle.applesaplings.items.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -33,10 +35,10 @@ public class ModChestBoat extends ChestBoat {
 		Item item;
 		switch (getModVariant()) {
 			case APPLEWOOD:
-				item = ModItems.APPLEWOOD_CHEST_BOAT.get();
+				item = ItemRegistry.ITEM_MAP.get("applewood_chest_boat").get();
 				break;
 			default:
-				item = ModItems.APPLEWOOD_CHEST_BOAT.get();
+				item = ItemRegistry.ITEM_MAP.get("applewood_chest_boat").get();
 		}
 		return item;
 	}

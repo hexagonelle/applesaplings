@@ -2,6 +2,7 @@ package net.hexagonelle.applesaplings.worldgen.tree.decorators;
 
 import com.mojang.serialization.Codec;
 import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.minecraft.world.level.levelgen.feature.treedecorators.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,7 +15,7 @@ public class ModTreeDecorators {
 
 	// Create a Deferred Register to hold TreeDecoratorType under the "applesaplings" namespace
 	public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES =
-		DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, AppleSaplings.MODID);
+		DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, Constants.MODID);
 
 	// A method that will register the DeferredRegister<TreeDecoratorType<?>> to the mod event bus
 	public static void register(IEventBus eventBus){

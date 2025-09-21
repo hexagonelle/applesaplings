@@ -13,26 +13,20 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
+import static net.hexagonelle.applesaplings.blocks.ModBlocks.*;
+
 public class BlockRegistry {
-
-	// Creates the register that holds the blocks
-	public static final DeferredRegister<Block> BLOCKS =
-		DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MODID);
-
-	// A method that will register the DeferredRegister<Block> to the mod event bus
-	public static void register(IEventBus eventBus){BLOCKS.register(eventBus);}
-
-	// Creates a hashmap so that we can refer to a RegistryObject by a string
-	public static final HashMap<String, RegistryObject<Block>> BLOCK_MAP = new HashMap<>();
 
 	// METHODS TO REGISTER BLOCKS //
 
 	// registers an block and places the corresponding RegistryObject in the HashMap by blockId
-	public static void registerBlock(
+	public static void
+	registerBlock(
 		String blockId,
 		Supplier<Block> blockSupplier
 	){
-		BLOCK_MAP.put(blockId, BLOCKS.register(blockId,blockSupplier));
+		RegistryObject<Block> blockRegistryObject = BLOCKS.register(blockId,blockSupplier);
+		BLOCK_MAP.put(blockId, blockRegistryObject);
 	}
 
 	public static void registerBlockWithItem(

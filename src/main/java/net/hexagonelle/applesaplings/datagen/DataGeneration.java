@@ -1,6 +1,6 @@
 package net.hexagonelle.applesaplings.datagen;
 
-import net.hexagonelle.applesaplings.AppleSaplings;
+import net.hexagonelle.applesaplings.Constants;
 import net.hexagonelle.applesaplings.datagen.loot.ModLootTableProvider;
 import net.hexagonelle.applesaplings.datagen.models.ModBlockStateProvider;
 import net.hexagonelle.applesaplings.datagen.models.ModItemModelProvider;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(modid = AppleSaplings.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 
 public class DataGeneration {
 

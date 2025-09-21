@@ -1,6 +1,6 @@
 package net.hexagonelle.applesaplings.blocks.custom;
 
-import net.hexagonelle.applesaplings.blocks.entity.custom.ModHangingSignBlockEntity;
+import net.hexagonelle.applesaplings.blockentities.custom.ModHangingSignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
