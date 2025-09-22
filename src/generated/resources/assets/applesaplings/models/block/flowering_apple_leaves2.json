@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/leaves",
-  "render_type": "minecraft:cutout",
+  "render_type": "minecraft:cutout_mipped",
+  "render_type_fast": "minecraft:solid",
   "textures": {
     "all": "applesaplings:block/flowering_apple_leaves2"
   }

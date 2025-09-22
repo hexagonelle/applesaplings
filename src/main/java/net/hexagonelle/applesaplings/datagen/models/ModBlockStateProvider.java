@@ -15,8 +15,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
 
-import static org.openjdk.nashorn.internal.objects.Global.print;
-
 public class ModBlockStateProvider extends BlockStateProvider {
 
 	public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -66,12 +64,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
 		String name,
 		String parent,
 		ResourceLocation texture,
-		String renderAs
+		String renderType
 	){
 		return models().singleTexture(
 			name, mcLoc(parent),
 			"all", texture
-		).renderType(renderAs);
+		).renderType(renderType);
+	}
+	private ModelFile singleTextureModel(
+		String name,
+		String parent,
+		ResourceLocation texture,
+		String renderType,
+		String renderTypeFast
+	){
+		return models().singleTexture(
+			name, mcLoc(parent),
+			"all", texture
+		).renderType(renderType,renderTypeFast);
 	}
 
 	private void blockWithItem(
@@ -89,6 +99,23 @@ public class ModBlockStateProvider extends BlockStateProvider {
 			)
 		);
 	}
+	private void blockWithItem(
+		RegistryObject<Block> blockRegistryObject,
+		String parent,
+		String renderType,
+		String renderTypeFast
+	){
+		simpleBlockWithItem(
+			blockRegistryObject.get(),
+			singleTextureModel(
+				name(blockRegistryObject),
+				parent,
+				blockTexture(blockRegistryObject.get()),
+				renderType,
+				renderTypeFast
+			)
+		);
+	}
 
 	private void customPlanks(RegistryObject<Block> blockRegistryObject){
 		blockWithItem(blockRegistryObject,"block/oak_planks","solid");
@@ -96,7 +123,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 	// creates a model json and texture json for the given LeavesBlock
 	private void customLeaves(RegistryObject<Block> blockRegistryObject){
-		blockWithItem(blockRegistryObject,"block/leaves","cutout");
+		blockWithItem(blockRegistryObject,"block/leaves","cutout_mipped","solid");
 	}
 
 	// creates a model json and texture json for the given blockstate of a FruitLeavesBlock
@@ -114,7 +141,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 					blockRegistryObject,
 					blockstateValue
 				),
-				"cutout"
+				"cutout_mipped",
+				"solid"
 			)
 		);
 
