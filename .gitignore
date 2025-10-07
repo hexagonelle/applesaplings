@@ -5,4 +5,3 @@ run-data/*
 src/generated/resources/.cache*
 *.DS_Store
 .gradle/*
-settings.gradle
